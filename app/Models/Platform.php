@@ -16,4 +16,9 @@ class Platform extends Model
     protected $casts = [
 
     ];
+
+    public function softwares()
+    {
+        return $this->hasMany(Software::class);
+    }
 }

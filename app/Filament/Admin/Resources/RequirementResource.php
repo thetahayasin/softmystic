@@ -18,7 +18,7 @@ class RequirementResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-square-3-stack-3d';
 
-    protected static ?string $navigationGroup = 'Management';
+    protected static ?string $navigationGroup = 'Content Management';
 
     protected static ?string $navigationLabel = 'Requirements';
 

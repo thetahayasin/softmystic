@@ -52,4 +52,14 @@ class SoftwareRequirementResource extends Resource
             'edit' => Pages\EditSoftwareRequirement::route('/{record}/edit'),
         ];
     }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+
+    public static function canAccess(): bool
+    {
+        return false;
+    }
 }
