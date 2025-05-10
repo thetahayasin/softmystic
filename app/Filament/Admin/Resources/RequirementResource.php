@@ -14,7 +14,13 @@ class RequirementResource extends Resource
 {
     protected static ?string $model = Requirement::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-square-3-stack-3d';
+
+    protected static ?string $navigationGroup = 'Management';
+
+    protected static ?string $navigationLabel = 'Requirements';
+
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {

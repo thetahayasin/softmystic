@@ -57,7 +57,7 @@ class CategoryTranslationsRelationManager extends RelationManager
             ->recordTitleAttribute('name')
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('Name Translation'),
-                Tables\Columns\TextColumn::make('description')->label('Description Translation'),
+                Tables\Columns\TextColumn::make('description')->label('Description Translation')->limit(50),
                 Tables\Columns\TextColumn::make('locale.name')->label('Locale'),
 
             ])

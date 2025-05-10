@@ -10,10 +10,15 @@ class Author extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'description', 'url',
+        'name', 'description', 'url', 'slug'
     ];
 
     protected $casts = [
 
     ];
+
+    public function softwares()
+    {
+        return $this->hasMany(Software::class);
+    }
 }

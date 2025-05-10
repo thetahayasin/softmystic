@@ -4,25 +4,63 @@ namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\AuthorResource\Pages;
 use App\Models\Author;
-use Filament\Forms;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\TextArea;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
+
 
 class AuthorResource extends Resource
 {
     protected static ?string $model = Author::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-user-group';
+
+    protected static ?string $navigationGroup = 'Management';
+
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->required()->label('Name'),
-                Forms\Components\TextInput::make('description')->label('Description'),
-                Forms\Components\TextInput::make('url')->label('Url'),
+                Section::make('Author Details')
+                ->description('Specify the author name, slug, website URL, and description.')
+                ->schema([
+                    TextInput::make('name')
+                        ->label('Author Name')
+                        ->required()
+                        ->minLength(3)
+                        ->maxLength(255)
+                        ->unique(ignoreRecord: true)
+                        ->live(onBlur: true) // trigger on blur or use 'true' for realtime
+                        ->afterStateUpdated(function ($state, $set) {
+                            $set('slug', Str::slug($state));
+                        }),
+                    
+                    TextInput::make('slug')
+                        ->label('Slug')
+                        ->minLength(3)
+                        ->maxLength(255)
+                        ->unique(ignoreRecord: true)
+                        ->helperText('Automatically generated from the author name. You can override it.'),
+            
+                    TextInput::make('url')
+                        ->label('Author Url')
+                        ->required()
+                        ->url(),
+            
+                    TextArea::make('description')
+                        ->label('Description (Optional)')
+                        ->nullable()
+                        ->columnSpanFull(),
+                ])
+                ->columns(2),
+                
             ]);
     }
 
@@ -31,13 +69,19 @@ class AuthorResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->searchable(),
-                Tables\Columns\TextColumn::make('description')->searchable(),
-                Tables\Columns\TextColumn::make('url')->searchable(),
+                Tables\Columns\TextColumn::make('url'),
+                Tables\Columns\TextColumn::make('softwares_count')
+                                ->counts('softwares')
+                                ->label('Softwares')
+                                ->badge()
+                                ->alignment('center')
+                                ->color('primary'),
             ])
             ->filters([
 
             ])
             ->actions([
+                Tables\Actions\DeleteAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
