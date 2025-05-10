@@ -7,8 +7,11 @@ use App\Models\Category;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use App\Filament\Admin\Resources\CategoryResource\RelationManagers\CategoryTranslationsRelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
 
 class CategoryResource extends Resource
 {
@@ -18,11 +21,26 @@ class CategoryResource extends Resource
 
     protected static ?string $navigationGroup = 'Management';
 
+    protected static ?int $navigationSort = 2;
+
+
     public static function form(Form $form): Form
     {
         return $form
+            ->query(fn () => Category::query()->withCount('categoryTranslations'))
             ->schema([
-                Forms\Components\TextInput::make('slug')->required()->label('Slug'),
+                Section::make('Category Details')
+                ->description('Enter the slug here. Translations can be added below.')
+                ->schema([
+                    TextInput::make('slug')
+                        ->required()
+                        ->label('Slug')
+                        ->unique()
+                        ->alignment('center')
+                        ->maxLength(255)
+                        ->minLength(3),
+
+                ])            
             ]);
     }
 
@@ -31,12 +49,20 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('slug')->searchable(),
+                Tables\Columns\TextColumn::make('category_translations_count')
+                                ->counts('categoryTranslations')
+                                ->label('Translations')
+                                ->badge()
+                                ->alignment('center')
+                                ->color('primary'),
             ])
             ->filters([
 
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -51,6 +77,13 @@ class CategoryResource extends Resource
             'index' => Pages\ListCategories::route('/'),
             'create' => Pages\CreateCategory::route('/create'),
             'edit' => Pages\EditCategory::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            CategoryTranslationsRelationManager::class,
         ];
     }
 }

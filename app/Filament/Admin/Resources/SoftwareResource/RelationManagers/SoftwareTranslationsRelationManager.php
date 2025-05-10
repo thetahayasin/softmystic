@@ -40,6 +40,8 @@ class SoftwareTranslationsRelationManager extends RelationManager
 
                             Forms\Components\TextInput::make('tagline')
                                 ->required()
+                                ->minLength(5)
+                                ->maxLength(255)
                                 ->label('Tagline'),
                         ]),
 

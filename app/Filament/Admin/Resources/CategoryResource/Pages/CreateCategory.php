@@ -15,4 +15,5 @@ class CreateCategory extends CreateRecord
 
         ];
     }
+
 }

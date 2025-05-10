@@ -10,7 +10,7 @@ class Locale extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'key',
+        'name', 'key', 'slug'
     ];
 
     protected $casts = [

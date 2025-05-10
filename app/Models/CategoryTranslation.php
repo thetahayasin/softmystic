@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CategoryTranslation extends Model
@@ -18,9 +19,9 @@ class CategoryTranslation extends Model
 
     ];
 
-    public function locale(): HasOne
+    public function locale(): BelongsTo
     {
-        return $this->hasOne(Locale::class);
+        return $this->belongsTo(Locale::class);
     }
 
     public function category(): HasOne

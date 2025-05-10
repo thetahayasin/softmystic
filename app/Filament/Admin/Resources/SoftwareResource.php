@@ -3,7 +3,6 @@
 namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\SoftwareResource\Pages;
-use App\Filament\Admin\Resources\SoftwareResource\RelationManagers\ScreenshotsRelationManager;
 use App\Models\Software;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -15,7 +14,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Toggle;
 
 class SoftwareResource extends Resource
@@ -27,6 +25,8 @@ class SoftwareResource extends Resource
     protected static ?string $navigationGroup = 'Management';
 
     protected static ?string $navigationLabel = 'Softwares';
+
+    protected static ?int $navigationSort = 1;
 
 
 

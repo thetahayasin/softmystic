@@ -16,4 +16,14 @@ class Category extends Model
     protected $casts = [
 
     ];
+
+    public function softwares()
+    {
+        return $this->hasMany(Software::class);
+    }
+
+    public function categoryTranslations()
+    {
+        return $this->hasMany(CategoryTranslation::class);
+    }
 }
