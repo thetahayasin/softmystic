@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('software_requirements', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('software_id');
-            $table->foreignId('requirement_id');
+            $table->foreignId('software_id')->constrained()->onDelete('cascade');
+            $table->foreignId('requirement_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

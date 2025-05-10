@@ -39,9 +39,14 @@ class Software extends Model
         return $this->hasOne(License::class);
     }
 
-    public function platform(): HasOne
+    public function requirements()
     {
-        return $this->hasOne(Platform::class);
+        return $this->belongsToMany(Requirement::class, 'software_requirements')->withTimestamps();
+    }
+
+    public function platform()
+    {
+        return $this->belongsTo(Platform::class);
     }
 
     public function softwareTranslations()

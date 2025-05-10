@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Storage;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
 
 class SoftwareResource extends Resource
 {
@@ -137,6 +139,14 @@ class SoftwareResource extends Resource
                                 ->required()
                                 ->relationship('platform', 'name'),
 
+                            Select::make('requirements')
+                                ->relationship('requirements', 'name')
+                                ->multiple()
+                                ->required()
+                                ->searchable()
+                                ->preload()
+                                ->columnSpanFull(),
+
                             Toggle::make('is_sponsored')
                                 ->label('Sponsored'),
 
@@ -167,6 +177,7 @@ class SoftwareResource extends Resource
                 Tables\Columns\TextColumn::make('name')->searchable()->alignment('center'),
                 Tables\Columns\TextColumn::make('slug')->searchable()->alignment('center'),
                 Tables\Columns\TextColumn::make('version')->alignment('center'),
+                Tables\Columns\TextColumn::make('platform.name')->label('OS')->badge()->alignment('center'),
                 Tables\Columns\TextColumn::make('software_translations_count')
                             ->counts('softwareTranslations')
                             ->label('Translations')
@@ -203,7 +214,15 @@ class SoftwareResource extends Resource
 
             ])
             ->filters([
-
+                SelectFilter::make('platform_id')
+                ->label('OS')
+                ->preload()
+                ->relationship('platform', 'name')
+                ->searchable(),
+                TernaryFilter::make('is_featured')
+                ->label('Featured'),
+                TernaryFilter::make('is_sponsored')
+                ->label('Sponsored'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

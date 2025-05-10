@@ -16,4 +16,9 @@ class Requirement extends Model
     protected $casts = [
 
     ];
+
+    public function softwares()
+    {
+        return $this->belongsToMany(Software::class, 'software_requirements')->withTimestamps();
+    }
 }

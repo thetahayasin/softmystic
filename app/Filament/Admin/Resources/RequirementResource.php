@@ -5,6 +5,8 @@ namespace App\Filament\Admin\Resources;
 use App\Filament\Admin\Resources\RequirementResource\Pages;
 use App\Models\Requirement;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -26,7 +28,17 @@ class RequirementResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->required()->label('Name'),
+                Section::make('Software Requirements')
+                ->description('Enter the requirements of the software like Windows 10, Android 11, or other system requirements.')
+                ->schema([
+                    TextInput::make('name')
+                        ->required()
+                        ->label('Name')
+                        ->minLength(3)
+                        ->maxLength(255)
+                        ->unique(ignoreRecord: true),
+                ])
+                ->columns(1),            
             ]);
     }
 
@@ -35,12 +47,20 @@ class RequirementResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->searchable(),
+                Tables\Columns\TextColumn::make('softwares_count')
+                ->counts('softwares')
+                ->label('Softwares')
+                ->badge()
+                ->alignment('center')
+                ->color('primary'),
             ])
             ->filters([
 
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
