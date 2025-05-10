@@ -24,7 +24,10 @@ class SoftwareResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-cloud-arrow-up';
 
-    protected static ?string $navigationGroup = 'Softwares';
+    protected static ?string $navigationGroup = 'Management';
+
+    protected static ?string $navigationLabel = 'Softwares';
+
 
 
 

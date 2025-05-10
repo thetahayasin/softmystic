@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('software', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->bigInteger('file_size')->nullable();
             $table->string('version');
             $table->foreignId('author_id');

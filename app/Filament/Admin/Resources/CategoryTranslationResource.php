@@ -56,4 +56,14 @@ class CategoryTranslationResource extends Resource
             'edit' => Pages\EditCategoryTranslation::route('/{record}/edit'),
         ];
     }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+
+    public static function canAccess(): bool
+    {
+        return false;
+    }
 }

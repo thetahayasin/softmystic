@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('authors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('slug')->unique();
             $table->string('description')->nullable();
             $table->string('url')->nullable();
             $table->timestamps();
