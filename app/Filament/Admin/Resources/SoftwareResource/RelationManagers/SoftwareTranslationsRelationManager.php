@@ -24,7 +24,7 @@ class SoftwareTranslationsRelationManager extends RelationManager
                     Forms\Components\Grid::make(2)
                         ->schema([
                             Forms\Components\Select::make('locale_id')
-                                ->label('Locale')
+                                ->label('Language')
                                 ->relationship('locale', 'name')
                                 ->required()
                                 ->rules(function () {
@@ -88,7 +88,7 @@ class SoftwareTranslationsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('software_id')
             ->columns([
-                Tables\Columns\TextColumn::make('locale.name')->label('Locale'),
+                Tables\Columns\TextColumn::make('locale.name')->label('Language'),
                 Tables\Columns\TextColumn::make('tagline')->searchable(),
 
            ])

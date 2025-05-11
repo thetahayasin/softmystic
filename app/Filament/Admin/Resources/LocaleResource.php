@@ -22,7 +22,7 @@ class LocaleResource extends Resource
 
     protected static ?string $navigationGroup = 'Site Settings';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $navigationLabel = 'Languages';
 

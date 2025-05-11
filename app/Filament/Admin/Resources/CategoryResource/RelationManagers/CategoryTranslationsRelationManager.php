@@ -23,7 +23,7 @@ class CategoryTranslationsRelationManager extends RelationManager
             Select::make('locale_id')
             ->required()
             ->relationship('locale', 'name')
-            ->label('Locale')
+            ->label('Language')
             ->rules(function () {
                 $parentId = $this->getOwnerRecord()->id;
                 $editingRecord = $this->getMountedTableActionRecord();
@@ -58,7 +58,7 @@ class CategoryTranslationsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('Name Translation'),
                 Tables\Columns\TextColumn::make('description')->label('Description Translation')->limit(50),
-                Tables\Columns\TextColumn::make('locale.name')->label('Locale'),
+                Tables\Columns\TextColumn::make('locale.name')->label('Language'),
 
             ])
             ->filters([

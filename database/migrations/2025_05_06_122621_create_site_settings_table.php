@@ -16,6 +16,16 @@ return new class extends Migration
             $table->string('default_locale');
             $table->string('default_platform');
             $table->string('site_logo');
+            $table->string('home_meta_title');
+            $table->string('home_meta_description');
+            $table->string('category_meta_title');
+            $table->string('category_meta_description');
+            $table->string('search_meta_title');
+            $table->string('search_meta_description');
+            $table->string('download_meta_title');
+            $table->string('download_meta_description');
+            $table->string('single_meta_title');
+            $table->string('single_meta_description');
             $table->string('header_code');
             $table->string('footer_code');
             $table->string('home_page_ad');

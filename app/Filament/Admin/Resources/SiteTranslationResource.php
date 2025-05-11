@@ -4,7 +4,9 @@ namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\SiteTranslationResource\Pages;
 use App\Models\SiteTranslation;
-use Filament\Forms;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -14,34 +16,85 @@ class SiteTranslationResource extends Resource
 {
     protected static ?string $model = SiteTranslation::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-globe-alt';
 
+    protected static ?string $navigationGroup = 'Site Settings';
+
+    protected static ?int $navigationSort = 2;
+    
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('home_meta_title'),
-                Forms\Components\TextInput::make('home_meta_description'),
-                Forms\Components\TextInput::make('category_meta_title'),
-                Forms\Components\TextInput::make('category_meta_description'),
-                Forms\Components\TextInput::make('search_meta_title'),
-                Forms\Components\TextInput::make('search_meta_description'),
-                Forms\Components\TextInput::make('download_meta_title'),
-                Forms\Components\TextInput::make('download_meta_description'),
-                Forms\Components\TextInput::make('single_meta_title'),
-                Forms\Components\TextInput::make('single_meta_description'),
-                Forms\Components\TextInput::make('search_results'),
-                Forms\Components\TextInput::make('category'),
-                Forms\Components\TextInput::make('download_button'),
-                Forms\Components\TextInput::make('footer_text'),
-                Forms\Components\TextInput::make('latest'),
-                Forms\Components\TextInput::make('popular'),
-                Forms\Components\TextInput::make('related'),
-                Forms\Components\TextInput::make('download'),
-                Forms\Components\TextInput::make('for'),
-                Forms\Components\TextInput::make('free'),
-                Forms\Components\TextInput::make('version'),
-                Forms\Components\Select::make('locale_id')->nullable()->relationship('locale', 'name'),
+                Section::make('Language')
+                ->schema([
+                    Select::make('locale_id')
+                        ->relationship('locale', 'name')
+                        ->label('Locale')
+                        ->required()
+                        ->preload()
+                        ->columnSpan(12), // Full span for the 'locale_id'
+                ]),
+
+                // Section for Static Translations
+                Section::make('Static Translations')
+                    ->schema([
+                        TextInput::make('search_results')
+                            ->required()
+                            ->minLength(3)
+                            ->maxLength(255)
+                            ->label('Search Results Text'),
+                        TextInput::make('category')
+                            ->required()
+                            ->minLength(3)
+                            ->maxLength(255)
+                            ->label('Category Text'),
+                        TextInput::make('download_button')
+                            ->required()
+                            ->minLength(3)
+                            ->maxLength(255)
+                            ->label('Download Button Text'),
+                        TextInput::make('footer_text')
+                            ->required()
+                            ->minLength(3)
+                            ->maxLength(255)
+                            ->label('Footer Text'),
+                        TextInput::make('latest')
+                            ->required()
+                            ->minLength(3)
+                            ->maxLength(255)
+                            ->label('Latest Text'),
+                        TextInput::make('popular')
+                            ->required()
+                            ->minLength(3)
+                            ->maxLength(255)
+                            ->label('Popular Text'),
+                        TextInput::make('related')
+                            ->required()
+                            ->minLength(3)
+                            ->maxLength(255)
+                            ->label('Related Text'),
+                        TextInput::make('download')
+                            ->required()
+                            ->minLength(3)
+                            ->maxLength(255)
+                            ->label('Download Text'),
+                        TextInput::make('for')
+                            ->required()
+                            ->minLength(3)
+                            ->maxLength(255)
+                            ->label('For Text'),
+                        TextInput::make('free')
+                            ->required()
+                            ->minLength(3)
+                            ->maxLength(255)
+                            ->label('Free Text'),
+                        TextInput::make('version')
+                            ->required()
+                            ->minLength(3)
+                            ->maxLength(255)
+                            ->label('Version Text'),
+                    ])->columns(2),
             ]);
     }
 

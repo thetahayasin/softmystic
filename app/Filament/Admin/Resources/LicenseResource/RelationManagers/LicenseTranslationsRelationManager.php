@@ -20,6 +20,7 @@ class LicenseTranslationsRelationManager extends RelationManager
                 Forms\Components\Select::make('locale_id')
                                         ->required()
                                         ->preload()
+                                        ->label('Language')
                                         ->searchable()
                                         ->relationship('locale', 'name')
                                         ->rules(function () {
@@ -44,7 +45,7 @@ class LicenseTranslationsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('description')->limit(50),
-                Tables\Columns\TextColumn::make('locale.name')->label('Locale'),
+                Tables\Columns\TextColumn::make('locale.name')->label('Language'),
 
             ])
             ->filters([

@@ -103,4 +103,5 @@ class CategoryResource extends Resource
             CategoryTranslationsRelationManager::class,
         ];
     }
+
 }
