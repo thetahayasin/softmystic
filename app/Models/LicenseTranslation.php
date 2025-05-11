@@ -18,13 +18,13 @@ class LicenseTranslation extends Model
 
     ];
 
-    public function locale(): HasOne
+    public function locale()
     {
-        return $this->hasOne(Locale::class);
+        return $this->belongsTo(Locale::class);
     }
 
-    public function license(): HasOne
+    public function license()
     {
-        return $this->hasOne(License::class);
+        return $this->belongsTo(License::class);
     }
 }

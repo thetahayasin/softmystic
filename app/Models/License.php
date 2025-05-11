@@ -16,4 +16,14 @@ class License extends Model
     protected $casts = [
 
     ];
+
+    public function licenseTranslations()
+    {
+        return $this->hasMany(LicenseTranslation::class);
+    }
+
+    public function softwares()
+    {
+        return $this->hasMany(Software::class);
+    }
 }

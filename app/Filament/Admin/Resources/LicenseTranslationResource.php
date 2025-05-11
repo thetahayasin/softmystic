@@ -56,4 +56,14 @@ class LicenseTranslationResource extends Resource
             'edit' => Pages\EditLicenseTranslation::route('/{record}/edit'),
         ];
     }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+
+    public static function canAccess(): bool
+    {
+        return false;
+    }
 }

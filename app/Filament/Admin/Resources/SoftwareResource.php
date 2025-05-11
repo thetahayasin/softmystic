@@ -103,7 +103,7 @@ class SoftwareResource extends Resource
                                 ->maxFiles(6)
                                 ->preserveFilenames(false)
                                 ->visibility('public')
-                                ->helperText('Upload .webp images only. Max 300KB each. 1060x708 recommended resolution. Max files is 6.')
+                                ->helperText('Upload .webp images only. Max 300KB each. 800x600 recommended resolution. Max files is 6.')
                                 ->panelLayout('grid') // cleaner preview for multiple
                                 ->loadingIndicatorPosition('left')
                                 ->uploadButtonPosition('right')
