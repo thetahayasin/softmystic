@@ -24,11 +24,14 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         $siteLogo = SiteSetting::first()?->site_logo;
+        $siteFavicon = SiteSetting::first()?->site_favicon;
+
 
         return $panel
             ->default()
             ->id('admin')
             ->brandLogo($siteLogo ? asset('storage/' . $siteLogo) : null)
+            ->favicon(asset($siteLogo ? asset('storage/' . $siteFavicon) : null))
             ->path('admin')
             ->login()
             ->navigationGroups([

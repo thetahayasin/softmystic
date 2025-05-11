@@ -43,6 +43,23 @@ class SiteSettingResource extends Resource
                                     ->helperText('Logo image should be in webp format and max filesize is 20KB. 320x60 recommended resolution')
                                     ->acceptedFileTypes(['image/webp'])
                                     ->label('Site Logo'),
+
+                                Forms\Components\FileUpload::make('site_favicon')
+                                    ->nullable()
+                                    ->imagePreviewHeight('200')
+                                    ->getUploadedFileNameForStorageUsing(fn ($file) => 'site_favicon.' . $file->getClientOriginalExtension())
+                                    ->directory('site_images')
+                                    ->preserveFilenames()
+                                    ->maxSize(20) 
+                                    ->helperText('Favicon image should be in ico format and max filesize is 20KB. 48x48 recommended resolution')
+                                    ->acceptedFileTypes([
+                                        'image/x-icon',
+                                        'image/vnd.microsoft.icon',
+                                        'application/x-ico',
+                                        'image/ico',
+                                        '.ico'
+                                    ]) // Cover all potential MIME types
+                                    ->label('Site Favicon'),
                                     
                                 Forms\Components\Select::make('locale_id')
                                     ->required()
