@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('site_translations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('home_meta_title')->nullable();
+            $table->string('home_meta_description')->nullable();
+            $table->string('category_meta_title')->nullable();
+            $table->string('category_meta_description')->nullable();
+            $table->string('search_meta_title')->nullable();
+            $table->string('search_meta_description')->nullable();
+            $table->string('download_meta_title')->nullable();
+            $table->string('download_meta_description')->nullable();
+            $table->string('single_meta_title')->nullable();
+            $table->string('single_meta_description')->nullable();
             $table->string('search_results');
             $table->string('category');
             $table->string('download_button');

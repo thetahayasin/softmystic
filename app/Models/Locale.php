@@ -21,4 +21,9 @@ class Locale extends Model
     {
         return $this->hasMany(SoftwareTranslation::class);
     }
+
+    public function sitesetting()
+    {
+        return $this->hasOne(SiteSetting::class);
+    }
 }

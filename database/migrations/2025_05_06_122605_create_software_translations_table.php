@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('tagline');
             $table->string('content');
             $table->string('change_log');
-            $table->foreignId('software_id')->constrained()->onDelete('restrict');
+            $table->foreignId('software_id')->constrained()->onDelete('cascade');
             $table->foreignId('locale_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

@@ -82,7 +82,19 @@ class LocaleResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
+                Tables\Actions\DeleteAction::make()->before(function (Tables\Actions\DeleteAction $action, Locale $record) {
+                    if ($record->sitesetting()->exists()) {
+                        Notification::make()
+                            ->danger()
+                            ->title('Failed to delete!')
+                            ->body('This is the default language. Change in settings to delete this language.')
+                            ->persistent()
+                            ->send();
+             
+                            // This will halt and cancel the delete action modal.
+                            $action->cancel();
+                    }
+                })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

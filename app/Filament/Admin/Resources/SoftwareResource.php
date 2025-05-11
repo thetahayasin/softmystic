@@ -85,7 +85,7 @@ class SoftwareResource extends Resource
                                 ->disk('public') // Use your configured disk
                                 ->directory('software_logos') // Path inside /public/uploads
                                 ->required()
-                                ->avatar()
+                                ->imagePreviewHeight('200')
                                 ->maxSize(10)
                                 ->helperText('Logo image should be in webp format and max filesize is 10KB. 32x32 recommended resolution')
                                 ->acceptedFileTypes(['image/webp'])
@@ -231,7 +231,7 @@ class SoftwareResource extends Resource
                 ->relationship('category', 'slug')
                 ->searchable(),
                 SelectFilter::make('platform_id')
-                ->label('OS')
+                ->label('Platform')
                 ->preload()
                 ->relationship('platform', 'name')
                 ->searchable(),

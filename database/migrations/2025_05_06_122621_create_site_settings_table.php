@@ -13,29 +13,19 @@ return new class extends Migration
     {
         Schema::create('site_settings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('default_locale');
-            $table->string('default_platform');
-            $table->string('site_logo');
-            $table->string('home_meta_title');
-            $table->string('home_meta_description');
-            $table->string('category_meta_title');
-            $table->string('category_meta_description');
-            $table->string('search_meta_title');
-            $table->string('search_meta_description');
-            $table->string('download_meta_title');
-            $table->string('download_meta_description');
-            $table->string('single_meta_title');
-            $table->string('single_meta_description');
-            $table->string('header_code');
-            $table->string('footer_code');
-            $table->string('home_page_ad');
-            $table->string('home_page_ad_2');
-            $table->string('results_page_ad');
-            $table->string('results_page_ad_2');
-            $table->string('single_page_ad');
-            $table->string('single_page_ad_2');
-            $table->string('download_page_ad');
-            $table->string('download_page_ad_2');
+            $table->foreignId('locale_id')->constrained()->onDelete('restrict');
+            $table->foreignId('platform_id')->constrained()->onDelete('restrict');
+            $table->string('site_logo')->nullable();
+            $table->text('header_code')->nullable();
+            $table->text('footer_code')->nullable();
+            $table->text('home_page_ad')->nullable();
+            $table->text('home_page_ad_2')->nullable();
+            $table->text('results_page_ad')->nullable();
+            $table->text('results_page_ad_2')->nullable();
+            $table->text('single_page_ad')->nullable();
+            $table->text('single_page_ad_2')->nullable();
+            $table->text('download_page_ad')->nullable();
+            $table->text('download_page_ad_2')->nullable();
             $table->timestamps();
         });
     }

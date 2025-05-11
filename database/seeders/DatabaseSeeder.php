@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             LicenseSeeder::class,
             LicenseTranslationSeeder::class,
             SoftwareSeeder::class,
+            SiteSettingSeeder::class,
+            SiteTranslationSeeder::class,
             //SoftwareTranslationSeeder::class,
 
 

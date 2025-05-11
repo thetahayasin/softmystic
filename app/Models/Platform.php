@@ -21,4 +21,9 @@ class Platform extends Model
     {
         return $this->hasMany(Software::class);
     }
+
+    public function sitesetting()
+    {
+        return $this->hasOne(SiteSetting::class);
+    }
 }

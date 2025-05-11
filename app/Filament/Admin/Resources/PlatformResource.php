@@ -85,6 +85,17 @@ class PlatformResource extends Resource
                             // This will halt and cancel the delete action modal.
                             $action->cancel();
                     }
+                    if ($record->sitesetting()->exists()) {
+                        Notification::make()
+                            ->danger()
+                            ->title('Failed to delete!')
+                            ->body('This is the default platform. Change in settings to delete this platform.')
+                            ->persistent()
+                            ->send();
+             
+                            // This will halt and cancel the delete action modal.
+                            $action->cancel();
+                    }
                 }),
 
             ])

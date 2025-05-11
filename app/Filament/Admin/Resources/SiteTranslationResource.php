@@ -32,10 +32,76 @@ class SiteTranslationResource extends Resource
                         ->relationship('locale', 'name')
                         ->label('Locale')
                         ->required()
-                        ->unique(ignoreRecord: true)
+                        ->unique(ignoreRecord:true)
                         ->preload()
+                        ->searchable()
                         ->columnSpan(12), // Full span for the 'locale_id'
                 ]),
+                Section::make('SEO')
+                ->description('You can use shortcodes from static translations for the site like [download], [free], [version]. For software/category/platform/author/license currently on page [software], [category], [platform], [author], [license] can be used. ')
+                ->schema([
+                    TextInput::make('home_meta_title')
+                        ->nullable()
+                        ->maxLength(255)
+                        ->label('Home Meta Title')
+                        ->helperText('Title for the home page meta tag.'),
+        
+                    TextInput::make('home_meta_description')
+                        ->nullable()
+                        ->maxLength(255)
+                        ->label('Home Meta Description')
+                        ->helperText('Description for the home page meta tag.'),
+        
+                    TextInput::make('category_meta_title')
+                        ->nullable()
+                        ->maxLength(255)
+                        ->label('Category Meta Title')
+                        ->helperText('Title for category pages meta tag.'),
+        
+                    TextInput::make('category_meta_description')
+                        ->nullable()
+                        ->maxLength(255)
+                        ->label('Category Meta Description')
+                        ->helperText('Description for category pages meta tag.'),
+        
+                    TextInput::make('search_meta_title')
+                        ->nullable()
+                        ->maxLength(255)
+                        ->label('Search Meta Title')
+                        ->helperText('Title for search result pages meta tag.'),
+        
+                    TextInput::make('search_meta_description')
+                        ->nullable()
+                        ->maxLength(255)
+                        ->label('Search Meta Description')
+                        ->helperText('Description for search result pages meta tag.'),
+        
+                    TextInput::make('download_meta_title')
+                        ->nullable()
+                        ->maxLength(255)
+                        ->label('Download Meta Title')
+                        ->helperText('Title for download page meta tag.'),
+        
+                    TextInput::make('download_meta_description')
+                        ->nullable()
+                        ->maxLength(255)
+                        ->label('Download Meta Description')
+                        ->helperText('Description for download page meta tag.'),
+        
+                    TextInput::make('single_meta_title')
+                        ->nullable()
+                        ->maxLength(255)
+                        ->label('Single Page Meta Title')
+                        ->helperText('Title for single page meta tag.'),
+        
+                    TextInput::make('single_meta_description')
+                        ->nullable()
+                        ->maxLength(255)
+                        ->label('Single Page Meta Description')
+                        ->helperText('Description for single page meta tag.'),
+                ])->columns(2),
+
+
 
                 // Section for Static Translations
                 Section::make('Static Translations')
