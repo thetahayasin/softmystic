@@ -32,6 +32,7 @@ class SiteTranslationResource extends Resource
                         ->relationship('locale', 'name')
                         ->label('Locale')
                         ->required()
+                        ->unique(ignoreRecord: true)
                         ->preload()
                         ->columnSpan(12), // Full span for the 'locale_id'
                 ]),
@@ -42,55 +43,66 @@ class SiteTranslationResource extends Resource
                         TextInput::make('search_results')
                             ->required()
                             ->minLength(3)
+                            ->default('Results for')
                             ->maxLength(255)
                             ->label('Search Results Text'),
                         TextInput::make('category')
                             ->required()
+                            ->default('Category')
                             ->minLength(3)
                             ->maxLength(255)
                             ->label('Category Text'),
                         TextInput::make('download_button')
                             ->required()
+                            ->default('Download')
                             ->minLength(3)
                             ->maxLength(255)
                             ->label('Download Button Text'),
                         TextInput::make('footer_text')
                             ->required()
                             ->minLength(3)
+                            ->default('Softimystic is a multiplatform appstore.')
                             ->maxLength(255)
                             ->label('Footer Text'),
                         TextInput::make('latest')
                             ->required()
+                            ->default('Latest Apps')
                             ->minLength(3)
                             ->maxLength(255)
                             ->label('Latest Text'),
                         TextInput::make('popular')
                             ->required()
+                            ->default('Popular Apps')
                             ->minLength(3)
                             ->maxLength(255)
                             ->label('Popular Text'),
                         TextInput::make('related')
                             ->required()
+                            ->default('Related Apps')
                             ->minLength(3)
                             ->maxLength(255)
                             ->label('Related Text'),
                         TextInput::make('download')
                             ->required()
+                            ->default('Download')
                             ->minLength(3)
                             ->maxLength(255)
                             ->label('Download Text'),
                         TextInput::make('for')
                             ->required()
+                            ->default('for')
                             ->minLength(3)
                             ->maxLength(255)
                             ->label('For Text'),
                         TextInput::make('free')
                             ->required()
+                            ->default('Free')
                             ->minLength(3)
                             ->maxLength(255)
                             ->label('Free Text'),
                         TextInput::make('version')
                             ->required()
+                            ->default('Version')
                             ->minLength(3)
                             ->maxLength(255)
                             ->label('Version Text'),
@@ -102,16 +114,7 @@ class SiteTranslationResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('home_meta_title')->searchable(),
-                Tables\Columns\TextColumn::make('home_meta_description')->searchable(),
-                Tables\Columns\TextColumn::make('category_meta_title')->searchable(),
-                Tables\Columns\TextColumn::make('category_meta_description')->searchable(),
-                Tables\Columns\TextColumn::make('search_meta_title')->searchable(),
-                Tables\Columns\TextColumn::make('search_meta_description')->searchable(),
-                Tables\Columns\TextColumn::make('download_meta_title')->searchable(),
-                Tables\Columns\TextColumn::make('download_meta_description')->searchable(),
-                Tables\Columns\TextColumn::make('single_meta_title')->searchable(),
-                Tables\Columns\TextColumn::make('single_meta_description')->searchable(),
+                Tables\Columns\TextColumn::make('locale.name')->label('Language'),
                 Tables\Columns\TextColumn::make('search_results')->searchable(),
                 Tables\Columns\TextColumn::make('category')->searchable(),
                 Tables\Columns\TextColumn::make('download_button')->searchable(),
@@ -130,6 +133,8 @@ class SiteTranslationResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

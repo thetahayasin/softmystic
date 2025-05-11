@@ -18,8 +18,8 @@ class SiteTranslation extends Model
 
     ];
 
-    public function locale(): HasOne
+    public function locale()
     {
-        return $this->hasOne(Locale::class);
+        return $this->belongsTo(Locale::class);
     }
 }
