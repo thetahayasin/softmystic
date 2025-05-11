@@ -1,3 +1,4 @@
 *
 !dummy_images/
+!dummy_images/**
 !.gitignore
