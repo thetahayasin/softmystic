@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Platform;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
+
 
 class PlatformSeeder extends Seeder
 {
@@ -11,6 +14,17 @@ class PlatformSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Platform::factory(10)->create();
+        $platforms = [
+            ['name' => 'Android'],
+            ['name' => 'Windows'],
+            ['name' => 'iOS'],
+            ['name' => 'MacOS'],
+            ['name' => 'Linux'],
+        ];
+
+        foreach ($platforms as $platform) {
+            $platform['slug'] = Str::slug($platform['name']);
+            Platform::create($platform);
+        }
     }
 }

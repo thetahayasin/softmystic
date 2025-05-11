@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Factories;
-
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,11 +16,13 @@ class AuthorFactory extends Factory
      */
     public function definition(): array
     {
+        $name = $this->faker->company;
+    
         return [
-            'name' => fake()->text(50),
-            'description' => fake()->text(50),
-            'url' => fake()->text(50),
-
+            'name' => $name,
+            'slug' => Str::slug($name),
+            'description' => $this->faker->sentence(10),
+            'url' => $this->faker->url,
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -14,11 +15,14 @@ class LicenseFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
-    {
-        return [
-            'slug' => fake()->text(50),
 
-        ];
-    }
+     public function definition(): array
+     {
+         $name = $this->faker->unique()->words(2, true); // e.g., "web utility"
+         
+         return [
+             'slug' => Str::slug($name), // e.g., "web-utility"
+         ];
+     }
+     
 }

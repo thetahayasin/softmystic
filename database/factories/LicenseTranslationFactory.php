@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\License;
+use App\Models\Locale;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,9 +19,10 @@ class LicenseTranslationFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->text(50),
-            'description' => fake()->text(50),
-
+            'name' => $this->faker->text(50),
+            'description' => $this->faker->text(100),
+            'locale_id' => Locale::inRandomOrder()->value('id') ?? Locale::factory(),
+            'license_id' => License::factory(),
         ];
     }
 }

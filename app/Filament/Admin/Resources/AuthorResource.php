@@ -69,6 +69,7 @@ class AuthorResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->searchable(),
+                Tables\Columns\TextColumn::make('slug'),
                 Tables\Columns\TextColumn::make('url'),
                 Tables\Columns\TextColumn::make('softwares_count')
                                 ->counts('softwares')

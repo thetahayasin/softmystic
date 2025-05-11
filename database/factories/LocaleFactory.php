@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,10 +17,12 @@ class LocaleFactory extends Factory
      */
     public function definition(): array
     {
+        $name = $this->faker->unique()->word();
+    
         return [
-            'name' => fake()->text(50),
-            'key' => fake()->text(50),
-
+            'name' => ucfirst($name),
+            'key' => strtolower($name),
+            'slug' => Str::slug($name),
         ];
     }
 }

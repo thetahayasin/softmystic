@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
+use App\Models\Locale;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,9 +19,10 @@ class CategoryTranslationFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->text(50),
-            'description' => fake()->text(50),
-
+            'category_id' => Category::factory(), // Optional if you're calling it standalone
+            'name' => $this->faker->words(2, true),
+            'description' => $this->faker->sentence(),
+            'locale_id' => Locale::inRandomOrder()->first()->id,
         ];
     }
 }

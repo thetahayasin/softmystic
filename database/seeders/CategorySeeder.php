@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
@@ -11,6 +12,16 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Category::factory(10)->create();
+        $categories = [
+            ['slug' => 'technology'],
+            ['slug' => 'business'],
+            ['slug' => 'science'],
+            ['slug' => 'health'],
+            ['slug' => 'entertainment'],
+        ];
+
+        foreach ($categories as $category) {
+            Category::create($category);
+        }
     }
 }

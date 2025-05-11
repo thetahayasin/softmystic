@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\License;
 use Illuminate\Database\Seeder;
 
 class LicenseSeeder extends Seeder
@@ -11,6 +12,14 @@ class LicenseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\License::factory(10)->create();
+        $licenses = [
+            ['slug' => 'mit'],
+            ['slug' => 'gpl'],
+            ['slug' => 'apache'],
+        ];
+
+        foreach ($licenses as $license) {
+            License::create($license);
+        }
     }
 }

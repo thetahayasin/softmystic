@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,10 +17,11 @@ class PlatformFactory extends Factory
      */
     public function definition(): array
     {
+        $name = $this->faker->unique()->words(2, true); // e.g., "Mobile Platform"
+    
         return [
-            'name' => fake()->text(50),
-            'slug' => fake()->text(50),
-
+            'name' => ucfirst($name),
+            'slug' => Str::slug($name),
         ];
     }
 }

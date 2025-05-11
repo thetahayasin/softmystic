@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Requirement;
 use Illuminate\Database\Seeder;
 
 class RequirementSeeder extends Seeder
@@ -11,6 +12,16 @@ class RequirementSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Requirement::factory(10)->create();
+        $requirements = [
+            ['name' => 'Windows 10'],
+            ['name' => 'Android 11'],
+            ['name' => 'iOS 13'],
+            ['name' => 'MacOS 10.15'],
+            ['name' => 'Linux Ubuntu 20.04'],
+        ];
+
+        foreach ($requirements as $requirement) {
+            Requirement::create($requirement);
+        }
     }
 }

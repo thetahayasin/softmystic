@@ -1,2 +1,4 @@
-*
+/software_logos/
+/software_screenshots/
+!dummy_images/
 !.gitignore
