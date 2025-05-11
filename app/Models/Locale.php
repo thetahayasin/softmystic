@@ -16,4 +16,9 @@ class Locale extends Model
     protected $casts = [
 
     ];
+
+    public function softwareTranslations()
+    {
+        return $this->hasMany(SoftwareTranslation::class);
+    }
 }

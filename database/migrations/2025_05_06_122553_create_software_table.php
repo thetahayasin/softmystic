@@ -22,10 +22,10 @@ return new class extends Migration
             $table->string('download_url');
             $table->string('buy_url')->nullable();
             $table->bigInteger('downloads')->default(0);
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('license_id')->constrained()->onDelete('cascade');
-            $table->foreignId('platform_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('restrict');
+            $table->foreignId('user_id')->constrained()->onDelete('restrict');
+            $table->foreignId('license_id')->constrained()->onDelete('restrict');
+            $table->foreignId('platform_id')->constrained()->onDelete('restrict');
             $table->boolean('is_sponsored')->default('0');
             $table->boolean('is_featured')->default('0');
             $table->timestamps();

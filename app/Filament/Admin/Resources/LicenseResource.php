@@ -10,7 +10,8 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use App\Filament\Admin\Resources\LicenseResource\RelationManagers\LicenseTranslationsRelationManager;
-
+use App\Models\Software;
+use Filament\Notifications\Notification;
 
 class LicenseResource extends Resource
 {
@@ -64,12 +65,23 @@ class LicenseResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-
+                Tables\Actions\DeleteAction::make()->before(function (Tables\Actions\DeleteAction $action, License $record) {
+                    if ($record->softwares()->exists()) {
+                        Notification::make()
+                            ->danger()
+                            ->title('Failed to delete!')
+                            ->body('This license has softwares related to it first remove them.')
+                            ->persistent()
+                            ->send();
+             
+                            // This will halt and cancel the delete action modal.
+                            $action->cancel();
+                    }
+                })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -89,4 +101,5 @@ class LicenseResource extends Resource
             LicenseTranslationsRelationManager::class,
         ];
     }
+
 }

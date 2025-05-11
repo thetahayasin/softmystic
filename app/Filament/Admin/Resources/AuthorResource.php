@@ -8,6 +8,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TextArea;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -83,12 +84,24 @@ class AuthorResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()->before(function (Tables\Actions\DeleteAction $action, Author $record) {
+                    if ($record->softwares()->exists()) {
+                        Notification::make()
+                            ->danger()
+                            ->title('Failed to delete!')
+                            ->body('This author has softwares related to it first remove them.')
+                            ->persistent()
+                            ->send();
+             
+                            // This will halt and cancel the delete action modal.
+                            $action->cancel();
+                    }
+                }),
 
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

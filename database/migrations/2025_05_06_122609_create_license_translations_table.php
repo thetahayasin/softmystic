@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->foreignId('locale_id')->constrained()->onDelete('cascade');
-            $table->foreignId('license_id')->constrained()->onDelete('cascade');
+            $table->foreignId('license_id')->constrained()->onDelete('restrict');
             $table->timestamps();
         });
     }

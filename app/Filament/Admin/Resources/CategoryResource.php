@@ -11,6 +11,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 
 class CategoryResource extends Resource
 {
@@ -53,18 +54,36 @@ class CategoryResource extends Resource
                                 ->badge()
                                 ->alignment('center')
                                 ->color('primary'),
+                Tables\Columns\TextColumn::make('softwares_count')
+                                ->counts('softwares')
+                                ->label('Softwares')
+                                ->badge()
+                                ->alignment('center')
+                                ->color('primary'),
             ])
             ->filters([
 
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()->before(function (Tables\Actions\DeleteAction $action, Category $record) {
+                    if ($record->softwares()->exists()) {
+                        Notification::make()
+                            ->danger()
+                            ->title('Failed to delete!')
+                            ->body('This category has softwares related to it first remove them.')
+                            ->persistent()
+                            ->send();
+             
+                            // This will halt and cancel the delete action modal.
+                            $action->cancel();
+                    }
+                }),
 
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

@@ -24,9 +24,9 @@ class Software extends Model
         return $this->belongsTo(Author::class);
     }
 
-    public function category(): HasOne
+    public function category()
     {
-        return $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function user(): HasOne
@@ -34,9 +34,9 @@ class Software extends Model
         return $this->hasOne(User::class);
     }
 
-    public function license(): HasOne
+    public function license()
     {
-        return $this->hasOne(License::class);
+        return $this->belongsTo(License::class);
     }
 
     public function requirements()

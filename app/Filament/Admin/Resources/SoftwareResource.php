@@ -225,6 +225,11 @@ class SoftwareResource extends Resource
 
             ])
             ->filters([
+                SelectFilter::make('category_id')
+                ->label('Category')
+                ->preload()
+                ->relationship('category', 'slug')
+                ->searchable(),
                 SelectFilter::make('platform_id')
                 ->label('OS')
                 ->preload()
