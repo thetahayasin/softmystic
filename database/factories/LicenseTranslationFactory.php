@@ -22,7 +22,7 @@ class LicenseTranslationFactory extends Factory
             'name' => $this->faker->text(50),
             'description' => $this->faker->text(100),
             'locale_id' => Locale::inRandomOrder()->value('id') ?? Locale::factory(),
-            'license_id' => License::factory(),
+            'license_id' => License::inRandomOrder()->first()->id,
         ];
     }
 }

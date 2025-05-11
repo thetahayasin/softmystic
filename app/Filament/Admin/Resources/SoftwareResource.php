@@ -184,7 +184,18 @@ class SoftwareResource extends Resource
                             ->badge()
                             ->alignment('center')
                             ->color('primary'),
-                Tables\Columns\TextColumn::make('created_at')->date('F j, Y')->alignment('center'),
+                Tables\Columns\TextColumn::make('downloads')
+                            ->label('Downloads')
+                            ->alignment('center')
+                            ->formatStateUsing(function ($state) {
+                                if ($state >= 1_000_000) {
+                                    return round($state / 1_000_000, 1) . 'M';
+                                } elseif ($state >= 1_000) {
+                                    return round($state / 1_000, 1) . 'K';
+                                }
+                        
+                                return number_format($state); // fallback for < 1000
+                            }),                Tables\Columns\TextColumn::make('created_at')->date('F j, Y')->alignment('center'),
                 Tables\Columns\TextColumn::make('updated_at')->date('F j, Y')->alignment('center'),
                 Tables\Columns\ImageColumn::make('screenshots')
                             ->disk('public')
