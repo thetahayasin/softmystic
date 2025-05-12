@@ -18,14 +18,13 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        if (Schema::hasTable('site_settings')) {
+        if (config('app.installed')) {
             $siteLogo = SiteSetting::first()?->site_logo;
             $siteFavicon = SiteSetting::first()?->site_favicon;
         }
