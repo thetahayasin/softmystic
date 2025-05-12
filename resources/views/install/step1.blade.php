@@ -52,6 +52,9 @@
                     @endforeach
                 </ul>
             </div>
+            <hr>
+            <p class="text-center text-rose-300 text-lg">*Make sure 'exec' and 'symlink' methods are not disabled by your host.</p>
+
 
             <form method="POST" action="{{ route('install.postStep1') }}">
                 @csrf
