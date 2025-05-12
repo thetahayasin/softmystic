@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Http\Middleware\CheckIfAppInstalled;
 use App\Models\SiteSetting;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -17,14 +18,22 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        $siteLogo = SiteSetting::first()?->site_logo;
-        $siteFavicon = SiteSetting::first()?->site_favicon;
+        if (Schema::hasTable('site_settings')) {
+            $siteLogo = SiteSetting::first()?->site_logo;
+            $siteFavicon = SiteSetting::first()?->site_favicon;
+        }
+        else
+        {
+            $siteLogo = null;
+            $siteFavicon = null;
+        }
 
 
         return $panel
@@ -32,7 +41,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->brandLogo($siteLogo ? asset('storage/' . $siteLogo) : null)
             ->favicon(asset($siteLogo ? asset('storage/' . $siteFavicon) : null))
-            ->path('admin')
+            ->path('mystic')
             ->login()
             ->navigationGroups([
                 'Content Management',
@@ -61,6 +70,7 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                CheckIfAppInstalled::class,
             ])
             ->authMiddleware([
                 Authenticate::class,
