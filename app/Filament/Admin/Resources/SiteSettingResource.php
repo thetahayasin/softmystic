@@ -78,12 +78,12 @@ class SiteSettingResource extends Resource
                                     ->helperText('The default platform setting for the site.'),
     
     
-                                Forms\Components\TextArea::make('header_code')
+                                Forms\Components\Textarea::make('header_code')
                                     ->nullable()
                                     ->label('Header Code')
                                     ->helperText('Custom HTML/JS code to be inserted inside the <head> tag.'),
     
-                                Forms\Components\TextArea::make('footer_code')
+                                Forms\Components\Textarea::make('footer_code')
                                     ->nullable()
                                     ->label('Footer Code')
                                     ->helperText('Custom HTML/JS code to be inserted inside the <footer> tag.'),
