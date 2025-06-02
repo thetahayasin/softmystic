@@ -18,3 +18,7 @@ Route::post('/install/step3', [InstallationController::class, 'postStep3'])->nam
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+Route::get('/login', function () {
+    return redirect()->route('filament.admin.auth.login');
+})->name('login');

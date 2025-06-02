@@ -8,9 +8,12 @@ use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Hash;
@@ -43,6 +46,11 @@ class UserResource extends Resource
                         ->required()
                         ->email()
                         ->unique(ignoreRecord: true),
+                    Toggle::make('is_active')
+                            ->label('Active')
+                            ->default(true)
+                            ->visible(fn ($livewire) => $livewire->record?->id !== 1)
+                            ->required(),
                 ]),
             
                 Section::make('Password')
@@ -64,6 +72,7 @@ class UserResource extends Resource
                             ->required(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\CreateRecord)
                             ->same('password')
                             ->autocomplete('new-password'),
+
                     ])
                     ->columns(2),
                 
@@ -83,6 +92,10 @@ class UserResource extends Resource
                         ->badge()
                         ->alignment('center')
                         ->color('primary'),
+                IconColumn::make('is_active')
+                        ->label('Active')
+                        ->boolean()
+                        ->sortable(),
 
 
 
@@ -92,12 +105,25 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-
+                Tables\Actions\DeleteAction::make()
+                ->visible(fn ($record) => $record->id !== 1)
+                ->before(function (Tables\Actions\DeleteAction $action, User $record) {
+                    if ($record->softwares()->exists()) {
+                        Notification::make()
+                            ->danger()
+                            ->title('Failed to delete!')
+                            ->body('This user has softwares related to it first remove them or deactivate the user')
+                            ->persistent()
+                            ->send();
+             
+                            // This will halt and cancel the delete action modal.
+                            $action->cancel();
+                    }
+                }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    //Tables\Actions\DeleteBulkAction::make(),
+                //Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

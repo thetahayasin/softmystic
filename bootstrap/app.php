@@ -12,6 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->append(App\Http\Middleware\CheckIfAppInstalled::class); // Register a middleware globally
+        $middleware->append(App\Http\Middleware\EnsureUserIsActive::class); // Register a middleware globally
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

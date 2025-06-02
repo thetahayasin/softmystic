@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Http\Middleware\CheckIfAppInstalled;
+use App\Http\Middleware\EnsureUserIsActive;
 use App\Models\SiteSetting;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -70,6 +71,7 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
                 CheckIfAppInstalled::class,
+                EnsureUserIsActive::class
             ])
             ->authMiddleware([
                 Authenticate::class,
