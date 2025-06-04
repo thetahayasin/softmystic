@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->foreignId('locale_id')->constrained()->onDelete('restrict');
             $table->foreignId('platform_id')->constrained()->onDelete('restrict');
+            $table->string('site_name');
             $table->string('site_logo')->nullable();
             $table->string('site_favicon')->nullable();
             $table->text('header_code')->nullable();

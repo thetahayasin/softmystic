@@ -8,6 +8,7 @@ use App\Models\SoftwareTranslation;
 use Illuminate\Http\Request;
 use App\Models\Locale;
 use App\Models\Platform;
+use App\Models\SiteTranslation;
 
 class HomeController extends Controller
 {
@@ -16,8 +17,10 @@ class HomeController extends Controller
     {
         // Get site-wide default locale and platform
         $settings = SiteSetting::first(['locale_id', 'platform_id']);
-        $default_locale = $settings->locale_id;
-        $default_platform = $settings->platform_id;
+        $default_locale_id = $settings->locale_id;
+        $default_platform_id = $settings->platform_id;
+        $default_platform = Platform::find($default_platform_id);
+        $default_locale = Locale::find($default_locale_id);
     
         // Try to detect what param1 and param2 are
         $param1_locale = Locale::where('slug', $param1)->first();
@@ -26,15 +29,34 @@ class HomeController extends Controller
     
         // Determine final locale and platform
         if ($param1_locale) {
-            $locale_id = $param1_locale->id;
-            $platform_id = $param2_platform?->id ?? $default_platform;
+            $locale = $param1_locale;
+            $platform = $param2_platform ?? $default_platform;
         } elseif ($param1_platform) {
-            $locale_id = $default_locale;
-            $platform_id = $param1_platform->id;
+            $locale = $default_locale;
+            $platform = $param1_platform;
         } else {
-            $locale_id = $default_locale;
-            $platform_id = $default_platform;
+            $locale = $default_locale;
+            $platform = $default_platform;
         }
+    
+        // ✅ Set the Laravel app locale for translations
+        app()->setLocale($locale->key);
+    
+        $locale_id = $locale->id;
+        $platform_id = $platform->id;
+
+    
+        // Fetch site-wide translations
+        $trns = SiteTranslation::where('locale_id', $locale_id)->first([
+            'hero_title',
+            'hero_text',
+            'featured_apps',
+            'latest_updates',
+            'new_releases',
+            'trending_apps',
+            'home_meta_title',
+            'home_meta_description'
+        ]);
     
         // Fetch featured apps
         $featured = Software::with([
@@ -103,7 +125,36 @@ class HomeController extends Controller
             'tagline'  => optional($software->softwareTranslations->first())->tagline,
         ]);
     
-        return view('home', compact('featured', 'updates', 'newreleases', 'popular'));
+        //url generation vars
+        $default_locale_slug = $default_locale->slug;
+        $default_platform_slug = $default_platform->slug;
+
+        if($platform_id == $default_platform_id)
+        {
+            $platform_slug = null;
+        }
+        else
+        {
+            $platform_slug = $platform->slug;
+        }
+
+        if($locale_id == $default_locale_id)
+        {
+            $locale_slug = null;
+        }
+        else
+        {
+            $locale_slug = $locale->slug;
+        }
+
+        // Get all locales
+        $locales = Locale::get(['name', 'slug', 'key']);
+
+
+
+
+        return view('home', compact('featured', 'updates', 'newreleases', 'popular', 'trns', 'platform_slug', 'locale_slug', 'default_locale_slug', 'default_platform_slug', 'locales'));
     }
+    
     
 }

@@ -32,6 +32,9 @@ class SiteSettingResource extends Resource
                         // Site Settings Tab
                         Forms\Components\Tabs\Tab::make('Site Settings')
                             ->schema([
+                                Forms\Components\TextInput::make('site_name')
+                                ->required()
+                                ->maxLength(255),
 
                                 Forms\Components\FileUpload::make('site_logo')
                                     ->nullable()
