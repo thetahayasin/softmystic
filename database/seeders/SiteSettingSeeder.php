@@ -21,6 +21,7 @@ class SiteSettingSeeder extends Seeder
 
         SiteSetting::create([
             'site_name' => 'Softimystic',
+            'site_theme' => 'emerald',
             'locale_id' => $locale->id,
             'platform_id' => $platform->id,
             'site_logo' => '',

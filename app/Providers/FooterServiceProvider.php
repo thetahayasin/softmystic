@@ -30,7 +30,8 @@ class FooterServiceProvider extends ServiceProvider
 
             // Pass to view
             $view->with(compact('footer'));
-        });    }
+        });    
+    }
 
     /**
      * Bootstrap services.

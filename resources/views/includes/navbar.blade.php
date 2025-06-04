@@ -21,7 +21,11 @@
     <div class="flex-1 text-center h-full flex items-center justify-center">
         <a href="{{ url('/') }}" class="block h-full" aria-label="Home">
             <div class="h-full px-4 py-2 rounded-lg flex items-center">
-                <img loading="lazy" src="https://stc.utdstc.com/img/svgs/logo-uptodown.svg" alt="Website Logo" class="h-10" />
+                @if ($ads->site_logo)
+                    <img loading="lazy" src="{{ asset('storage/' . $ads->site_logo) }}" alt="Website Logo" class="max-h-8 w-full" />
+                @else
+                    <span class="text-xl font-bold">{{ $ads->site_name }}</span>
+                @endif
             </div>
         </a>
     </div>
@@ -64,7 +68,7 @@
 </section>
 
 <!-- Category Text Ribbon -->
-<section class="relative w-full overflow-hidden mb-10 group" aria-label="Category Navigation">
+<section class="relative w-full overflow-hidden group" aria-label="Category Navigation">
 
     <!-- Carousel Buttons -->
     <button class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-primary/10 z-10 hidden rounded-bl-2xl carousel-prev btn-square w-7 btn-ghost" aria-label="Previous Categories">

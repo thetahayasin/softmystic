@@ -57,6 +57,14 @@ class HomeController extends Controller
             'home_meta_title',
             'home_meta_description'
         ]);
+
+        // Fetch ads
+        $ads = SiteSetting::first([
+            'home_page_ad',
+            'home_page_ad_2',
+            'site_name',
+            'site_logo'
+        ]);
     
         // Fetch featured apps
         $featured = Software::with([
@@ -66,7 +74,7 @@ class HomeController extends Controller
         ->where('is_featured', true)
         ->where('platform_id', $platform_id)
         ->latest('updated_at')
-        ->take(3)
+        ->take(2)
         ->get()
         ->map(fn ($software) => [
             'name'     => $software->name,
@@ -153,7 +161,7 @@ class HomeController extends Controller
 
 
 
-        return view('home', compact('featured', 'updates', 'newreleases', 'popular', 'trns', 'platform_slug', 'locale_slug', 'default_locale_slug', 'default_platform_slug', 'locales'));
+        return view('home', compact('featured', 'updates', 'newreleases', 'popular', 'trns', 'platform_slug', 'locale_slug', 'default_locale_slug', 'default_platform_slug', 'locales', 'ads'));
     }
     
     

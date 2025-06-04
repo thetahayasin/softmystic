@@ -1,10 +1,56 @@
 @extends('layouts.app')
 
-@section('meta_title'){{ $trns->home_meta_title ?? '' }}@endsection
+@section('meta_title'){{ $trns->home_meta_title ?? '' }} - {{ $ads->site_name }}@endsection
 @section('meta_description'){{ $trns->home_meta_description ?? '' }}@endsection
 @section('styles')
 <link rel="canonical" href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}">
-<meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow" />
+    @php
+        $logoPath = public_path('storage/' . $ads->site_logo);
+
+        if ($ads->site_logo && file_exists($logoPath) && is_file($logoPath)) {
+            [$width, $height] = getimagesize($logoPath);
+        } else {
+            $width = $height = 0; // fallback values
+        }
+    @endphp
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "url": "{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}",
+      "name": "{{ $trns->home_meta_title ?? '' }} – {{ $ads->site_name }}",
+      "description": "{{ $trns->home_meta_description ?? '' }}",
+      "inLanguage": "{{ app()->getLocale() }}",
+      "publisher": {
+        "@type": "Organization",
+        "name": "{{ $ads->site_name }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ asset('storage/'.$ads->site_logo) }}"
+        }
+      },
+      "image": {
+        "@type": "ImageObject",
+        "url": "{{ asset('storage/'.$ads->site_logo) }}",
+        "width": {{ $width }},
+        "height": {{ $height }},
+        "caption": "{{ $ads->site_name }} Website Logo"
+      }
+    }
+    </script>
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ $trns->home_meta_title ?? '' }} - {{ $ads->site_name }}" />
+    <meta property="og:description" content="{{ $trns->home_meta_description ?? '' }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:image" content="{{ asset('storage/'.$ads->site_logo) }}" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ $trns->home_meta_title ?? '' }} - {{ $ads->site_name }}" />
+    <meta name="twitter:description" content="{{ $trns->home_meta_description ?? '' }}" />
+    <meta name="twitter:image" content="{{ asset('storage/'.$ads->site_logo) }}" />
 @foreach ($locales as $locale)
     <link rel="alternate" hreflang="{{ $locale['slug'] != $default_locale_slug ? $locale['key'] : 'x-default' }}" href="{{ route('home', ['param1' => $locale['slug'] != $default_locale_slug ? $locale['slug'] : null, 'param2' => $platform_slug ]) }}">
 @endforeach
@@ -12,7 +58,13 @@
 @endsection
 
 @section('content')
-
+<section class="w-full px-4 mb-10 flex justify-center items-center mt-10">
+    @if($ads['home_page_ad'] != null)
+        <div class="max-w-full text-center">
+            {!! $ads['home_page_ad'] !!}
+        </div>
+    @endif
+</section>
     <!-- Hero Section -->
     <section class="w-full max-w-8xl px-2 overflow-hidden relative group mb-10">
         <div class="hero flex flex-col px-2 items-center justify-center bg-secondary/10 border border-white/20 backdrop-blur-lg rounded-2xl p-8 md:p-16 relative overflow-hidden">
@@ -61,6 +113,11 @@
                     </div>
                 </a>
             @endforeach
+            @if($ads['home_page_ad_2'] != null)
+                <div class="card bg-secondary/10 hover:bg-primary/5 transition duration-300 ease-in-out rounded-2xl h-60">
+                    {!! $ads['home_page_ad_2'] !!}
+                </div>
+            @endif
         </div>
     </section>
 

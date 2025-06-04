@@ -36,6 +36,45 @@ class SiteSettingResource extends Resource
                                 ->required()
                                 ->maxLength(255),
 
+                                Forms\Components\Select::make('site_theme')
+                                ->label('Site Theme')
+                                ->options([
+                                    'light' => 'Light',
+                                    'dark' => 'Dark',
+                                    'cupcake' => 'Cupcake',
+                                    'bumblebee' => 'Bumblebee',
+                                    'emerald' => 'Emerald',
+                                    'corporate' => 'Corporate',
+                                    'synthwave' => 'Synthwave',
+                                    'retro' => 'Retro',
+                                    'cyberpunk' => 'Cyberpunk',
+                                    'valentine' => 'Valentine',
+                                    'halloween' => 'Halloween',
+                                    'garden' => 'Garden',
+                                    'forest' => 'Forest',
+                                    'aqua' => 'Aqua',
+                                    'lofi' => 'Lofi',
+                                    'pastel' => 'Pastel',
+                                    'fantasy' => 'Fantasy',
+                                    'wireframe' => 'Wireframe',
+                                    'black' => 'Black',
+                                    'luxury' => 'Luxury',
+                                    'dracula' => 'Dracula',
+                                    'cmyk' => 'CMYK',
+                                    'autumn' => 'Autumn',
+                                    'business' => 'Business',
+                                    'acid' => 'Acid',
+                                    'lemonade' => 'Lemonade',
+                                    'night' => 'Night',
+                                    'coffee' => 'Coffee',
+                                    'winter' => 'Winter',
+                                    'dim' => 'Dim',
+                                    'nord' => 'Nord',
+                                    'sunset' => 'Sunset',
+                                ])
+                                ->searchable()
+                                ->required(),
+
                                 Forms\Components\FileUpload::make('site_logo')
                                     ->nullable()
                                     ->imagePreviewHeight('200')
