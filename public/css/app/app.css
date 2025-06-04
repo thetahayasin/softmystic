@@ -1,0 +1,18 @@
+/* Hide buttons on touch devices */
+@media (pointer: coarse) {
+    #left-btn, #right-btn, #carousel-next, #carousel-prev {
+        display: none;
+    }
+}
+
+/* Hide scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+html {
+    scroll-behavior: smooth;
+}

@@ -37,6 +37,47 @@ class SiteTranslationResource extends Resource
                         ->searchable()
                         ->columnSpan(12), // Full span for the 'locale_id'
                 ]),
+
+
+                Section::make('Home Page Translations')
+                ->description('Specify Your Home Page Translations')
+                ->schema([
+                    TextInput::make('hero_title')
+                        ->required()
+                        ->maxLength(255)
+                        ->label('Home Hero Title')
+                        ->helperText('Title for the home page hero card.'),
+        
+                    TextInput::make('hero_text')
+                        ->required()
+                        ->maxLength(255)
+                        ->label('Home Hero Text')
+                        ->helperText('Text for the home page hero card.'),
+                    TextInput::make('featured_apps')
+                        ->required()
+                        ->maxLength(255)
+                        ->label('Home Featured Section Text')
+                        ->helperText('Text for the home page Featured Apps section.'),
+                    TextInput::make('latest_updates')
+                        ->required()
+                        ->maxLength(255)
+                        ->label('Home Latest Updates Section Text')
+                        ->helperText('Text for the home page Latest Updates section.'),
+                    TextInput::make('new_releases')
+                        ->required()
+                        ->maxLength(255)
+                        ->label('Home New Releases Section Text')
+                        ->helperText('Text for the home page New Releases Apps section.'),
+                    TextInput::make('trending_apps')
+                        ->required()
+                        ->maxLength(255)
+                        ->label('Home Trending Section Text')
+                        ->helperText('Text for the home page Trending Apps section.'),
+
+
+
+                ])->columns(2),
+
                 Section::make('SEO')
                 ->description('You can use shortcodes from static translations for the site like [download], [free], [version]. For software/category/platform/author/license currently on page [software], [category], [platform], [author], [license] can be used. ')
                 ->schema([

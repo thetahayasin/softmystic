@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('site_translations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('hero_title');
+            $table->string('hero_text');
+
+            $table->string('featured_apps');
+            $table->string('latest_updates');
+            $table->string('new_releases');
+            $table->string('trending_apps');
+
+
             $table->string('home_meta_title')->nullable();
             $table->string('home_meta_description')->nullable();
             $table->string('category_meta_title')->nullable();

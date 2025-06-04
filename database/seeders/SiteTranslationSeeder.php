@@ -19,6 +19,12 @@ class SiteTranslationSeeder extends Seeder
         DB::table('site_translations')->insert([
             'home_meta_title' => 'Welcome to Our Website',
             'home_meta_description' => 'This is the home page of our website where you can find everything.',
+            'hero_title' => 'Welcome to App Galaxy',
+            'hero_text' => 'Discover the latest and greatest apps in one place.',
+            'featured_apps' => 'Featured Apps',
+            'latest_updates' => 'Latest Updates',
+            'new_releases' => 'New Releases',
+            'trending_apps' => 'Trending Apps',
             'category_meta_title' => 'Category Page',
             'category_meta_description' => 'Explore various categories on our website.',
             'search_meta_title' => 'Search Results',
