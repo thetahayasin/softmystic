@@ -19,7 +19,7 @@
     
     <!-- Center: Logo -->
     <div class="flex-1 text-center h-full flex items-center justify-center">
-        <a href="{{ url('/') }}" class="block h-full" aria-label="Home">
+        <a href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}" class="block h-full" aria-label="Home">
             <div class="h-full px-4 py-2 rounded-lg flex items-center">
                 @if ($ads->site_logo)
                     <img loading="lazy" src="{{ asset('storage/' . $ads->site_logo) }}" alt="Website Logo" class="max-h-8 w-full" />
@@ -57,7 +57,7 @@
 </nav>
 
 <!-- Search Bar (Overlay, Initially Hidden) -->
-<section id="search-bar" class="navbar bg-secondary p-2 fixed top-0 left-0 right-0 z-40 hidden container mx-auto max-w-[1080px]" role="search">
+<section id="search-bar" class="navbar bg-secondary h-10 p-2 fixed top-0 left-0 right-0 z-40 hidden container mx-auto max-w-[1080px]" role="search">
     <div class="w-full flex items-center bg-secondary rounded-md py-1">
         <label for="search-input" class="sr-only">Search</label>
         <input id="search-input" type="text" class="input text-xl bg-secondary outline-none border-none focus:outline-none w-full placeholder:text-white/50 text-white" placeholder="Search..." aria-label="Search">
