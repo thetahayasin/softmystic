@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InstallationController;
+use App\Http\Controllers\SingleController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -16,7 +17,21 @@ Route::post('/install/step2', [InstallationController::class, 'postStep2'])->nam
 Route::get('/install/step3', [InstallationController::class, 'step3'])->name('install.step3');
 Route::post('/install/step3', [InstallationController::class, 'postStep3'])->name('install.postStep3');
 
+
+
+
+// Keep your original routes:
+Route::prefix('download')->name('single.')->group(function () {
+    Route::get('{param1}/{param2}/{param3}', [SingleController::class, 'index'])->name('index');
+    Route::get('{param1}/{param3}', [SingleController::class, 'index'])->name('index');
+    Route::get('{param2}/{param3}', [SingleController::class, 'index'])->name('index');
+    Route::get('{param3}', [SingleController::class, 'index'])->name('index');
+});
+
+
 Route::get('/{param1?}/{param2?}', [HomeController::class, 'index'])->name('home');
+
+
 
 
 Route::get('/login', function () {

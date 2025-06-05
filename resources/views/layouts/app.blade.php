@@ -14,7 +14,7 @@
     {!! $settings->header_code !!}
 </head>
 <body data-theme="{{ $settings->site_theme }}" class="bg-base-100  justify-center items-center min-h-screen">
-<div class="container mx-auto max-w-[1080px]">
+<main class="container mx-auto max-w-[1080px]">
 
 
 @include('includes.navbar')
@@ -25,7 +25,7 @@
 
 
 
-</div>
+</main>
 <script src="{{ asset('js/app/app.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js" integrity="sha512-b+nQTCdtTBIRIbraqNEwsjB6UvL3UEMkXnhzd8awtCYh0Kcsjl9uEgwVFVbhoj3uu1DO1ZMacNvLoyJJiNfcvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @yield('scripts')

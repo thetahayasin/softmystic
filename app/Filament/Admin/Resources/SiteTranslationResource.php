@@ -39,8 +39,8 @@ class SiteTranslationResource extends Resource
                 ]),
 
 
-                Section::make('Home Page Translations')
-                ->description('Specify Your Home Page Translations')
+                Section::make('Global Translations')
+                ->description('Specify Your Global Translations')
                 ->schema([
                     TextInput::make('hero_title')
                         ->required()
@@ -73,13 +73,36 @@ class SiteTranslationResource extends Resource
                         ->maxLength(255)
                         ->label('Home Trending Section Text')
                         ->helperText('Text for the home page Trending Apps section.'),
-
-
+                    TextInput::make('related')
+                        ->required()
+                        ->default('Single Page Related Apps Section Text')
+                        ->minLength(3)
+                        ->maxLength(255)
+                        ->helperText('Text for the single page Related Apps section.')
+                        ->label('Single Page Related Apps Section Text'),
+                    TextInput::make('download_button')
+                        ->required()
+                        ->default('Download Now')
+                        ->minLength(3)
+                        ->maxLength(255)
+                        ->label('Site Wide Download Button Text'),
+                    TextInput::make('buy_now')
+                        ->required()
+                        ->default('Buy Now')
+                        ->minLength(3)
+                        ->maxLength(255)
+                        ->label('Site Wide Buy Now Button Text'),
+                    TextInput::make('footer_text')
+                        ->required()
+                        ->minLength(3)
+                        ->default('Softimystic is a multiplatform appstore.')
+                        ->maxLength(255)
+                        ->label('Site Wide Footer Copyright Text'),
 
                 ])->columns(2),
 
                 Section::make('SEO')
-                ->description('You can use shortcodes from static translations for the site like [download], [free], [version]. For software/category/platform/author/license currently on page [software], [category], [platform], [author], [license] can be used. ')
+                ->description('Some fields can use shortcodes from Static Translations / Shortcodes given below.')
                 ->schema([
                     TextInput::make('home_meta_title')
                         ->nullable()
@@ -132,87 +155,70 @@ class SiteTranslationResource extends Resource
                     TextInput::make('single_meta_title')
                         ->nullable()
                         ->maxLength(255)
-                        ->label('Single Page Meta Title')
-                        ->helperText('Title for single page meta tag.'),
+                        ->label('Single Page Meta Title - [Short Codes can be used]')
+                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year]'),
         
                     TextInput::make('single_meta_description')
                         ->nullable()
                         ->maxLength(255)
-                        ->label('Single Page Meta Description')
-                        ->helperText('Description for single page meta tag.'),
+                        ->label('Single Page Meta Description - [Short Codes can be used]')
+                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year]'),
                 ])->columns(2),
 
 
 
                 // Section for Static Translations
-                Section::make('Static Translations')
+                Section::make('Static Translations / Shortcodes')
+                    ->description('These short codes can be used in meta titles and descriptions')
                     ->schema([
                         TextInput::make('search_results')
                             ->required()
                             ->minLength(3)
                             ->default('Results for')
                             ->maxLength(255)
-                            ->label('Search Results Text'),
+                            ->label('Search Results Text [search_results]'),
                         TextInput::make('category')
                             ->required()
                             ->default('Category')
                             ->minLength(3)
                             ->maxLength(255)
-                            ->label('Category Text'),
-                        TextInput::make('download_button')
-                            ->required()
-                            ->default('Download')
-                            ->minLength(3)
-                            ->maxLength(255)
-                            ->label('Download Button Text'),
-                        TextInput::make('footer_text')
-                            ->required()
-                            ->minLength(3)
-                            ->default('Softimystic is a multiplatform appstore.')
-                            ->maxLength(255)
-                            ->label('Footer Text'),
+                            ->label('Category Text [category]'),
                         TextInput::make('latest')
                             ->required()
                             ->default('Latest Apps')
                             ->minLength(3)
                             ->maxLength(255)
-                            ->label('Latest Text'),
+                            ->label('Latest Text [latest]'),
                         TextInput::make('popular')
                             ->required()
                             ->default('Popular Apps')
                             ->minLength(3)
                             ->maxLength(255)
-                            ->label('Popular Text'),
-                        TextInput::make('related')
-                            ->required()
-                            ->default('Related Apps')
-                            ->minLength(3)
-                            ->maxLength(255)
-                            ->label('Related Text'),
+                            ->label('Popular Text [popular]'),
                         TextInput::make('download')
                             ->required()
                             ->default('Download')
                             ->minLength(3)
                             ->maxLength(255)
-                            ->label('Download Text'),
+                            ->label('Download Text [download]'),
                         TextInput::make('for')
                             ->required()
                             ->default('for')
                             ->minLength(3)
                             ->maxLength(255)
-                            ->label('For Text'),
+                            ->label('For Text [for]'),
                         TextInput::make('free')
                             ->required()
                             ->default('Free')
                             ->minLength(3)
                             ->maxLength(255)
-                            ->label('Free Text'),
+                            ->label('Free Text [free]'),
                         TextInput::make('version')
                             ->required()
                             ->default('Version')
                             ->minLength(3)
                             ->maxLength(255)
-                            ->label('Version Text'),
+                            ->label('Version Text [version]'),
                     ])->columns(2),
             ]);
     }

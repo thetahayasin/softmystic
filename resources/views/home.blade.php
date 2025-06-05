@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('meta_title'){{ $trns->home_meta_title ?? '' }} - {{ $ads->site_name }}@endsection
-@section('meta_description'){{ $trns->home_meta_description ?? '' }}@endsection
+@section('meta_description'){{ \Illuminate\Support\Str::limit(optional($trns)->home_meta_description, 120, '...') }}@endsection
 @section('styles')
 <link rel="canonical" href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}">
     <meta name="robots" content="index, follow" />
@@ -90,12 +90,14 @@
         </div>
     </section>
 
+
+    
     <!-- Featured Downloads Section -->
     <section id="featured" class="w-full max-w-8xl px-2 overflow-hidden relative group mb-10">
         <h2 class="text-xl font-bold mb-5">{{ $trns->featured_apps ?? 'Default' }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             @foreach ($featured as $app)
-                <a href="" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
+                <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
                     <div class="card bg-secondary/10 hover:bg-primary/5 transition duration-300 ease-in-out rounded-2xl">
                         <figure class="px-3 pt-5">
                             <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="rounded-xl w-24 h-24 object-cover" />
@@ -125,8 +127,9 @@
     <section id="latest-updates" class="w-full max-w-8xl px-2 overflow-hidden relative group mb-10">
         <h2 class="text-xl font-bold mb-5">{{ $trns->latest_updates ?? 'Default' }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            
             @foreach ($updates as $app)
-                <a href="" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
+                <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
                     <div class="flex items-center p-4 bg-base-100 rounded-2xl hover:bg-primary/5 transition duration-300 ease-in-out">
                         <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="w-12 h-12 rounded-lg mr-4">
                         <div>
@@ -144,7 +147,7 @@
         <h2 class="text-xl font-bold mb-5">{{ $trns->new_releases ?? 'Default' }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             @foreach ($newreleases as $app)
-                <a href="" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
+                <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
                     <div class="flex items-center p-4 bg-base-100 rounded-2xl hover:bg-primary/5 transition duration-300 ease-in-out">
                         <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="w-12 h-12 rounded-lg mr-4">
                         <div>
@@ -162,7 +165,7 @@
         <h2 class="text-xl font-bold mb-5">{{ $trns->trending_apps ?? 'Default' }}</h2>
         <div id="carousel-app" class="carousel flex space-x-4 snap-x overflow-x-scroll scrollbar-hide scroll-smooth">
             @foreach ($popular as $app)
-                <a href="" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
+                <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
                     <div class="carousel-item w-24 h-auto flex-shrink-0 flex flex-col items-center text-center justify-start p-4 rounded-lg hover:bg-primary/5 transition duration-300 ease-in-out">
                         <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="w-24 h-24 rounded-lg">
                         <div class="flex flex-col items-center justify-start mt-2">
@@ -180,17 +183,17 @@
 
         <!-- Left Scroll Button -->
         <button aria-label="Previous Slide" id="left-btn"
-           class="absolute left-0 top-1/2 bg-secondary rounded-full border-none shadow p-2 opacity-0 group-hover:opacity-100 hidden btn btn-circle
-          hover:bg-secondary transition-all duration-300"
-           onclick="scrollCarousel_app(-1)">
+            class="absolute left-0 top-1/2 bg-accent rounded-full border-none shadow p-2 opacity-0 group-hover:opacity-100 hidden btn btn-circle btn-sm
+            hover:bg-accent transition-all duration-300"
+            onclick="scrollCarousel_app(-1)">
             ❮
         </button>
 
         <!-- Right Scroll Button -->
         <button aria-label="Next Slide" id="right-btn"
-           class="absolute right-0 border-none top-1/2 bg-secondary rounded-full shadow p-2 opacity-0 group-hover:opacity-100 hidden btn btn-circle
-          hover:bg-secondary transition-all duration-300"
-           onclick="scrollCarousel_app(1)">
+            class="absolute right-0 border-none top-1/2 bg-accent rounded-full shadow p-2 opacity-0 group-hover:opacity-100 hidden btn btn-circle btn-sm
+            hover:bg-accent transition-all duration-300"
+            onclick="scrollCarousel_app(1)">
             ❯
         </button>
     </section>

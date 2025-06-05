@@ -137,13 +137,13 @@ class SiteSettingResource extends Resource
                                 Forms\Components\TextArea::make('home_page_ad')
                                     ->nullable()
                                     ->maxLength(255)
-                                    ->label('Home Page Ad')
+                                    ->label('Home Page Ad (728x90 Recommended)')
                                     ->helperText('Ad content for the home page.'),
     
                                 Forms\Components\TextArea::make('home_page_ad_2')
                                     ->nullable()
                                     ->maxLength(255)
-                                    ->label('Home Page Ad 2')
+                                    ->label('Home Page Ad 2 (250x250 Recommended)')
                                     ->helperText('Second ad content for the home page.'),
     
                                 Forms\Components\TextArea::make('results_page_ad')
@@ -161,13 +161,13 @@ class SiteSettingResource extends Resource
                                 Forms\Components\TextArea::make('single_page_ad')
                                     ->nullable()
                                     ->maxLength(255)
-                                    ->label('Single Page Ad')
+                                    ->label('Single Page Ad (728x90 Recommended)')
                                     ->helperText('Ad content for the single page.'),
     
                                 Forms\Components\TextArea::make('single_page_ad_2')
                                     ->nullable()
                                     ->maxLength(255)
-                                    ->label('Single Page Ad 2')
+                                    ->label('Single Page Ad 2 (728x90 Recommended)')
                                     ->helperText('Second ad content for the single page.'),
     
                                 Forms\Components\TextArea::make('download_page_ad')

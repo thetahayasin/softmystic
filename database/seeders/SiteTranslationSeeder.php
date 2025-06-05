@@ -36,6 +36,7 @@ class SiteTranslationSeeder extends Seeder
             'search_results' => 'Showing search results for your query.',
             'category' => 'All Categories',
             'download_button' => 'Click to Download',
+            'buy_now' => 'Buy Now',
             'footer_text' => 'Thank you for visiting our website!',
             'latest' => 'Latest Products',
             'popular' => 'Popular Products',

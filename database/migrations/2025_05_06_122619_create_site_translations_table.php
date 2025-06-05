@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('search_results');
             $table->string('category');
             $table->string('download_button');
+            $table->string('buy_now');
             $table->string('footer_text');
             $table->string('latest');
             $table->string('popular');

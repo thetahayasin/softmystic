@@ -39,11 +39,25 @@
                 <i class="fas fa-globe text-xl"></i>
             </button>
             <ul id="locale-menu" class="menu dropdown-content p-2 shadow bg-secondary text-white text-md font-bold rounded-box w-52 mt-2 hidden absolute left-0 -ml-20 z-40" role="menu" aria-label="Language Selection">
+            @if (Route::currentRouteName() == 'single.index')
+            @foreach ($locales as $locale)
+                <li role="none">
+                    <a href="{{ $localeSwitchUrls[$locale->key] ?? '#' }}"
+                        class="rounded-lg block"
+                        role="menuitem"
+                        title="{{ $locale->name }}">
+                            {{ $locale->name }}
+                    </a>
+                </li>
+
+            @endforeach
+            @else
                 @foreach ($locales as $locale)
                     <li role="none">
                         <a href="{{  route('home', ['param1' => $locale['slug'] != $default_locale_slug ? $locale['slug'] : null, 'param2' => $platform_slug]) }}" class="rounded-lg block" role="menuitem" title="{{ $locale['name'] }}">{{ $locale['name'] }}</a>
                     </li>
                 @endforeach 
+            @endif
             </ul>
         </div>
 

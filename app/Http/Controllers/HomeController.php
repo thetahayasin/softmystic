@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\SiteSetting;
 use App\Models\Software;
-use App\Models\SoftwareTranslation;
-use Illuminate\Http\Request;
 use App\Models\Locale;
 use App\Models\Platform;
 use App\Models\SiteTranslation;
@@ -65,74 +63,7 @@ class HomeController extends Controller
             'site_name',
             'site_logo'
         ]);
-    
-        // Fetch featured apps
-        $featured = Software::with([
-            'softwareTranslations' => fn ($q) => $q->where('locale_id', $locale_id),
-            'author'
-        ])
-        ->where('is_featured', true)
-        ->where('platform_id', $platform_id)
-        ->latest('updated_at')
-        ->take(2)
-        ->get()
-        ->map(fn ($software) => [
-            'name'     => $software->name,
-            'slug'     => $software->slug,
-            'version'  => $software->version,
-            'logo'     => $software->logo,
-            'tagline'  => optional($software->softwareTranslations->first())->tagline,
-            'author'   => optional($software->author)->name,
-        ]);
-    
-        // Latest updates
-        $updates = Software::with([
-            'softwareTranslations' => fn ($q) => $q->where('locale_id', $locale_id),
-            'author'
-        ])
-        ->latest('updated_at')
-        ->where('platform_id', $platform_id)
-        ->take(8)
-        ->get()
-        ->map(fn ($software) => [
-            'name'     => $software->name,
-            'slug'     => $software->slug,
-            'logo'     => $software->logo,
-            'tagline'  => optional($software->softwareTranslations->first())->tagline,
-        ]);
-    
-        // New releases
-        $newreleases = Software::with([
-            'softwareTranslations' => fn ($q) => $q->where('locale_id', $locale_id),
-            'author'
-        ])
-        ->latest('created_at')
-        ->where('platform_id', $platform_id)
-        ->take(8)
-        ->get()
-        ->map(fn ($software) => [
-            'name'     => $software->name,
-            'slug'     => $software->slug,
-            'logo'     => $software->logo,
-            'tagline'  => optional($software->softwareTranslations->first())->tagline,
-        ]);
-    
-        // Popular
-        $popular = Software::with([
-            'softwareTranslations' => fn ($q) => $q->where('locale_id', $locale_id),
-            'author'
-        ])
-        ->orderByDesc('downloads')
-        ->where('platform_id', $platform_id)
-        ->take(16)
-        ->get()
-        ->map(fn ($software) => [
-            'name'     => $software->name,
-            'slug'     => $software->slug,
-            'logo'     => $software->logo,
-            'tagline'  => optional($software->softwareTranslations->first())->tagline,
-        ]);
-    
+
         //url generation vars
         $default_locale_slug = $default_locale->slug;
         $default_platform_slug = $default_platform->slug;
@@ -154,14 +85,88 @@ class HomeController extends Controller
         {
             $locale_slug = $locale->slug;
         }
+    
+        // Fetch featured apps
+        $featured = Software::with([
+            'softwareTranslations' => fn ($q) => $q->where('locale_id', $locale_id),
+            'author'
+        ])
+        ->where('is_featured', true)
+        ->where('platform_id', $platform_id)
+        ->latest('updated_at')
+        ->take(2)
+        ->get()
+        ->map(fn ($software) => [
+            'name'     => $software->name,
+            'slug'     => $software->slug,
+            'version'  => $software->version,
+            'logo'     => $software->logo,
+            'tagline'  => optional($software->softwareTranslations->first())->tagline,
+            'author'   => optional($software->author)->name,
+            'url'      => $this->generateSingleUrl($locale_slug, $platform_slug, $software->slug),
+        ]);
+    
+        // Latest updates
+        $updates = Software::with([
+            'softwareTranslations' => fn ($q) => $q->where('locale_id', $locale_id),
+            'author'
+        ])
+        ->latest('updated_at')
+        ->where('platform_id', $platform_id)
+        ->take(8)
+        ->get()
+        ->map(fn ($software) => [
+            'name'     => $software->name,
+            'slug'     => $software->slug,
+            'logo'     => $software->logo,
+            'tagline'  => optional($software->softwareTranslations->first())->tagline,
+            'url'      => $this->generateSingleUrl($locale_slug, $platform_slug, $software->slug),
+        ]);
+    
+        // New releases
+        $newreleases = Software::with([
+            'softwareTranslations' => fn ($q) => $q->where('locale_id', $locale_id),
+            'author'
+        ])
+        ->latest('created_at')
+        ->where('platform_id', $platform_id)
+        ->take(8)
+        ->get()
+        ->map(fn ($software) => [
+            'name'     => $software->name,
+            'slug'     => $software->slug,
+            'logo'     => $software->logo,
+            'tagline'  => optional($software->softwareTranslations->first())->tagline,
+            'url'      => $this->generateSingleUrl($locale_slug, $platform_slug, $software->slug),
+        ]);
+    
+        // Popular
+        $popular = Software::with([
+            'softwareTranslations' => fn ($q) => $q->where('locale_id', $locale_id),
+            'author'
+        ])
+        ->orderByDesc('downloads')
+        ->where('platform_id', $platform_id)
+        ->take(16)
+        ->get()
+        ->map(fn ($software) => [
+            'name'     => $software->name,
+            'slug'     => $software->slug,
+            'logo'     => $software->logo,
+            'tagline'  => optional($software->softwareTranslations->first())->tagline,
+            'url'      => $this->generateSingleUrl($locale_slug, $platform_slug, $software->slug),
+        ]);
 
         // Get all locales
         $locales = Locale::get(['name', 'slug', 'key']);
 
-
-
-
         return view('home', compact('featured', 'updates', 'newreleases', 'popular', 'trns', 'platform_slug', 'locale_slug', 'default_locale_slug', 'default_platform_slug', 'locales', 'ads'));
+    }
+
+    private function generateSingleUrl($locale_slug, $platform_slug, $app_slug)
+    {
+        $segments = array_filter(['download', $locale_slug, $platform_slug, $app_slug]);
+        return '/' . implode('/', $segments);
     }
     
     

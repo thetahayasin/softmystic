@@ -124,3 +124,7 @@ rightBtn.addEventListener('click', (event) => {
     event.preventDefault();
     scrollCarousel_app(1);
 });
+
+
+
+
