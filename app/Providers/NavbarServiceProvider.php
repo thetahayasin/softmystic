@@ -8,6 +8,8 @@ use App\Models\Platform;
 use App\Models\SiteSetting;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
+
 
 class NavbarServiceProvider extends ServiceProvider
 {
@@ -16,35 +18,39 @@ class NavbarServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        View::composer('includes.navbar', function ($view) {
-            // Get site-wide default locale ID
-            $settings = SiteSetting::first(['locale_id']);
-            $defaultLocaleId = $settings->locale_id;
 
-            // Get current app locale key (slug), e.g., 'en', 'fr'
-            $localeKey = app()->getLocale();
+        if (!app()->runningInConsole() || Schema::hasTable('site_settings')) {
+            View::composer('includes.navbar', function ($view) {
+                // Get site-wide default locale ID
+                $settings = SiteSetting::first(['locale_id']);
+                $defaultLocaleId = $settings->locale_id;
 
-            // Resolve locale ID or fallback to default
-            $localeId = Locale::where('key', $localeKey)->value('id') ?? $defaultLocaleId;
+                // Get current app locale key (slug), e.g., 'en', 'fr'
+                $localeKey = app()->getLocale();
 
-            // Fetch categories with translations for the resolved locale only
-            $categories = Category::whereHas('categoryTranslations', fn($q) => $q->where('locale_id', $localeId))
-                ->with(['categoryTranslations' => fn($q) => $q->where('locale_id', $localeId)])
-                ->get()
-                ->map(function ($category) {
-                    $translation = $category->categoryTranslations->first();
-                    return [
-                        'slug' => $category->slug,
-                        'name' => $translation->name,
-                    ];
-                });
+                // Resolve locale ID or fallback to default
+                $localeId = Locale::where('key', $localeKey)->value('id') ?? $defaultLocaleId;
 
-            // Get all platforms
-            $platforms = Platform::get(['name', 'slug']);
+                // Fetch categories with translations for the resolved locale only
+                $categories = Category::whereHas('categoryTranslations', fn($q) => $q->where('locale_id', $localeId))
+                    ->with(['categoryTranslations' => fn($q) => $q->where('locale_id', $localeId)])
+                    ->get()
+                    ->map(function ($category) {
+                        $translation = $category->categoryTranslations->first();
+                        return [
+                            'slug' => $category->slug,
+                            'name' => $translation->name,
+                        ];
+                    });
 
-            // Pass data to view
-            $view->with(compact('categories', 'platforms'));
-        });
+                // Get all platforms
+                $platforms = Platform::get(['name', 'slug']);
+
+                // Pass data to view
+                $view->with(compact('categories', 'platforms'));
+            });
+        }
+
     }
 
     /**

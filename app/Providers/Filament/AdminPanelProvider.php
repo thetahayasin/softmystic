@@ -20,17 +20,21 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Support\Facades\Schema;
+
 
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        if (config('app.installed')) {
-            $siteLogo = SiteSetting::first()?->site_logo;
-            $siteFavicon = SiteSetting::first()?->site_favicon;
-        }
-        else
-        {
+        if (
+            app()->runningInConsole() === false &&
+            Schema::hasTable('site_settings') &&
+            config('app.installed')
+        ) {
+            $siteLogo = \App\Models\SiteSetting::first()?->site_logo;
+            $siteFavicon = \App\Models\SiteSetting::first()?->site_favicon;
+        } else {
             $siteLogo = null;
             $siteFavicon = null;
         }
