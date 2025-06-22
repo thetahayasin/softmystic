@@ -131,14 +131,14 @@ class SiteTranslationResource extends Resource
                     TextInput::make('search_meta_title')
                         ->nullable()
                         ->maxLength(255)
-                        ->label('Search Meta Title')
-                        ->helperText('Title for search result pages meta tag.'),
+                        ->label('Search Meta Title - [Short Codes can be used]')
+                        ->helperText('Title for search result pages meta tag. For current search query use shortcode [search_query]'),
         
                     TextInput::make('search_meta_description')
                         ->nullable()
                         ->maxLength(255)
-                        ->label('Search Meta Description')
-                        ->helperText('Description for search result pages meta tag.'),
+                        ->label('Search Meta Description - [Short Codes can be used]')
+                        ->helperText('Description for search result pages meta tag. For current search query use shortcode [search_query]'),
         
                     TextInput::make('download_meta_title')
                         ->nullable()

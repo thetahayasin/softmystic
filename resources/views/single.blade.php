@@ -100,6 +100,9 @@
     <nav class="text-sm breadcrumbs text-gray-500 px-2 mb-10">
         <ul>
         <li><a href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}" class="text-base-content">Home</a></li>
+        <li><a href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}" class="text-base-content">{{ $software->platform->name }}</a></li>
+        <li><a href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}" class="text-base-content">Category</a></li>
+
         <li class="text-base-content/70">{{ $software->name }} {{ $software->version }}</li>
         </ul>
     </nav>
@@ -253,5 +256,6 @@
     <p class="py-4 text-base-content">{{ $software->license->licenseTranslations->first()?->description }}</p>
   </div>
 </dialog>
+
 
 @endsection

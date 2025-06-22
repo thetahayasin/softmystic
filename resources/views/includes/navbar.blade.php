@@ -49,6 +49,14 @@
                                    role="menuitem" title="{{ $locale->name }}">{{ $locale->name }}</a>
                             </li>
                         @endforeach
+                    @elseif (Route::currentRouteName() == 'result.index')
+                        @foreach ($locales as $locale)
+                            <li role="none">
+                                <a href="{{ $localeSwitchUrls[$locale->key] ?? '#' }}"
+                                   class="rounded-lg block px-3 py-2 hover:bg-base-200"
+                                   role="menuitem" title="{{ $locale->name }}">{{ $locale->name }}</a>
+                            </li>
+                        @endforeach
                     @else
                         @foreach ($locales as $locale)
                             <li role="none">

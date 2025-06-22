@@ -30,13 +30,15 @@
           "url": "{{ asset('storage/'.$ads->site_logo) }}"
         }
       },
+      @if ($ads->site_logo)
       "image": {
         "@type": "ImageObject",
         "url": "{{ asset('storage/'.$ads->site_logo) }}",
         "width": {{ $width }},
         "height": {{ $height }},
         "caption": "{{ $ads->site_name }} Website Logo"
-      }
+      }   
+      @endif
     }
     </script>
     <!-- Open Graph -->
@@ -44,13 +46,17 @@
     <meta property="og:description" content="{{ $trns->home_meta_description ?? '' }}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ url()->current() }}" />
+    @if($ads->site_logo)
     <meta property="og:image" content="{{ asset('storage/'.$ads->site_logo) }}" />
+    @endif
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{ $trns->home_meta_title ?? '' }} - {{ $ads->site_name }}" />
     <meta name="twitter:description" content="{{ $trns->home_meta_description ?? '' }}" />
+    @if($ads->site_logo)
     <meta name="twitter:image" content="{{ asset('storage/'.$ads->site_logo) }}" />
+    @endif
 @foreach ($locales as $locale)
     <link rel="alternate" hreflang="{{ $locale['slug'] != $default_locale_slug ? $locale['key'] : 'x-default' }}" href="{{ route('home', ['param1' => $locale['slug'] != $default_locale_slug ? $locale['slug'] : null, 'param2' => $platform_slug ]) }}">
 @endforeach
@@ -58,15 +64,17 @@
 @endsection
 
 @section('content')
-<section class="w-full px-4 mb-10 flex justify-center items-center mt-10">
-    @if($ads['home_page_ad'] != null)
+@if($ads['home_page_ad'] != null)
+<section class="w-full px-4 flex justify-center items-center mt-10">
+    
         <div class="max-w-full text-center">
             {!! $ads['home_page_ad'] !!}
         </div>
-    @endif
+    
 </section>
+@endif
     <!-- Hero Section -->
-    <section class="w-full max-w-8xl px-2 overflow-hidden relative group mb-10">
+    <section class="w-full max-w-8xl px-2 overflow-hidden relative group mb-10 mt-10">
         <div class="hero flex flex-col px-2 items-center justify-center bg-base-200 border border-white/20 backdrop-blur-lg rounded-2xl p-8 md:p-16 relative overflow-hidden">
             <div class="max-w-2xl text-center sm:mb-2">
                 <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight tracking-tight bg-gradient-to-r from-primary via-secondary to-secondary bg-clip-text text-transparent">
