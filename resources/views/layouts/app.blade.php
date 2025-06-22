@@ -32,6 +32,30 @@
 @yield('scripts')
 @livewireScripts
 {!! $settings->footer_code !!}
+<script>
+    document.getElementById('search-form').addEventListener('submit', function (e) {
+        e.preventDefault();
 
+        const query = document.getElementById('search-input').value.trim();
+        if (!query) return;
+
+        const parts = [];
+
+        // From Blade: values from current context
+        const locale = @json($locale_slug ?? null);
+        const platform = @json($platform_slug ?? null);
+        const defaultLocale = @json($default_locale_slug);
+        const defaultPlatform = @json($default_platform_slug);
+
+        // Only push if NOT default
+        if (locale && locale !== defaultLocale) parts.push(locale);
+        if (platform && platform !== defaultPlatform) parts.push(platform);
+
+        parts.push(encodeURIComponent(query)); // always add query
+
+        const finalUrl = `/search/${parts.join('/')}`;
+        window.location.href = finalUrl;
+    });
+</script>
 </body>
 </html>

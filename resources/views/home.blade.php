@@ -14,33 +14,54 @@
             $width = $height = 0; // fallback values
         }
     @endphp
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "url": "{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}",
-      "name": "{{ $trns->home_meta_title ?? '' }} – {{ $ads->site_name }}",
-      "description": "{{ $trns->home_meta_description ?? '' }}",
-      "inLanguage": "{{ app()->getLocale() }}",
-      "publisher": {
-        "@type": "Organization",
-        "name": "{{ $ads->site_name }}",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "{{ asset('storage/'.$ads->site_logo) }}"
-        }
-      },
-      @if ($ads->site_logo)
-      "image": {
-        "@type": "ImageObject",
-        "url": "{{ asset('storage/'.$ads->site_logo) }}",
-        "width": {{ $width }},
-        "height": {{ $height }},
-        "caption": "{{ $ads->site_name }} Website Logo"
-      }   
-      @endif
+    {{-- WebSite Structured Data --}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "url": "{{ url('/') }}",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ url('/search') }}/{locale}/{platform}/{query}",
+    "query-input": [
+      "required name=locale",
+      "required name=platform",
+      "required name=query"
+    ]
+  }
+}
+</script>
+
+{{-- WebPage Structured Data --}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "url": "{{ route('home', ['param1' => $locale_slug, 'param2' => $platform_slug]) }}",
+  "name": "{{ addslashes($trns->home_meta_title ?? '') }} – {{ addslashes($ads->site_name ?? '') }}",
+  "description": "{{ addslashes($trns->home_meta_description ?? '') }}",
+  "inLanguage": "{{ app()->getLocale() }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ addslashes($ads->site_name ?? '') }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ asset('storage/'.$ads->site_logo) }}"
     }
-    </script>
+  }
+  @if (!empty($ads->site_logo) && isset($width) && isset($height))
+  ,
+  "image": {
+    "@type": "ImageObject",
+    "url": "{{ asset('storage/'.$ads->site_logo) }}",
+    "width": {{ $width }},
+    "height": {{ $height }},
+    "caption": "{{ addslashes($ads->site_name ?? '') }} Website Logo"
+  }
+  @endif
+}
+</script>
+
     <!-- Open Graph -->
     <meta property="og:title" content="{{ $trns->home_meta_title ?? '' }} - {{ $ads->site_name }}" />
     <meta property="og:description" content="{{ $trns->home_meta_description ?? '' }}" />

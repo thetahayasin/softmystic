@@ -13,110 +13,65 @@ class ResultsController extends Controller
 {
     public function index($param1 = null, $param2 = null, $param3 = null)
     {
-        // Site-wide default locale and platform
         $settings = SiteSetting::first(['locale_id', 'platform_id']);
         $default_locale = Locale::find($settings->locale_id);
         $default_platform = Platform::find($settings->platform_id);
 
-        // Determine which param is the software slug (always last one)
         $q = $param3 ?? $param2 ?? $param1;
 
-        // Extract params into array and remove slug
-        $params = array_filter([$param1, $param2, $param3]);
-        $params = array_values($params);
-        array_pop($params); // Remove last (slug)
+        $params = array_values(array_filter([$param1, $param2, $param3]));
+        array_pop($params);
 
-        // Try to detect locale/platform
         $locale = null;
         $platform = null;
 
         foreach ($params as $param) {
-            if (!$locale) {
-                $loc = Locale::where('slug', $param)->first();
-                if ($loc) {
-                    $locale = $loc;
-                    continue;
-                }
-            }
-            if (!$platform) {
-                $plat = Platform::where('slug', $param)->first();
-                if ($plat) {
-                    $platform = $plat;
-                }
-            }
+            $loc = $locale ? null : Locale::where('slug', $param)->first();
+            $plat = $platform ? null : Platform::where('slug', $param)->first();
+            if ($loc) $locale = $loc;
+            if ($plat) $platform = $plat;
         }
 
-        // Fallbacks
         $locale = $locale ?? $default_locale;
         $platform = $platform ?? $default_platform;
-
-        // Set Laravel locale
         app()->setLocale($locale->key);
 
-        // IDs for convenience
         $locale_id = $locale->id;
         $platform_id = $platform->id;
 
-        // Generate slugs for dynamic URLs BEFORE related apps query
         $default_locale_slug = $default_locale->slug;
-        $default_locale_key = $default_locale->key;
         $default_platform_slug = $default_platform->slug;
+        $default_locale_key = $default_locale->key;
 
         $locale_slug = $locale_id === $default_locale->id ? null : $locale->slug;
         $platform_slug = $platform_id === $default_platform->id ? null : $platform->slug;
 
-        // Fetch site-wide translations
         $trns = SiteTranslation::where('locale_id', $locale_id)->first([
-            'search_meta_description',
-            'search_meta_title',
-            'related',
-            'latest',
-            'for',
-            'free',
-            'download',
-            'version',
-            'popular',
-            'category',
-            'search_results'
+            'search_meta_description', 'search_meta_title', 'related', 'latest',
+            'for', 'free', 'download', 'version', 'popular', 'category', 'search_results'
         ]);
 
-        // Fetch ads and site info
-        $ads = SiteSetting::first([
-            'results_page_ad',
-            'results_page_ad_2',
-            'site_name',
-            'site_logo'
-        ]);
+        $ads = SiteSetting::first(['results_page_ad', 'results_page_ad_2', 'site_name', 'site_logo']);
 
         $softwares = Software::with([
-            'license.licenseTranslations' => function ($query) use ($locale_id) {
-                $query->select('id', 'license_id', 'locale_id', 'name', 'description')
-                      ->where('locale_id', $locale_id);
-            },
+            'softwareTranslations' => fn($q2) => $q2->where('locale_id', $locale_id)
+                                                ->select('id', 'software_id', 'locale_id', 'tagline'),
+            'license.licenseTranslations' => fn($q3) => $q3->where('locale_id', $locale_id)
+                                                        ->select('id', 'license_id', 'locale_id', 'name')
         ])
-        ->select([
-            'id', 'name', 'slug', 'file_size', 'version',
-            'platform_id', 'license_id', 'logo', 'updated_at'
-        ])
+        ->select(['id', 'name', 'slug', 'file_size', 'version', 'platform_id', 'license_id', 'logo', 'updated_at'])
         ->where('platform_id', $platform_id)
-        
-        // Require at least one translation in the current locale
-        ->whereHas('softwareTranslations', function ($query) use ($locale_id) {
-            $query->where('locale_id', $locale_id);
-        })
-        
-        // Match either main name OR tagline in translations
+        ->whereHas('softwareTranslations', fn($q4) => $q4->where('locale_id', $locale_id))
         ->where(function ($query) use ($q, $locale_id) {
             $query->where('name', 'like', "%{$q}%")
-                  ->orWhereHas('softwareTranslations', function ($sub) use ($q, $locale_id) {
-                      $sub->where('locale_id', $locale_id)
-                          ->where('tagline', 'like', "%{$q}%");
-                  });
+                ->orWhereHas('softwareTranslations', fn($sub) =>
+                    $sub->where('locale_id', $locale_id)
+                        ->where('tagline', 'like', "%{$q}%")
+                );
         })
-        ->orderByDesc('id')
-        ->paginate(1);
+        ->latest('id')
+        ->paginate(12);
 
-        // Map results for frontend use (e.g., cards)
         $softwares->getCollection()->transform(function ($item) use (
             $locale_slug, $platform_slug, $default_locale_slug, $default_platform_slug
         ) {
@@ -124,145 +79,83 @@ class ResultsController extends Controller
                 'id'       => $item->id,
                 'name'     => $item->name,
                 'tagline'  => $item->softwareTranslations->first()?->tagline ?? '',
-                'license'  => $item->license->licenseTranslations()->first()?->name ?? '',
+                'license'  => $item->license->licenseTranslations->first()?->name ?? '',
                 'fileSize' => $item->readableFilesize,
                 'logo'     => $item->logo,
                 'updated'  => Carbon::parse($item->updated_at)->format('F, d Y'),
                 'url'      => $this->generateSingleUrl(
-                    $locale_slug,
-                    $platform_slug,
-                    $item->slug,
-                    $default_locale_slug,
-                    $default_platform_slug
-                ),
+                    $locale_slug, $platform_slug, $item->slug,
+                    $default_locale_slug, $default_platform_slug
+                )
             ];
         });
-        
 
-        //get url
         $cannonical = $this->generateHelpUrl($locale_slug, $platform_slug, $q, $default_locale_slug, $default_platform_slug);
 
-
-        // Get all locales
         $locales = Locale::get(['name', 'slug', 'key']);
 
-        //meta title and description
-        if($q != null && $trns != null)
-        {
+        $meta_title = $meta_description = '';
+        if ($q && $trns) {
             $meta_title = $this->parseShortcodes($trns->search_meta_title ?? '', $q, $trns);
             $meta_description = $this->parseShortcodes($trns->search_meta_description ?? '', $q, $trns);
         }
-        else
-        {
-            $meta_title = '';
-            $meta_description = '';
-        }
 
-        // Generate alternate URLs for all locales (ignore platforms for alternate)
-        $alternateUrls = [];
+        $alternateUrls = collect($locales)->map(fn($loc) => [
+            'hreflang' => $loc->key,
+            'url' => $this->generateHelpUrl(
+                $loc->slug === $default_locale_slug ? null : $loc->slug,
+                $platform_slug, $q, $default_locale_slug, $default_platform_slug
+            )
+        ])->toArray();
 
-        foreach ($locales as $loc) {
-            // If this locale is default, no slug in URL
-            $alt_locale_slug = $loc->slug === $default_locale_slug ? null : $loc->slug;
+        $localeSwitchUrls = collect($locales)->mapWithKeys(fn($loc) => [
+            $loc->key => $this->generateHelpUrl(
+                $loc->slug === $default_locale_slug ? null : $loc->slug,
+                $platform_slug, $q, $default_locale_slug, $default_platform_slug
+            )
+        ])->toArray();
 
-            // For alternate URLs, platform slug is null (ignore platform)
-            $url = $this->generateHelpUrl($alt_locale_slug, $platform_slug, $q, $default_locale_slug, $default_platform_slug);
-
-            $alternateUrls[] = [
-                'hreflang' => $loc->key,   // e.g. 'en', 'fr', 'de'
-                'url'      => $url,
-            ];
-        }
-
-        $localeSwitchUrls = [];
-
-        foreach ($locales as $loc) {
-            $alt_locale_slug = $loc->slug === $default_locale_slug ? null : $loc->slug;
-        
-            $localeSwitchUrls[$loc->key] = $this->generateHelpUrl(
-                $alt_locale_slug,
-                $platform_slug,
-                $q,
-                $default_locale_slug,
-                $default_platform_slug
-            );
-        }
-
-        // Pass all data to view
         return view('results', compact(
-            'softwares',
-            'trns',
-            'platform_slug',
-            'locale_slug',
-            'localeSwitchUrls',
-            'cannonical',
-            'locale_slug',
-            'default_locale_slug',
-            'default_platform_slug',
-            'locales',
-            'default_locale_key',
-            'ads',
-            'meta_title',
-            'meta_description',
-            'alternateUrls',
-            'q'
+            'softwares', 'trns', 'platform_slug', 'locale_slug', 'localeSwitchUrls', 'cannonical',
+            'default_locale_slug', 'default_platform_slug', 'locales', 'default_locale_key',
+            'ads', 'meta_title', 'meta_description', 'alternateUrls', 'q'
         ));
     }
 
-    //for generating single links
     private function generateSingleUrl($locale_slug, $platform_slug, $app_slug, $default_locale_slug, $default_platform_slug)
     {
         $segments = ['download'];
-    
-        if ($locale_slug !== $default_locale_slug && $locale_slug !== null) {
-            $segments[] = $locale_slug;
-        }
-    
-        if ($platform_slug !== $default_platform_slug && $platform_slug !== null) {
-            $segments[] = $platform_slug;
-        }
-    
+        if ($locale_slug && $locale_slug !== $default_locale_slug) $segments[] = $locale_slug;
+        if ($platform_slug && $platform_slug !== $default_platform_slug) $segments[] = $platform_slug;
         $segments[] = $app_slug;
-    
         return url('/') . '/' . implode('/', $segments);
     }
 
     private function generateHelpUrl($locale_slug, $platform_slug, $q, $default_locale_slug, $default_platform_slug)
     {
         $segments = ['search'];
-    
-        if ($locale_slug !== $default_locale_slug && $locale_slug !== null) {
-            $segments[] = $locale_slug;
-        }
-    
-        if ($platform_slug !== $default_platform_slug && $platform_slug !== null) {
-            $segments[] = $platform_slug;
-        }
-    
+        if ($locale_slug && $locale_slug !== $default_locale_slug) $segments[] = $locale_slug;
+        if ($platform_slug && $platform_slug !== $default_platform_slug) $segments[] = $platform_slug;
         $segments[] = $q;
-    
         return url('/') . '/' . implode('/', $segments);
     }
 
     function parseShortcodes(string $text, string $q, object $siteTranslations): string
     {
         $replacements = [
-            '[download]'             => $siteTranslations->download ?? '',
-            '[search_query]'         => $q ?? '',
-            '[for]'                  => $siteTranslations->for ?? '',
-            '[free]'                 => $siteTranslations->free ?? '',
-            '[latest]'               => $siteTranslations->latest ?? '',
-            '[popular]'              => $siteTranslations->popular ?? '',
-            '[search_results]'       => $siteTranslations->search_results ?? '',
-            '[category]'             => $siteTranslations->category ?? '',
-            '[year]'                 => date('Y'),
-            '[version]'              => $siteTranslations->version ?? '',
-
+            '[download]' => $siteTranslations->download ?? '',
+            '[search_query]' => $q,
+            '[for]' => $siteTranslations->for ?? '',
+            '[free]' => $siteTranslations->free ?? '',
+            '[latest]' => $siteTranslations->latest ?? '',
+            '[popular]' => $siteTranslations->popular ?? '',
+            '[search_results]' => $siteTranslations->search_results ?? '',
+            '[category]' => $siteTranslations->category ?? '',
+            '[year]' => date('Y'),
+            '[version]' => $siteTranslations->version ?? '',
         ];
-    
-        // Apply strip_tags to each replacement value
-        $cleanReplacements = array_map(fn($value) => strip_tags($value), $replacements);
-    
+
+        $cleanReplacements = array_map(fn($val) => strip_tags($val), $replacements);
         return str_replace(array_keys($cleanReplacements), array_values($cleanReplacements), $text);
     }
 }

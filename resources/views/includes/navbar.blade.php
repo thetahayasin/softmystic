@@ -87,15 +87,19 @@
     <div class="navbar h-10 p-2 w-full max-w-[1080px] backdrop-blur-md bg-white/10  text-base-content" role="search">
         <div class="w-full flex items-center rounded-md py-1">
             <label for="search-input" class="sr-only">Search</label>
-            <input id="search-input" type="text"
-                   class="input text-xl bg-transparent outline-none border-none w-full placeholder:text-base-content/70 text-base-content"
-                   placeholder="Search..." aria-label="Search">
+            <form class="w-full" id="search-form" >
+                <input id="search-input" type="text"
+                    class="input text-xl bg-transparent outline-none border-none w-full placeholder:text-base-content/70 text-base-content"
+                    placeholder="Search..." aria-label="Search" >
+            </form>
             <button id="close-btn" class="btn btn-ghost ml-2 rounded-full" aria-label="Close Search">
                 <i id="close-icon" class="fas fa-times w-6 h-6"></i>
             </button>
+
         </div>
     </div>
 </section>
+
 
 <!-- Category Text Ribbon (Contrasting Glass Style) -->
 <section class="relative w-full overflow-hidden group" aria-label="Category Navigation">
