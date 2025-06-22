@@ -185,6 +185,7 @@ class SingleController extends Controller
                 $default_platform_slug
             );
         }
+        $category_url = $this->generateHelpUrl($locale_slug, $platform_slug, $software->category?->slug, $default_locale_slug, $default_platform_slug);
 
         // Pass all data to view
         return view('single', compact(
@@ -202,7 +203,8 @@ class SingleController extends Controller
             'related',
             'meta_title',
             'meta_description',
-            'alternateUrls'
+            'alternateUrls',
+            'category_url'
         ));
     }
 
@@ -245,6 +247,15 @@ class SingleController extends Controller
         $cleanReplacements = array_map(fn($value) => strip_tags($value), $replacements);
     
         return str_replace(array_keys($cleanReplacements), array_values($cleanReplacements), $text);
+    }
+
+    private function generateHelpUrl($locale_slug, $platform_slug, $q, $default_locale_slug, $default_platform_slug)
+    {
+        $segments = ['category'];
+        if ($locale_slug && $locale_slug !== $default_locale_slug) $segments[] = $locale_slug;
+        if ($platform_slug && $platform_slug !== $default_platform_slug) $segments[] = $platform_slug;
+        $segments[] = $q;
+        return url('/') . '/' . implode('/', $segments);
     }
     
 }

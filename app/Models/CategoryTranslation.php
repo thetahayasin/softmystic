@@ -24,8 +24,8 @@ class CategoryTranslation extends Model
         return $this->belongsTo(Locale::class);
     }
 
-    public function category(): HasOne
+    public function category()
     {
-        return $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class);
     }
 }

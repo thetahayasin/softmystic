@@ -38,7 +38,7 @@
         "@type": "ListItem",
         "position": 2,
         "name": "{{ $software->category->categoryTranslations->first()?->name }}",
-        "item": "https://example.com/electronics"
+        "item": "{{ $category_url }}"
         },
         {
         "@type": "ListItem",
@@ -101,7 +101,7 @@
         <ul>
         <li><a href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}" class="text-base-content">Home</a></li>
         <li><a href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}" class="text-base-content">{{ $software->platform->name }}</a></li>
-        <li><a href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}" class="text-base-content">Category</a></li>
+        <li><a href="{{ $category_url }}" class="text-base-content">{{ $software->category->categoryTranslations->first()?->name }}</a></li>
 
         <li class="text-base-content/70">{{ $software->name }} {{ $software->version }}</li>
         </ul>
@@ -227,7 +227,7 @@
     @endif
 
     <!-- Related Apps -->
-    <section id="new-releases" class="w-full max-w-8xl px-2 overflow-hidden relative group mb-10">
+    <section id="related" class="w-full max-w-8xl px-2 overflow-hidden relative group mb-10">
         <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->related ?? 'Related Apps' }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             @foreach ($related as $app)

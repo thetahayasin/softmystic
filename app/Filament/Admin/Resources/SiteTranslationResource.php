@@ -119,14 +119,14 @@ class SiteTranslationResource extends Resource
                     TextInput::make('category_meta_title')
                         ->nullable()
                         ->maxLength(255)
-                        ->label('Category Meta Title')
-                        ->helperText('Title for category pages meta tag.'),
+                        ->label('Category Meta Title - [Short Codes can be used]')
+                        ->helperText('Title for category pages meta tag. For current category use shortcodes [category_name] and [category_description]'),
         
                     TextInput::make('category_meta_description')
                         ->nullable()
                         ->maxLength(255)
-                        ->label('Category Meta Description')
-                        ->helperText('Description for category pages meta tag.'),
+                        ->label('Category Meta Description - [Short Codes can be used]')
+                        ->helperText('Description for category pages meta tag. For current category use shortcodes [category_name] and [category_description]'),
         
                     TextInput::make('search_meta_title')
                         ->nullable()

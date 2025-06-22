@@ -43,11 +43,13 @@
   "inLanguage": "{{ app()->getLocale() }}",
   "publisher": {
     "@type": "Organization",
-    "name": "{{ addslashes($ads->site_name ?? '') }}",
-    "logo": {
+    "name": "{{ addslashes($ads->site_name ?? '') }}"
+    @if($ads->site_logo)
+    ,"logo": {
       "@type": "ImageObject",
       "url": "{{ asset('storage/'.$ads->site_logo) }}"
     }
+    @endif
   }
   @if (!empty($ads->site_logo) && isset($width) && isset($height))
   ,

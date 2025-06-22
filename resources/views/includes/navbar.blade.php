@@ -41,15 +41,7 @@
                     <i class="fas fa-globe text-xl"></i>
                 </button>
                 <ul id="locale-menu" class="menu dropdown-content p-2 flex border border-base-200 flex-col bg-base-100 text-sm font-bold rounded-lg w-52 mt-2 hidden absolute left-0 -ml-20 z-40 text-base-content" role="menu" aria-label="Language Selection">
-                    @if (Route::currentRouteName() == 'single.index')
-                        @foreach ($locales as $locale)
-                            <li role="none">
-                                <a href="{{ $localeSwitchUrls[$locale->key] ?? '#' }}"
-                                   class="rounded-lg block px-3 py-2 hover:bg-base-200"
-                                   role="menuitem" title="{{ $locale->name }}">{{ $locale->name }}</a>
-                            </li>
-                        @endforeach
-                    @elseif (Route::currentRouteName() == 'result.index')
+                    @if (Route::currentRouteName() == 'single.index' || Route::currentRouteName() == 'result.index' || Route::currentRouteName() == 'category.index')
                         @foreach ($locales as $locale)
                             <li role="none">
                                 <a href="{{ $localeSwitchUrls[$locale->key] ?? '#' }}"
@@ -114,7 +106,7 @@
     <!-- Scrollable Category List with Contrast -->
     <div class="w-full overflow-x-auto whitespace-nowrap p-1 bg-neutral backdrop-blur-md rounded-b-lg text-base-content scrollbar-hide category-scroll" role="list">
         @foreach ($categories as $cat)
-            <a href="#" class="inline-block text-neutral-content font-semibold mx-4 hover:text-neutral-content/70 transition" role="listitem" title="{{ $cat['name'] }}">
+            <a href="{{ $cat['url'] }}" class="inline-block text-neutral-content font-semibold mx-4 hover:text-neutral-content/70 transition" role="listitem" title="{{ $cat['name'] }}">
                 {{ $cat['name'] }}
             </a>
         @endforeach

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\SiteSetting;
 use App\Models\Software;
 use App\Models\Locale;
@@ -9,7 +10,7 @@ use App\Models\Platform;
 use App\Models\SiteTranslation;
 use Carbon\Carbon;
 
-class ResultsController extends Controller
+class CategoryController extends Controller
 {
     public function index($param1 = null, $param2 = null, $param3 = null)
     {
@@ -18,6 +19,8 @@ class ResultsController extends Controller
         $default_platform = Platform::find($settings->platform_id);
 
         $q = $param3 ?? $param2 ?? $param1;
+
+
 
         $params = array_values(array_filter([$param1, $param2, $param3]));
         array_pop($params);
@@ -48,26 +51,32 @@ class ResultsController extends Controller
         $platform_slug = $platform_id === $default_platform->id ? null : $platform->slug;
 
         $trns = SiteTranslation::where('locale_id', $locale_id)->first([
-            'search_meta_description', 'search_meta_title', 'download', 'search_results', 'for'
+            'category_meta_description', 'category_meta_title', 'related', 'latest',
+            'for', 'free', 'download', 'version', 'popular', 'category', 'search_results'
         ]);
 
         $ads = SiteSetting::first(['results_page_ad', 'results_page_ad_2', 'site_name', 'site_logo']);
 
+        $cat = Category::with(['categoryTranslations' => fn($q) => $q->where('locale_id', $locale_id)])
+        ->where('slug', $q)
+        ->first();
+        
+        if(!$cat)
+        {
+            abort('404');
+        }
+
         $softwares = Software::with([
             'softwareTranslations' => fn($q2) => $q2->where('locale_id', $locale_id)
-                                                ->select('id', 'software_id', 'locale_id', 'tagline'),
+                                                  ->select('id', 'software_id', 'locale_id', 'tagline'),
             'license.licenseTranslations' => fn($q3) => $q3->where('locale_id', $locale_id)
-                                                        ->select('id', 'license_id', 'locale_id', 'name')
+                                                          ->select('id', 'license_id', 'locale_id', 'name')
         ])
         ->select(['id', 'name', 'slug', 'file_size', 'version', 'platform_id', 'license_id', 'logo', 'updated_at'])
         ->where('platform_id', $platform_id)
         ->whereHas('softwareTranslations', fn($q4) => $q4->where('locale_id', $locale_id))
-        ->where(function ($query) use ($q, $locale_id) {
-            $query->where('name', 'like', "%{$q}%")
-                ->orWhereHas('softwareTranslations', fn($sub) =>
-                    $sub->where('locale_id', $locale_id)
-                        ->where('tagline', 'like', "%{$q}%")
-                );
+        ->when($cat, function ($query) use ($cat) {
+            $query->where('category_id', $cat->id);
         })
         ->latest('id')
         ->paginate(12);
@@ -96,8 +105,8 @@ class ResultsController extends Controller
 
         $meta_title = $meta_description = '';
         if ($q && $trns) {
-            $meta_title = $this->parseShortcodes($trns->search_meta_title ?? '', $q, $trns);
-            $meta_description = $this->parseShortcodes($trns->search_meta_description ?? '', $q, $trns);
+            $meta_title = $this->parseShortcodes($trns->category_meta_title ?? '', $cat, $trns);
+            $meta_description = $this->parseShortcodes($trns->category_meta_description ?? '', $cat, $trns);
         }
 
         $alternateUrls = collect($locales)->map(fn($loc) => [
@@ -115,10 +124,14 @@ class ResultsController extends Controller
             )
         ])->toArray();
 
+        $cat_name = $cat->categoryTranslations->first()?->name ?? '';
+        $cat_description = $cat->categoryTranslations->first()?->description ?? '';
+
+
         return view('results', compact(
             'softwares', 'trns', 'platform_slug', 'locale_slug', 'localeSwitchUrls', 'cannonical',
             'default_locale_slug', 'default_platform_slug', 'locales', 'default_locale_key',
-            'ads', 'meta_title', 'meta_description', 'alternateUrls', 'q', 'platform_name'
+            'ads', 'meta_title', 'meta_description', 'alternateUrls', 'platform_name', 'cat_name', 'cat_description'
         ));
     }
 
@@ -133,18 +146,19 @@ class ResultsController extends Controller
 
     private function generateHelpUrl($locale_slug, $platform_slug, $q, $default_locale_slug, $default_platform_slug)
     {
-        $segments = ['search'];
+        $segments = ['category'];
         if ($locale_slug && $locale_slug !== $default_locale_slug) $segments[] = $locale_slug;
         if ($platform_slug && $platform_slug !== $default_platform_slug) $segments[] = $platform_slug;
         $segments[] = $q;
         return url('/') . '/' . implode('/', $segments);
     }
 
-    function parseShortcodes(string $text, string $q, object $siteTranslations): string
+    function parseShortcodes(string $text, object $cat, object $siteTranslations): string
     {
         $replacements = [
             '[download]' => $siteTranslations->download ?? '',
-            '[search_query]' => $q,
+            '[category_name]' => $cat->categoryTranslations->first()?->name ?? '',
+            '[category_description]' => $cat->categoryTranslations->first()?->description ?? '',
             '[for]' => $siteTranslations->for ?? '',
             '[free]' => $siteTranslations->free ?? '',
             '[latest]' => $siteTranslations->latest ?? '',

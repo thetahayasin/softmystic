@@ -4,6 +4,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InstallationController;
 use App\Http\Controllers\SingleController;
 use App\Http\Controllers\ResultsController;
+use App\Http\Controllers\CategoryController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -34,6 +36,13 @@ Route::prefix('search')->name('result.')->group(function () {
     Route::get('{param1}/{param3}', [ResultsController::class, 'index'])->name('index');
     Route::get('{param2}/{param3}', [ResultsController::class, 'index'])->name('index');
     Route::get('{param3}', [ResultsController::class, 'index'])->name('index');
+});
+
+Route::prefix('category')->name('category.')->group(function () {
+    Route::get('{param1}/{param2}/{param3}', [CategoryController::class, 'index'])->name('index');
+    Route::get('{param1}/{param3}', [CategoryController::class, 'index'])->name('index');
+    Route::get('{param2}/{param3}', [CategoryController::class, 'index'])->name('index');
+    Route::get('{param3}', [CategoryController::class, 'index'])->name('index');
 });
 
 
