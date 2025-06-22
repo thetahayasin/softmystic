@@ -37,7 +37,7 @@
         {
         "@type": "ListItem",
         "position": 2,
-        "name": "Electronics",
+        "name": "{{ $software->category->categoryTranslations->first()?->name }}",
         "item": "https://example.com/electronics"
         },
         {
@@ -49,6 +49,38 @@
     ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "{{ $software->name }}",
+    "softwareVersion": "{{ $software->version }}",
+    "description": @json(Str::limit(strip_tags($software->softwareTranslations->first()?->content), 300)),
+    "image": "{{ asset('storage/' . $software->logo) }}",
+    "fileSize": "{{ $software->file_size }}",
+    "operatingSystem": "{{ $software->platform->name }}",
+    "license": "{{ $software->license->licenseTranslations->first()?->name ?? 'Free' }}",
+    "applicationCategory": "{{ $software->category->categoryTranslations->first()?->name }}",
+    "author": {
+        "@type": "Organization",
+        "name": "{{ $software->author->name }}"
+    },
+    "offers": {
+        "@type": "Offer",
+        "price": 0.00,
+        "priceCurrency": "USD"
+    }@if ($software->total_ratings > 0),
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "{{ number_format($software->average_rating, 1) }}",
+        "ratingCount": "{{ $software->total_ratings }}",
+        "bestRating": "10",
+        "worstRating": "2"
+    }
+    @endif
+    }
+    </script>
+
 
 
 @endsection
@@ -86,14 +118,10 @@
         />     
         <div class="space-y-1">
             <h1 class="text-xl font-semibold text-base-content">{{ $software->name }}</h1>
-            <div class="rating rating-sm justify-center md:justify-start">
-                <input type="radio" class="mask mask-star-2 bg-yellow-400" />
-                <input type="radio" class="mask mask-star-2 bg-yellow-400" />
-                <input type="radio" class="mask mask-star-2 bg-yellow-400" />
-                <input type="radio" class="mask mask-star-2 bg-yellow-400" />
-                <input type="radio" class="mask mask-star-2 bg-yellow-400" />
-            </div>
+
             <p class="italic text-sm text-base-content">{{ $software->softwareTranslations->first()?->tagline }}</p>
+
+            <livewire:software-rating :software="$software" />
         </div>
         </div>
         <div class="flex flex-col items-center md:items-end space-y-2">

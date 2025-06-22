@@ -106,7 +106,7 @@ class SingleController extends Controller
         ])
         ->select([
             'id', 'name', 'slug', 'file_size', 'version', 'screenshots', 
-            'platform_id', 'author_id', 'license_id', 'category_id', 'logo', 'buy_url'
+            'platform_id', 'author_id', 'license_id', 'category_id', 'logo', 'buy_url', 'total_ratings', 'average_rating'
         ])
         ->where('slug', $slug)
         ->where('platform_id', $platform_id)
@@ -118,24 +118,27 @@ class SingleController extends Controller
 
         // Related apps query
         $related = Software::select(['id', 'name', 'slug', 'logo', 'platform_id'])
-            ->with(['softwareTranslations' => function ($q) use ($locale_id) {
-                $q->select('id', 'software_id', 'locale_id', 'tagline')
-                  ->where('locale_id', $locale_id);
-            }])
-            ->where('category_id', $software->category_id)
-            ->where('platform_id', $software->platform_id)
-            ->where('id', '!=', $software->id)
-            ->latest()
-            ->take(8)
-            ->get()
-            ->map(function ($item) use ($locale_slug, $platform_slug, $default_locale_slug, $default_platform_slug) {
-                return [
-                    'url'     => $this->generateSingleUrl($locale_slug, $platform_slug, $item->slug, $default_locale_slug, $default_platform_slug),
-                    'name'    => $item->name,
-                    'tagline' => $item->softwareTranslations->first()?->tagline ?? '',
-                    'logo'    => $item->logo,
-                ];
-            });  
+        ->with([
+            'softwareTranslations' => fn ($q) => $q->select('id', 'software_id', 'locale_id', 'tagline')
+                                                   ->where('locale_id', $locale_id),
+        ])
+        ->where('category_id', $software->category_id)
+        ->where('platform_id', $software->platform_id)
+        ->where('id', '!=', $software->id)
+        ->latest()
+        ->take(8)
+        ->get()
+        ->filter(fn ($item) => $item->softwareTranslations->isNotEmpty()) // ✅ skip untranslated
+        ->map(function ($item) use ($locale_slug, $platform_slug, $default_locale_slug, $default_platform_slug) {
+            return [
+                'url'     => $this->generateSingleUrl($locale_slug, $platform_slug, $item->slug, $default_locale_slug, $default_platform_slug),
+                'name'    => $item->name,
+                'tagline' => $item->softwareTranslations->first()?->tagline ?? '',
+                'logo'    => $item->logo,
+            ];
+        })
+        ->values();
+    
         
 
         // Get all locales

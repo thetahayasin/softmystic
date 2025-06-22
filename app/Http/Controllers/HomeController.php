@@ -86,76 +86,27 @@ class HomeController extends Controller
             $locale_slug = $locale->slug;
         }
     
-        // Fetch featured apps
-        $featured = Software::with([
-            'softwareTranslations' => fn ($q) => $q->where('locale_id', $locale_id),
-            'author'
-        ])
-        ->where('is_featured', true)
-        ->where('platform_id', $platform_id)
-        ->latest('updated_at')
-        ->take(2)
-        ->get()
-        ->map(fn ($software) => [
-            'name'     => $software->name,
-            'slug'     => $software->slug,
-            'version'  => $software->version,
-            'logo'     => $software->logo,
-            'tagline'  => optional($software->softwareTranslations->first())->tagline,
-            'author'   => optional($software->author)->name,
-            'url'      => $this->generateSingleUrl($locale_slug, $platform_slug, $software->slug),
+        $updates = $this->getTranslatedSoftware($platform_id, $locale_id, $locale_slug, $platform_slug, [
+            'latest' => 'updated_at',
+            'take'   => 8,
         ]);
+        
+        $newreleases = $this->getTranslatedSoftware($platform_id, $locale_id, $locale_slug, $platform_slug, [
+            'latest' => 'created_at',
+            'take'   => 8,
+        ]);
+        
+        $popular = $this->getTranslatedSoftware($platform_id, $locale_id, $locale_slug, $platform_slug, [
+            'order_by' => 'downloads',
+            'take'     => 16,
+        ]);
+        
+        $featured = $this->getTranslatedSoftware($platform_id, $locale_id, $locale_slug, $platform_slug, [
+            'is_featured' => true,
+            'latest'      => 'updated_at',
+            'take'        => 2,
+        ]);        
     
-        // Latest updates
-        $updates = Software::with([
-            'softwareTranslations' => fn ($q) => $q->where('locale_id', $locale_id),
-            'author'
-        ])
-        ->latest('updated_at')
-        ->where('platform_id', $platform_id)
-        ->take(8)
-        ->get()
-        ->map(fn ($software) => [
-            'name'     => $software->name,
-            'slug'     => $software->slug,
-            'logo'     => $software->logo,
-            'tagline'  => optional($software->softwareTranslations->first())->tagline,
-            'url'      => $this->generateSingleUrl($locale_slug, $platform_slug, $software->slug),
-        ]);
-    
-        // New releases
-        $newreleases = Software::with([
-            'softwareTranslations' => fn ($q) => $q->where('locale_id', $locale_id),
-            'author'
-        ])
-        ->latest('created_at')
-        ->where('platform_id', $platform_id)
-        ->take(8)
-        ->get()
-        ->map(fn ($software) => [
-            'name'     => $software->name,
-            'slug'     => $software->slug,
-            'logo'     => $software->logo,
-            'tagline'  => optional($software->softwareTranslations->first())->tagline,
-            'url'      => $this->generateSingleUrl($locale_slug, $platform_slug, $software->slug),
-        ]);
-    
-        // Popular
-        $popular = Software::with([
-            'softwareTranslations' => fn ($q) => $q->where('locale_id', $locale_id),
-            'author'
-        ])
-        ->orderByDesc('downloads')
-        ->where('platform_id', $platform_id)
-        ->take(16)
-        ->get()
-        ->map(fn ($software) => [
-            'name'     => $software->name,
-            'slug'     => $software->slug,
-            'logo'     => $software->logo,
-            'tagline'  => optional($software->softwareTranslations->first())->tagline,
-            'url'      => $this->generateSingleUrl($locale_slug, $platform_slug, $software->slug),
-        ]);
 
         // Get all locales
         $locales = Locale::get(['name', 'slug', 'key']);
@@ -168,6 +119,43 @@ class HomeController extends Controller
         $segments = array_filter(['download', $locale_slug, $platform_slug, $app_slug]);
         return '/' . implode('/', $segments);
     }
+
+    private function getTranslatedSoftware($platform_id, $locale_id, $locale_slug, $platform_slug, array $options = [])
+    {
+        $query = Software::with([
+            'softwareTranslations' => fn ($q) => $q->where('locale_id', $locale_id),
+            'author'
+        ])
+        ->where('platform_id', $platform_id);
+    
+        if (isset($options['is_featured'])) {
+            $query->where('is_featured', true);
+        }
+    
+        if (isset($options['order_by'])) {
+            $query->orderByDesc($options['order_by']);
+        } elseif (isset($options['latest'])) {
+            $query->latest($options['latest']);
+        }
+    
+        if (isset($options['take'])) {
+            $query->take($options['take']);
+        }
+    
+        return $query->get()
+            ->filter(fn ($software) => $software->softwareTranslations->isNotEmpty())
+            ->map(fn ($software) => [
+                'name'     => $software->name,
+                'slug'     => $software->slug,
+                'version'  => $software->version ?? null,
+                'logo'     => $software->logo,
+                'tagline'  => optional($software->softwareTranslations->first())->tagline,
+                'author'   => optional($software->author)->name ?? null,
+                'url'      => $this->generateSingleUrl($locale_slug, $platform_slug, $software->slug),
+            ])
+            ->values();
+    }
+    
     
     
 }

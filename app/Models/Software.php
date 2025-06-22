@@ -12,7 +12,7 @@ class Software extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'slug', 'file_size', 'version', 'author_id', 'logo', 'download_url', 'buy_url', 'downloads', 'category_id', 'user_id', 'license_id', 'platform_id', 'is_sponsored', 'is_featured', 'screenshots'
+        'name', 'slug', 'file_size', 'version', 'author_id', 'logo', 'download_url', 'buy_url', 'downloads', 'category_id', 'user_id', 'license_id', 'platform_id', 'is_sponsored', 'is_featured', 'screenshots', 'total_ratings', 'average_rating'
     ];
 
     protected $casts = [

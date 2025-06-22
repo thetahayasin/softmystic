@@ -86,8 +86,8 @@ class SoftwareResource extends Resource
                                 ->directory('software_logos') // Path inside /public/uploads
                                 ->required()
                                 ->imagePreviewHeight('200')
-                                ->maxSize(10)
-                                ->helperText('Logo image should be in webp format and max filesize is 10KB. 32x32 recommended resolution')
+                                ->maxSize(20)
+                                ->helperText('Logo image should be in webp format and max filesize is 20KB. 80x80 recommended resolution')
                                 ->acceptedFileTypes(['image/webp'])
                                 ->preserveFilenames(false) // Optional
                                 ->visibility('public'),
