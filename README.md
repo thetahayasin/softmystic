@@ -37,3 +37,10 @@
 ```bash
 git clone https://github.com/your-username/softimystic.git
 cd softimystic
+
+---
+
+###2.Install PHP dependencies
+
+```bash
+composer install
