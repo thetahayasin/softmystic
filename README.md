@@ -1,69 +1,39 @@
-# Welcome to Filapanel
+# 🌐 Softimystic
 
-*Brought to you by [Ploi - a server management tool](https://ploi.io/?ref=filapanel-github)*
+**Softimystic** is a modern, multilingual software directory CMS built with **Laravel 12**, **Filament v3**, and **DaisyUI v4**. Inspired by platforms like **Softonic**, **FileHippo**, and **FileHorse**, it empowers developers and publishers to launch a full-featured software listing platform with dynamic language and theme management.
 
-[https://filapanel.com](https://filapanel.com?ref=filapanel-github)
+<p align="center">
+  <a href="https://filapanel.com/?ref=softimystic-github" target="_blank">
+    <img src="https://filapanel.com/img/og.png" width="100%" alt="Softimystic Screenshot">
+  </a>
+</p>
 
-<p align="center"><a href="https://filapanel.com/?ref=filapanel-github" target="_blank"><img src="https://filapanel.com/img/og.png" width="100%" alt="Filapanel"></a></p>
+---
 
-Generated on: 2025-05-06 12:25:55 (UTC)
+## 🚀 Features
 
-Filapanel is your dynamic, user-friendly tool for accelerating Laravel application development. Built on the Filament framework, it provides a seamless approach for creating, configuring, and managing resources and models.
+- 🌍 **Multilingual support** — dynamic and managed entirely from the backend
+- 🎨 **Theme switching** — admin-selectable DaisyUI v4 themes via UI
+- 🛠️ **Admin panel** — custom path `/mystic/login` using Filament v3
+- 📂 **Software CMS** — create and manage software listings, versions, changelogs, and categories
+- ⚡ **Powered by Laravel 12** — built on the latest PHP 8.3+ ecosystem
 
-## Installed packages
+---
 
-No packages were selected to be installed.
+## 🧱 Tech Stack
 
-## Further installation
+- Laravel 12
+- Filament v3
+- Livewire 3
+- DaisyUI v4 (with TailwindCSS)
+- Vite (frontend bundler)
 
-Now that you've got your project, it's time to finish up installation. Please make sure to run the following commands
-either in your local project or in your deployment tool.
+---
 
-### Run composer install
+## 🛠️ Installation
 
-```
-composer install
-```
+### 1. Clone the Repository
 
-### Create your `.env`
-
-```
-cp .env.example .env
-```
-
-Now create a new database and enter the credentials inside your environment file.
-
-### Set your app key
-
-```
-php artisan key:generate
-```
-
-### Upgrade Filament
-
-```
-php artisan filament:upgrade
-```
-
-### Run migrations
-
-```
-php artisan migrate:fresh
-```
-
-### Link storage
-
-```
-php artisan storage:link
-```
-
-### All as one command
-
-```
-composer install && 
-cp .env.example .env &&
-php artisan key:generate && 
-php artisan filament:upgrade &&
-php artisan migrate:fresh &&
-php artisan storage:link
-```
+```bash
+git clone https://github.com/your-username/softimystic.git
+cd softimystic
