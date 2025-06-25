@@ -117,7 +117,7 @@ class PostDownloadController extends Controller
         ])
         ->where('platform_id', $software->platform_id)
         ->where('id', '!=', $software->id)
-        ->take(8)
+        ->take(12)
         ->orderBy('downloads', 'desc')
         ->get()
         ->filter(fn ($item) => $item->softwareTranslations->isNotEmpty()) // ✅ skip untranslated
