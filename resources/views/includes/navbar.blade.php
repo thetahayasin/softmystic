@@ -41,7 +41,7 @@
                     <i class="fas fa-globe text-xl"></i>
                 </button>
                 <ul id="locale-menu" class="menu dropdown-content p-2 flex border border-base-200 flex-col bg-base-100 text-sm font-bold rounded-lg w-52 mt-2 hidden absolute left-0 -ml-20 z-40 text-base-content" role="menu" aria-label="Language Selection">
-                    @if (Route::currentRouteName() == 'single.index' || Route::currentRouteName() == 'result.index' || Route::currentRouteName() == 'category.index')
+                    @if (Route::currentRouteName() == 'single.index' || Route::currentRouteName() == 'result.index' || Route::currentRouteName() == 'category.index' || Route::currentRouteName() == 'downloading.index')
                         @foreach ($locales as $locale)
                             <li role="none">
                                 <a href="{{ $localeSwitchUrls[$locale->key] ?? '#' }}"

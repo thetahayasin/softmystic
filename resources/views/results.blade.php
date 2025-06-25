@@ -98,7 +98,13 @@
     {{-- Breadcrumbs --}}
     <nav class="text-sm breadcrumbs px-2 mb-4" aria-label="Breadcrumb">
         <ul>
-            <li><a href="{{ route('home', ['param1' => $locale_slug, 'param2' => $platform_slug]) }}" class="text-base-content">Home</a></li>
+            <li>
+                <a href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}" class="text-base-content">
+                    <svg class="home-icon w-5 h-5 fill-current text-base-content">
+                        <path d="M10 2.5L2.5 8.75V17.5H7.5V12.5H12.5V17.5H17.5V8.75L10 2.5Z" />
+                    </svg>
+                </a>
+            </li>
             <li><a href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}" class="text-base-content">{{ $platform_name }}</a></li>
             <li><span class="text-base-content font-medium">{{ $meta_title }}</span></li>
         </ul>

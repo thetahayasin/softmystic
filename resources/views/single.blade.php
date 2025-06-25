@@ -134,7 +134,7 @@
         </div>
         </div>
         <div class="flex flex-col items-center md:items-end space-y-2">
-            <a href="https://example.com/download/{{ $software->slug }}" 
+            <a href="{{ $downloadUrl }}" 
             class="btn btn-primary w-64" 
             rel="nofollow noopener noreferrer" 
             title="Download {{ $software->name }}">

@@ -98,6 +98,16 @@ class SiteTranslationResource extends Resource
                         ->default('Softimystic is a multiplatform appstore.')
                         ->maxLength(255)
                         ->label('Site Wide Footer Copyright Text'),
+                    TextInput::make('downloading_text')
+                        ->nullable()
+                        ->maxLength(255)
+                        ->label('Downloading Page - [Short Codes can be used]')
+                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version]'),
+
+                    TextInput::make('nothing_found')
+                        ->nullable()
+                        ->maxLength(255)
+                        ->label('No Record Found Text')
 
                 ])->columns(2),
 
@@ -143,26 +153,26 @@ class SiteTranslationResource extends Resource
                     TextInput::make('download_meta_title')
                         ->nullable()
                         ->maxLength(255)
-                        ->label('Download Meta Title')
-                        ->helperText('Title for download page meta tag.'),
+                        ->label('Download Meta Title - [Short Codes can be used]')
+                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version]'),
         
                     TextInput::make('download_meta_description')
                         ->nullable()
                         ->maxLength(255)
-                        ->label('Download Meta Description')
-                        ->helperText('Description for download page meta tag.'),
+                        ->label('Download Meta Description - [Short Codes can be used]')
+                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version]'),
         
                     TextInput::make('single_meta_title')
                         ->nullable()
                         ->maxLength(255)
                         ->label('Single Page Meta Title - [Short Codes can be used]')
-                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year]'),
+                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version]'),
         
                     TextInput::make('single_meta_description')
                         ->nullable()
                         ->maxLength(255)
                         ->label('Single Page Meta Description - [Short Codes can be used]')
-                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year]'),
+                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version]'),
                 ])->columns(2),
 
 

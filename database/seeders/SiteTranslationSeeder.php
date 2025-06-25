@@ -38,7 +38,7 @@ class SiteTranslationSeeder extends Seeder
             'download_button' => 'Click to Download',
             'buy_now' => 'Buy Now',
             'nothing_found' => 'No record',
-            '404_text' => '$04 not found',
+            'downloading_text' => 'Your software is downloading please wait',
             'footer_text' => 'Thank you for visiting our website!',
             'latest' => 'Latest Products',
             'popular' => 'Popular Products',

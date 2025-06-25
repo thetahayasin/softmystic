@@ -5,6 +5,9 @@ use App\Http\Controllers\InstallationController;
 use App\Http\Controllers\SingleController;
 use App\Http\Controllers\ResultsController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PostDownloadController;
+
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +48,13 @@ Route::prefix('category')->name('category.')->group(function () {
     Route::get('{param3}', [CategoryController::class, 'index'])->name('index');
 });
 
+Route::prefix('downloading')->name('downloading.')->group(function () {
+    Route::get('{param1}/{param2}/{param3}', [PostDownloadController::class, 'index'])->name('index');
+    Route::get('{param1}/{param3}', [PostDownloadController::class, 'index'])->name('index');
+    Route::get('{param2}/{param3}', [PostDownloadController::class, 'index'])->name('index');
+    Route::get('{param3}', [PostDownloadController::class, 'index'])->name('index');
+});
+
 
 Route::get('/{param1?}/{param2?}', [HomeController::class, 'index'])->name('home');
 
@@ -54,3 +64,4 @@ Route::get('/{param1?}/{param2?}', [HomeController::class, 'index'])->name('home
 Route::get('/login', function () {
     return redirect()->route('filament.admin.auth.login');
 })->name('login');
+
