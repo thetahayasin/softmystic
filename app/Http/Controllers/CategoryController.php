@@ -52,7 +52,7 @@ class CategoryController extends Controller
 
         $trns = SiteTranslation::where('locale_id', $locale_id)->first([
             'category_meta_description', 'category_meta_title', 'related', 'latest',
-            'for', 'free', 'download', 'version', 'popular', 'category', 'search_results'
+            'for', 'free', 'download', 'version', 'popular', 'category', 'search_results', 'nothing_found'
         ]);
 
         $ads = SiteSetting::first(['results_page_ad', 'results_page_ad_2', 'site_name', 'site_logo']);

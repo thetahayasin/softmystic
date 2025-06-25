@@ -10,22 +10,36 @@ use App\Models\SiteTranslation;
 
 class HomeController extends Controller
 {
-
     public function index($param1 = null, $param2 = null)
     {
-        // Get site-wide default locale and platform
-        $settings = SiteSetting::first(['locale_id', 'platform_id']);
-        $default_locale_id = $settings->locale_id;
-        $default_platform_id = $settings->platform_id;
-        $default_platform = Platform::find($default_platform_id);
-        $default_locale = Locale::find($default_locale_id);
-    
-        // Try to detect what param1 and param2 are
-        $param1_locale = Locale::where('slug', $param1)->first();
-        $param1_platform = Platform::where('slug', $param1)->first();
-        $param2_platform = Platform::where('slug', $param2)->first();
-    
-        // Determine final locale and platform
+        // Get site settings with necessary fields
+        $settings = SiteSetting::first([
+            'locale_id', 'platform_id',
+            'home_page_ad', 'home_page_ad_2',
+            'site_name', 'site_logo'
+        ]);
+
+        [$default_locale_id, $default_platform_id] = [$settings->locale_id, $settings->platform_id];
+
+        // Fetch both default models in one query
+        [$default_locale, $default_platform] = collect(
+            Locale::whereIn('id', [$default_locale_id])
+                ->get()
+                ->concat(Platform::whereIn('id', [$default_platform_id])->get())
+        )->partition(fn ($model) => $model instanceof Locale);
+
+        $default_locale = $default_locale->first();
+        $default_platform = $default_platform->first();
+
+        // Match params by slug in one go
+        $all_locales = Locale::get(['id', 'slug', 'key', 'name']);
+        $all_platforms = Platform::get(['id', 'slug', 'name']);
+
+        $param1_locale = $all_locales->firstWhere('slug', $param1);
+        $param1_platform = $all_platforms->firstWhere('slug', $param1);
+        $param2_platform = $all_platforms->firstWhere('slug', $param2);
+
+        // Decide locale/platform from params
         if ($param1_locale) {
             $locale = $param1_locale;
             $platform = $param2_platform ?? $default_platform;
@@ -36,15 +50,12 @@ class HomeController extends Controller
             $locale = $default_locale;
             $platform = $default_platform;
         }
-    
-        // ✅ Set the Laravel app locale for translations
+
         app()->setLocale($locale->key);
-    
         $locale_id = $locale->id;
         $platform_id = $platform->id;
 
-    
-        // Fetch site-wide translations
+        // Site translation for selected locale
         $trns = SiteTranslation::where('locale_id', $locale_id)->first([
             'hero_title',
             'hero_text',
@@ -56,106 +67,84 @@ class HomeController extends Controller
             'home_meta_description'
         ]);
 
-        // Fetch ads
-        $ads = SiteSetting::first([
-            'home_page_ad',
-            'home_page_ad_2',
-            'site_name',
-            'site_logo'
-        ]);
-
-        //url generation vars
+        // Generate slug vars
+        $locale_slug = $locale_id !== $default_locale_id ? $locale->slug : null;
+        $platform_slug = $platform_id !== $default_platform_id ? $platform->slug : null;
         $default_locale_slug = $default_locale->slug;
         $default_platform_slug = $default_platform->slug;
 
-        if($platform_id == $default_platform_id)
-        {
-            $platform_slug = null;
-        }
-        else
-        {
-            $platform_slug = $platform->slug;
-        }
-
-        if($locale_id == $default_locale_id)
-        {
-            $locale_slug = null;
-        }
-        else
-        {
-            $locale_slug = $locale->slug;
-        }
-    
+        // Software lists
         $updates = $this->getTranslatedSoftware($platform_id, $locale_id, $locale_slug, $platform_slug, [
-            'latest' => 'updated_at',
-            'take'   => 8,
+            'latest' => 'updated_at', 'take' => 8
         ]);
-        
+
         $newreleases = $this->getTranslatedSoftware($platform_id, $locale_id, $locale_slug, $platform_slug, [
-            'latest' => 'created_at',
-            'take'   => 8,
+            'latest' => 'created_at', 'take' => 8
         ]);
-        
+
         $popular = $this->getTranslatedSoftware($platform_id, $locale_id, $locale_slug, $platform_slug, [
-            'order_by' => 'downloads',
-            'take'     => 16,
+            'order_by' => 'downloads', 'take' => 16
         ]);
-        
+
         $featured = $this->getTranslatedSoftware($platform_id, $locale_id, $locale_slug, $platform_slug, [
-            'is_featured' => true,
-            'latest'      => 'updated_at',
-            'take'        => 2,
-        ]);        
-    
+            'is_featured' => true, 'latest' => 'updated_at', 'take' => 2
+        ]);
 
-        // Get all locales
-        $locales = Locale::get(['name', 'slug', 'key']);
-
-        return view('home', compact('featured', 'updates', 'newreleases', 'popular', 'trns', 'platform_slug', 'locale_slug', 'default_locale_slug', 'default_platform_slug', 'locales', 'ads'));
+        return view('home', [
+            'featured' => $featured,
+            'updates' => $updates,
+            'newreleases' => $newreleases,
+            'popular' => $popular,
+            'trns' => $trns,
+            'platform_slug' => $platform_slug,
+            'locale_slug' => $locale_slug,
+            'default_locale_slug' => $default_locale_slug,
+            'default_platform_slug' => $default_platform_slug,
+            'locales' => $all_locales,
+            'ads' => $settings
+        ]);
     }
 
     private function generateSingleUrl($locale_slug, $platform_slug, $app_slug)
     {
-        $segments = array_filter(['download', $locale_slug, $platform_slug, $app_slug]);
-        return '/' . implode('/', $segments);
+        return '/' . implode('/', array_filter(['download', $locale_slug, $platform_slug, $app_slug]));
     }
 
     private function getTranslatedSoftware($platform_id, $locale_id, $locale_slug, $platform_slug, array $options = [])
     {
         $query = Software::with([
-            'softwareTranslations' => fn ($q) => $q->where('locale_id', $locale_id),
-            'author'
+            'softwareTranslations' => fn ($q) =>
+                $q->where('locale_id', $locale_id)->select('id', 'software_id', 'tagline', 'locale_id'),
+            'author:id,name'
         ])
+        ->select('id', 'name', 'slug', 'version', 'logo', 'platform_id', 'downloads', 'created_at', 'updated_at')
         ->where('platform_id', $platform_id);
-    
-        if (isset($options['is_featured'])) {
+
+        if (!empty($options['is_featured'])) {
             $query->where('is_featured', true);
         }
-    
-        if (isset($options['order_by'])) {
+
+        if (!empty($options['order_by'])) {
             $query->orderByDesc($options['order_by']);
-        } elseif (isset($options['latest'])) {
+        } elseif (!empty($options['latest'])) {
             $query->latest($options['latest']);
         }
-    
-        if (isset($options['take'])) {
+
+        if (!empty($options['take'])) {
             $query->take($options['take']);
         }
-    
+
         return $query->get()
             ->filter(fn ($software) => $software->softwareTranslations->isNotEmpty())
             ->map(fn ($software) => [
-                'name'     => $software->name,
-                'slug'     => $software->slug,
-                'version'  => $software->version ?? null,
-                'logo'     => $software->logo,
-                'tagline'  => optional($software->softwareTranslations->first())->tagline,
-                'author'   => optional($software->author)->name ?? null,
-                'url'      => $this->generateSingleUrl($locale_slug, $platform_slug, $software->slug),
+                'name'    => $software->name,
+                'slug'    => $software->slug,
+                'version' => $software->version,
+                'logo'    => $software->logo,
+                'tagline' => $software->softwareTranslations->first()->tagline ?? null,
+                'author'  => $software->author->name ?? null,
+                'url'     => $this->generateSingleUrl($locale_slug, $platform_slug, $software->slug),
             ])
             ->values();
     }
-    
-    
-    
 }

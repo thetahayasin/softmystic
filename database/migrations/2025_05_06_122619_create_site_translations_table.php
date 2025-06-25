@@ -32,6 +32,8 @@ return new class extends Migration
             $table->string('download_meta_description')->nullable();
             $table->string('single_meta_title')->nullable();
             $table->string('single_meta_description')->nullable();
+            $table->string('404_text');
+            $table->string('nothing_found');
             $table->string('search_results');
             $table->string('category');
             $table->string('download_button');

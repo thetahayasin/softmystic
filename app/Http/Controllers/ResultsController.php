@@ -48,7 +48,7 @@ class ResultsController extends Controller
         $platform_slug = $platform_id === $default_platform->id ? null : $platform->slug;
 
         $trns = SiteTranslation::where('locale_id', $locale_id)->first([
-            'search_meta_description', 'search_meta_title', 'download', 'search_results', 'for'
+            'search_meta_description', 'search_meta_title', 'download', 'search_results', 'for', 'nothing_found'
         ]);
 
         $ads = SiteSetting::first(['results_page_ad', 'results_page_ad_2', 'site_name', 'site_logo']);

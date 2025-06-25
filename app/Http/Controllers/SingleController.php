@@ -73,6 +73,7 @@ class SingleController extends Controller
             'for',
             'free',
             'download',
+            'buy_now',
             'version',
             'popular',
             'category',

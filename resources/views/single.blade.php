@@ -99,7 +99,13 @@
     <!-- Breadcrumbs -->
     <nav class="text-sm breadcrumbs text-gray-500 px-2 mb-10">
         <ul>
-        <li><a href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}" class="text-base-content">Home</a></li>
+        <li>
+            <a href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}" class="text-base-content">
+                <svg class="home-icon w-5 h-5 fill-current text-base-content">
+                    <path d="M10 2.5L2.5 8.75V17.5H7.5V12.5H12.5V17.5H17.5V8.75L10 2.5Z" />
+                </svg>
+            </a>
+        </li>
         <li><a href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}" class="text-base-content">{{ $software->platform->name }}</a></li>
         <li><a href="{{ $category_url }}" class="text-base-content">{{ $software->category->categoryTranslations->first()?->name }}</a></li>
 
@@ -132,7 +138,7 @@
             class="btn btn-primary w-64" 
             rel="nofollow noopener noreferrer" 
             title="Download {{ $software->name }}">
-            Download
+            {{ $trns->download ?? 'Download' }}
             </a>
 
             <a href="{{ $software->buy_url }}" 
@@ -140,7 +146,7 @@
             target="_blank"
             rel="nofollow noopener noreferrer" 
             title="Buy {{ $software->name }}">
-            Buy Now
+            {{ $trns->buy_now ?? 'Buy Now' }}
             </a>
         </div>
     </section>

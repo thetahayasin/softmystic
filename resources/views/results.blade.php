@@ -116,7 +116,8 @@
         <h1 class="text-xl font-bold mb-5 text-base-content">{{ Route::currentRouteName() == 'result.index' ? $trns?->search_results.' '.$trns?->for.' "'.$q.'"' : $cat_name }}</h2>
         @if(Route::currentRouteName() == 'category.index')
         <hr>
-        <p class="text-md mt-4 mb-4">{{ $cat_description }}</p>
+        <p class="text-md border-bottom mt-4 mb-4">{{ $cat_description }}</p>
+        <hr class="mb-4">
         @endif   
     </section>
 
@@ -134,11 +135,11 @@
                         <p class="text-sm mt-2">{{ $software['tagline'] }}</p>
                     </div>
                 </div>
-                <a href="{{ $software['url'] }}" class="btn btn-primary btn-sm sm:btn-md px-4 sm:w-32">Download</a>
+                <a href="{{ $software['url'] }}" class="btn btn-primary btn-sm sm:btn-md px-4 sm:w-32">{{ $trns->download ?? 'Download' }}</a>
             </div>
         @empty
             <div class="text-center py-10 text-gray-400 text-lg">
-                No results found for your search.
+                {{ $trns->nothing_found ?? 'Nothing Found' }}
             </div>
         @endforelse
 
