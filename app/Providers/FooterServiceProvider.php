@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Locale;
+use App\Models\Page;
 use App\Models\SiteSetting;
 use App\Models\SiteTranslation;
 use Illuminate\Support\Facades\View;
@@ -30,8 +31,19 @@ class FooterServiceProvider extends ServiceProvider
                 // Fetch footer text for the resolved locale
                 $footer = SiteTranslation::where('locale_id', $localeId)->value('footer_text');
 
+                //pages
+                $pages = Page::select('id', 'slug') // only fetch needed columns
+                ->whereHas('translations', function ($q) use ($localeId) {
+                    $q->where('locale_id', $localeId);
+                })
+                ->with(['translations' => function ($q) use ($localeId) {
+                    $q->select('id', 'page_id', 'locale_id', 'title') // only necessary fields
+                      ->where('locale_id', $localeId);
+                }])
+                ->get();
+
                 // Pass to view
-                $view->with(compact('footer'));
+                $view->with(compact('footer', 'pages'));
                 
             }); 
         }

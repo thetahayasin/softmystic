@@ -9,15 +9,14 @@
 
         <!-- Right Side: Navigation Links -->
         <nav class="flex gap-4 justify-center md:justify-end text-center">
-            <a href="{{ url('/') }}" title="Go to Home Page" class="transition hover:text-base-content/70">
-                Home
-            </a>
-            <a href="{{ url('/about') }}" title="Learn more About Us" class="transition hover:text-base-content/70">
-                About
-            </a>
-            <a href="{{ url('/privacy') }}" title="Read our Privacy Policy" class="transition hover:text-base-content/70">
-                Privacy
-            </a>
+            @foreach ($pages as $page)
+            
+                <a href="{{ url('/') }}" title="Go to Home Page" class="transition hover:text-base-content/70">
+                    {{ $page->translations->first()?->title }}
+                </a>
+                
+            @endforeach
+
         </nav>
 
     </footer>
