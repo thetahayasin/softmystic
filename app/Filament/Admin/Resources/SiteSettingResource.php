@@ -149,13 +149,13 @@ class SiteSettingResource extends Resource
                                 Forms\Components\TextArea::make('results_page_ad')
                                     ->nullable()
                                     ->maxLength(255)
-                                    ->label('Results Page Ad')
+                                    ->label('Results Page Ad (728x90 Recommended)')
                                     ->helperText('Ad content for the results page.'),
     
                                 Forms\Components\TextArea::make('results_page_ad_2')
                                     ->nullable()
                                     ->maxLength(255)
-                                    ->label('Results Page Ad 2')
+                                    ->label('Results Page Ad 2 (728x90 Recommended)')
                                     ->helperText('Second ad content for the results page.'),
     
                                 Forms\Components\TextArea::make('single_page_ad')
@@ -173,13 +173,13 @@ class SiteSettingResource extends Resource
                                 Forms\Components\TextArea::make('download_page_ad')
                                     ->nullable()
                                     ->maxLength(255)
-                                    ->label('Download Page Ad')
+                                    ->label('Download Page Ad (728x90 Recommended)')
                                     ->helperText('Ad content for the download page.'),
     
                                 Forms\Components\TextArea::make('download_page_ad_2')
                                     ->nullable()
                                     ->maxLength(255)
-                                    ->label('Download Page Ad 2')
+                                    ->label('Download Page Ad 2 (728x90 Recommended)')
                                     ->helperText('Second ad content for the download page.'),
                             ])
                     ])->columnSpanFull()

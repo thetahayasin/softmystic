@@ -15,7 +15,7 @@
     {!! $settings->header_code !!}
 </head>
 <body data-theme="{{ $settings->site_theme }}" class="bg-base-100  justify-center items-center min-h-screen">
-<main class="container mx-auto max-w-[1080px]">
+<main class="container mx-auto max-w-[1080px] bg-base-100">
 
 
 @include('includes.navbar')

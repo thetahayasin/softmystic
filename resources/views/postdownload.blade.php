@@ -4,7 +4,7 @@
 
 @section('styles')
     <meta name="robots" content="noindex, nofollow" />
-    <!-- <meta http-equiv = "refresh" content = "2; url = {{ $software->download_url }}" /> -->
+    <meta http-equiv = "refresh" content = "2; url = {{ $software->download_url }}" />
 
     @if(!empty($alternateUrls))
         @foreach ($alternateUrls as $alt)
