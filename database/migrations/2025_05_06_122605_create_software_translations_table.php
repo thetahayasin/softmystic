@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('software_translations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('tagline');
-            $table->string('content');
-            $table->string('change_log');
+            $table->text('content');
+            $table->text('change_log')->nullable();
             $table->foreignId('software_id')->constrained()->onDelete('cascade');
             $table->foreignId('locale_id')->constrained()->onDelete('cascade');
             $table->timestamps();
