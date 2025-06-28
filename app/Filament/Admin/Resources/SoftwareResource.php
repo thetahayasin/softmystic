@@ -22,7 +22,7 @@ class SoftwareResource extends Resource
 {
     protected static ?string $model = Software::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-cloud-arrow-up';
+    protected static ?string $navigationIcon = 'heroicon-o-cloud-arrow-up';
 
     protected static ?string $navigationGroup = 'Content Management';
 

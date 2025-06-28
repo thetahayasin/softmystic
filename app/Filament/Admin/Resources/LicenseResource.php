@@ -17,7 +17,7 @@ class LicenseResource extends Resource
 {
     protected static ?string $model = License::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-clipboard-document-check';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
 
     protected static ?string $navigationGroup = 'Content Settings';
 
