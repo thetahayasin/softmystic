@@ -11,12 +11,16 @@
     <meta property="og:description" content="{{ \Illuminate\Support\Str::limit(strip_tags($page->translations->first()?->content ?? ''), 120, '...') }}" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="{{ url()->current() }}" />
+    @if($ads->site_logo)
     <meta property="og:image" content="{{ asset('storage/'.$ads->site_logo) }}" />
+    @endif
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{ $page->translations->first()?->title ?? '' }} - {{ $ads->site_name }}" />
     <meta name="twitter:description" content="{{ \Illuminate\Support\Str::limit(strip_tags($page->translations->first()?->content ?? ''), 120, '...') }}" />
+    @if($ads->site_logo)
     <meta name="twitter:image" content="{{ asset('storage/'.$ads->site_logo) }}" />
+    @endif
     @if(!empty($alternateUrls))
         @foreach ($alternateUrls as $alt)
             <link rel="alternate" hreflang="{{ $alt['hreflang'] != $default_locale_key ? $alt['hreflang'] : 'x-default' }}" href="{{ $alt['url'] }}" />
@@ -36,11 +40,13 @@
         },
         "publisher": {
         "@type": "Organization",
-        "name": @json($ads->site_name),
-        "logo": {
-            "@type": "ImageObject",
-            "url": "{{ asset('storage/' . $ads->site_logo) }}"
+        "name": @json($ads->site_name)
+        @if($ads->site_logo)
+        ,"logo": {
+        "@type": "ImageObject",
+        "url": "{{ asset('storage/'.$ads->site_logo) }}"
         }
+        @endif
         },
         "url": "{{ url()->current() }}",
         "datePublished": "{{ $page->created_at->toIso8601String() }}",
