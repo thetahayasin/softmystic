@@ -87,7 +87,13 @@ class HomeController extends Controller
         ]);
 
         $featured = $this->getTranslatedSoftware($platform_id, $locale_id, $locale_slug, $platform_slug, [
-            'is_featured' => true, 'latest' => 'updated_at', 'take' => 2
+            'is_featured' => true, 'latest' => 'updated_at', 'take' => 3
+        ]);
+
+        $sponsored = $this->getTranslatedSoftware($platform_id, $locale_id, $locale_slug, $platform_slug, [
+            'is_sponsored' => true,
+            'latest' => 'updated_at',
+            'take' => 2 // or however many you want
         ]);
 
         return view('home', [
@@ -101,7 +107,8 @@ class HomeController extends Controller
             'default_locale_slug' => $default_locale_slug,
             'default_platform_slug' => $default_platform_slug,
             'locales' => $all_locales,
-            'ads' => $settings
+            'ads' => $settings,
+            'sponsored' => $sponsored
         ]);
     }
 
@@ -117,7 +124,7 @@ class HomeController extends Controller
                 $q->where('locale_id', $locale_id)->select('id', 'software_id', 'tagline', 'locale_id'),
             'author:id,name'
         ])
-        ->select('id', 'name', 'slug', 'version', 'logo', 'platform_id', 'downloads', 'created_at', 'updated_at')
+        ->select('id', 'name', 'slug', 'logo', 'platform_id')
         ->where('platform_id', $platform_id);
 
         if (!empty($options['is_featured'])) {

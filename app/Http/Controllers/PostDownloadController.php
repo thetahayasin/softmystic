@@ -104,6 +104,9 @@ class PostDownloadController extends Controller
         ->where('slug', $slug)
         ->where('platform_id', $platform_id)
         ->firstOrFail();
+        //increase downloads by 1    
+        $software->increment('downloads');
+
 
         //get url
         $software->url = $this->generateSingleUrl($locale_slug, $platform_slug, $software->slug, $default_locale_slug, $default_platform_slug);
