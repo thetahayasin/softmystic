@@ -4,57 +4,76 @@ namespace App\Providers;
 
 use App\Models\Locale;
 use App\Models\Page;
+use App\Models\Platform;
 use App\Models\SiteSetting;
 use App\Models\SiteTranslation;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Schema;
-
 
 class FooterServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     */
     public function register(): void
     {
         if (!app()->runningInConsole() || Schema::hasTable('site_settings')) {
             View::composer('includes.footer', function ($view) {
-                // Get current app locale (e.g. 'en', 'fr')
+                // Get app locale key (e.g. 'en') and resolve locale model
                 $localeKey = app()->getLocale();
-                // Get default locale ID from settings
-                $defaultLocaleId = SiteSetting::value('locale_id');
+                $currentLocale = Locale::where('key', $localeKey)->first();
 
-                // Resolve current locale ID or use default
-                $localeId = Locale::where('key', $localeKey)->value('id') ?? $defaultLocaleId;
+                // Fallback to defaults if necessary
+                $settings = SiteSetting::first(['locale_id', 'platform_id']);
+                $defaultLocale = Locale::find($settings->locale_id);
+                $defaultPlatform = Platform::find($settings->platform_id);
 
-                // Fetch footer text for the resolved locale
+                $localeSlug = $currentLocale?->slug ?? $defaultLocale?->slug;
+                $localeId = $currentLocale?->id ?? $defaultLocale?->id;
+
+                $defaultLocaleSlug = $defaultLocale?->slug;
+                $defaultPlatformSlug = $defaultPlatform?->slug;
+
+                // Use platform from settings (or hardcode detection logic if needed)
+                $platformSlug = $defaultPlatformSlug;
+
+                // Footer content
                 $footer = SiteTranslation::where('locale_id', $localeId)->value('footer_text');
 
-                //pages
-                $pages = Page::select('id', 'slug') // only fetch needed columns
-                ->whereHas('translations', function ($q) use ($localeId) {
-                    $q->where('locale_id', $localeId);
-                })
-                ->with(['translations' => function ($q) use ($localeId) {
-                    $q->select('id', 'page_id', 'locale_id', 'title') // only necessary fields
-                      ->where('locale_id', $localeId);
-                }])
-                ->get();
+                // Fetch pages with translations
+                $pages = Page::select('id', 'slug')
+                    ->whereHas('translations', function ($q) use ($localeId) {
+                        $q->where('locale_id', $localeId);
+                    })
+                    ->with(['translations' => function ($q) use ($localeId) {
+                        $q->select('id', 'page_id', 'locale_id', 'title')
+                          ->where('locale_id', $localeId);
+                    }])
+                    ->get()
+                    ->map(function ($page) use ($localeSlug, $defaultLocaleSlug, $platformSlug, $defaultPlatformSlug) {
+                        $segments = ['page'];
 
-                // Pass to view
+                        if ($localeSlug !== $defaultLocaleSlug) {
+                            $segments[] = $localeSlug;
+                        }
+
+                        if ($platformSlug !== $defaultPlatformSlug) {
+                            $segments[] = $platformSlug;
+                        }
+
+                        $segments[] = $page->slug;
+
+                        return (object)[
+                            'title' => $page->translations->first()?->title ?? '',
+                            'url' => url(implode('/', $segments)),
+                        ];
+                    });
+
                 $view->with(compact('footer', 'pages'));
-                
-            }); 
+            });
         }
-   
     }
 
-    /**
-     * Bootstrap services.
-     */
     public function boot(): void
     {
-
+        // No boot logic needed here
     }
 }

@@ -241,7 +241,7 @@ class SingleController extends Controller
             '[category]'             => $siteTranslations->category ?? '',
             '[year]'                 => date('Y'),
             '[version]'              => $siteTranslations->version ?? '',
-            '[software_description]' => $software->softwareTranslations->first()->content ?? '',
+            '[software_description]' => strip_tags($software->softwareTranslations->first()->content) ?? '',
             '[software_tagline]'     => $software->softwareTranslations->first()->tagline ?? '',
         ];
     

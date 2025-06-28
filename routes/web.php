@@ -5,6 +5,7 @@ use App\Http\Controllers\InstallationController;
 use App\Http\Controllers\SingleController;
 use App\Http\Controllers\ResultsController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostDownloadController;
 
 
@@ -54,6 +55,14 @@ Route::prefix('downloading')->name('downloading.')->group(function () {
     Route::get('{param2}/{param3}', [PostDownloadController::class, 'index'])->name('index');
     Route::get('{param3}', [PostDownloadController::class, 'index'])->name('index');
 });
+
+Route::prefix('page')->name('page.')->group(function () {
+    Route::get('{param1}/{param2}/{param3}', [PageController::class, 'index'])->name('index');
+    Route::get('{param1}/{param3}', [PageController::class, 'index'])->name('index');
+    Route::get('{param2}/{param3}', [PageController::class, 'index'])->name('index');
+    Route::get('{param3}', [PageController::class, 'index'])->name('index');
+});
+
 
 
 Route::get('/{param1?}/{param2?}', [HomeController::class, 'index'])->name('home');

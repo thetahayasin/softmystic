@@ -11,8 +11,8 @@
         <nav class="flex gap-4 justify-center md:justify-end text-center">
             @foreach ($pages as $page)
             
-                <a href="{{ url('/') }}" title="Go to Home Page" class="transition hover:text-base-content/70">
-                    {{ $page->translations->first()?->title }}
+                <a href="{{ $page->url }}" title="Go to {{ $page->title }} Page" class="transition hover:text-base-content/70">
+                    {{ $page->title }}
                 </a>
                 
             @endforeach
