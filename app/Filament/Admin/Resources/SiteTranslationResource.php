@@ -175,7 +175,36 @@ class SiteTranslationResource extends Resource
                         ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version]'),
                 ])->columns(2),
 
+                // Section for single Translations
+                Section::make('Single Page Specific Translations')
+                    ->description('These short codes can be used in single page')
+                    ->schema([
+                        TextInput::make('author')
+                            ->required()
+                            ->minLength(3)
+                            ->default('Author')
+                            ->maxLength(255)
+                            ->label('Author text translation on single page'),
+                        TextInput::make('license')
+                            ->required()
+                            ->default('License')
+                            ->minLength(3)
+                            ->maxLength(255)
+                            ->label('License text translation on single page'),
+                        TextInput::make('requirements')
+                            ->required()
+                            ->default('Requirements')
+                            ->minLength(3)
+                            ->maxLength(255)
+                            ->label('Requirements text translation on single page'),
+                        TextInput::make('size')
+                            ->required()
+                            ->default('Size')
+                            ->minLength(3)
+                            ->maxLength(255)
+                            ->label('Size text translation on single page'),
 
+                    ])->columns(2),
 
                 // Section for Static Translations
                 Section::make('Static Translations / Shortcodes')

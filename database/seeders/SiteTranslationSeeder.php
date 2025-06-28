@@ -45,6 +45,10 @@ class SiteTranslationSeeder extends Seeder
             'related' => 'Related Products',
             'download' => 'Download Now',
             'for' => 'For Everyone',
+            'author' => 'Author',
+            'license' => 'License',
+            'requirements' => 'Requirements',
+            'size' => 'size',
             'free' => 'Free Download',
             'version' => 'Version',
             'locale_id' => $localeId,  // Dynamically set locale_id from the existing locales table

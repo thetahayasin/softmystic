@@ -46,6 +46,10 @@ return new class extends Migration
             $table->string('for');
             $table->string('free');
             $table->string('version');
+            $table->string('author');
+            $table->string('license');
+            $table->string('requirements');
+            $table->string('size');
             $table->foreignId('locale_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

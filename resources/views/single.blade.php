@@ -156,11 +156,11 @@
     <section class="w-full max-w-8xl overflow-hidden relative group mb-4 mt-6">
         <div id="carousel-app" class="carousel flex space-x-4 snap-x overflow-x-scroll scrollbar-hide scroll-smooth">
             <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
-                <h3 class="text-sm font-semibold">Author</h3>
+                <h3 class="text-sm font-semibold">{{ $trns->author ?? 'Author' }}</h3>
                 <p class="text-sm line-clamp-1">{{ $software->author->first()?->name }}</p>
             </article>
             <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
-                <h3 class="text-sm font-semibold">Version</h3>
+                <h3 class="text-sm font-semibold">{{ $trns->version ?? 'Version' }}</h3>
                 <p class="text-sm flex items-center gap-1 line-clamp-1">
                     {{ $software->version }}
                     <button class="text-sm line-clamp-1 badge-outline text-xs badge" onclick="version_modal.showModal()">
@@ -175,19 +175,19 @@
 
             </article>
             <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
-                <h3 class="text-sm font-semibold">License</h3>
+                <h3 class="text-sm font-semibold">{{ $trns->license ?? 'License' }}</h3>
                 <button class="text-sm line-clamp-1 badge-outline text-xs badge" onclick="license_modal.showModal()">{{ $software->license->licenseTranslations->first()?->name }}</button>
             </article>
             <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
-                <h3 class="text-sm font-semibold">Category</h3>
+                <h3 class="text-sm font-semibold">{{ $trns->category ?? 'Category' }}</h3>
                 <p class="text-sm line-clamp-1">{{ $software->category->categoryTranslations->first()?->name }}</p>
             </article>
             <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
-                <h3 class="text-sm font-semibold">Size</h3>
+                <h3 class="text-sm font-semibold">{{ $trns->size ?? 'Size' }}</h3>
                 <p class="text-sm line-clamp-1">{{ $software->readableFilesize }}</p>
             </article>
             <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
-                <h3 class="text-sm font-semibold">Requirements</h3>
+                <h3 class="text-sm font-semibold">{{ $trns->requirements ?? 'Requirements' }}</h3>
                 <div class="flex flex-wrap gap-1 text-sm">
                     @forelse($software->requirements as $requirement)
                         <span class="badge badge-outline text-xs text-base-content">{{ $requirement->name }}</span>
@@ -279,7 +279,7 @@
       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
     </form>
     <h2 class="text-lg font-bold text-base-content">Change Log</h2>
-    <p class="py-4 text-base-content">{{ $software->softwareTranslations->first()?->change_log }}</p>
+    <p class="py-4 text-base-content">{!! $software->softwareTranslations->first()?->change_log !!}</p>
   </div>
 </dialog>
 

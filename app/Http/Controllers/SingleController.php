@@ -77,6 +77,10 @@ class SingleController extends Controller
             'version',
             'popular',
             'category',
+            'size',
+            'author',
+            'requirements',
+            'license',
             'search_results'
         ]);
 
