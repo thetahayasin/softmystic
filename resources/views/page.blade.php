@@ -91,7 +91,13 @@
     <!-- Breadcrumb -->
     <nav class="text-sm breadcrumbs text-gray-500 px-2 mb-10">
         <ul>
-            <li><a href="{{ route('home', ['param1' => $locale_slug]) }}" class="text-base-content">Home</a></li>
+            <li>
+                <a href="{{ route('home', ['param1' => $locale_slug]) }}" class="text-base-content">
+                    <svg class="home-icon w-4 h-4 fill-current text-base-content" viewBox="0 0 20 20">
+                        <path d="M10 2.5L2.5 8.75V17.5H7.5V12.5H12.5V17.5H17.5V8.75L10 2.5Z" />
+                    </svg>
+                </a>
+            </li>
             <li class="text-base-content/70">{{ $page->translations->first()?->title }}</li>
         </ul>
     </nav>

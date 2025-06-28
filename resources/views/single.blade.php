@@ -161,7 +161,18 @@
             </article>
             <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
                 <h3 class="text-sm font-semibold">Version</h3>
-                <p class="text-sm line-clamp-1">{{ $software->version }}</p>
+                <p class="text-sm flex items-center gap-1 line-clamp-1">
+                    {{ $software->version }}
+                    <button class="text-sm line-clamp-1 badge-outline text-xs badge" onclick="version_modal.showModal()">
+                        <svg class="w-4 h-4 fill-current text-base-content" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd"
+                                d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </p>
+
             </article>
             <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
                 <h3 class="text-sm font-semibold">License</h3>
@@ -262,6 +273,14 @@
     <p class="py-4 text-base-content">{{ $software->license->licenseTranslations->first()?->description }}</p>
   </div>
 </dialog>
-
+<dialog id="version_modal" class="modal">
+  <div class="modal-box bg-base-200">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    <h2 class="text-lg font-bold text-base-content">Change Log</h2>
+    <p class="py-4 text-base-content">{{ $software->softwareTranslations->first()?->change_log }}</p>
+  </div>
+</dialog>
 
 @endsection

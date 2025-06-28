@@ -92,7 +92,7 @@ class SingleController extends Controller
         $software = Software::with([
             'author:id,name',
             'softwareTranslations' => function ($q) use ($locale_id) {
-                $q->select('id', 'software_id', 'locale_id', 'tagline', 'content')
+                $q->select('id', 'software_id', 'locale_id', 'tagline', 'content', 'change_log')
                   ->where('locale_id', $locale_id);
             },
             'requirements:id,name',
