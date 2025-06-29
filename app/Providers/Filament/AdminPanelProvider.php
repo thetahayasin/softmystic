@@ -22,6 +22,8 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Support\Facades\Schema;
+use App\Filament\Pages\Auth\CustomRequestPasswordReset; // Import your custom page
+
 
 
 class AdminPanelProvider extends PanelProvider
@@ -53,7 +55,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo($siteLogo ? asset('storage/' . $siteLogo) : null)
             ->favicon(asset($siteLogo ? asset('storage/' . $siteFavicon) : null))
             ->path('mystic')
-            ->passwordReset()
+            ->passwordReset(CustomRequestPasswordReset::class) // Use your custom page here
             ->login()
             ->navigationGroups([
                 'Content Management',
