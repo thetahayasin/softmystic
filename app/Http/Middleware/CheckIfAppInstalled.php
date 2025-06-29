@@ -3,6 +3,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+
 
 class CheckIfAppInstalled
 {
@@ -32,6 +34,8 @@ class CheckIfAppInstalled
 
             }else
             {
+                        Artisan::call('key:generate');
+
                 abort('403', 'Not installed. Go to ('.route('install.step1').') for installation');                
             }
         }

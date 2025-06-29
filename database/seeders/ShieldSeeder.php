@@ -34,16 +34,16 @@ class ShieldSeeder extends Seeder
         $superAdminRole->syncPermissions(Permission::all());
 
         // Step 5: Create or update Super Admin user
-        $user = User::updateOrCreate(
-            ['email' => 'admin@gmail.com'],
-            [
-                'name' => 'Super Admin',
-                'password' => Hash::make('1234'),
-            ]
-        );
+        // $user = User::updateOrCreate(
+        //     ['email' => 'admin@gmail.com'],
+        //     [
+        //         'name' => 'Super Admin',
+        //         'password' => Hash::make('1234'),
+        //     ]
+        // );
 
-        // Step 6: Assign role to the user
-        $user->syncRoles(['super_admin']);
+        // // Step 6: Assign role to the user
+        // $user->syncRoles(['super_admin']);
     }
 
     protected function makeModelPermissions(): void

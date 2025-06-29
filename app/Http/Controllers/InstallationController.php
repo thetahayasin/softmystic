@@ -12,6 +12,7 @@ class InstallationController extends Controller
 {
     public function step1()
     {
+
         $extensions = ['pdo', 'mbstring', 'openssl', 'tokenizer', 'json', 'xml'];
     
         $phpVersion = phpversion();
@@ -123,24 +124,20 @@ class InstallationController extends Controller
         try {
             // Run migrations
             Artisan::call('migrate:fresh', ['--force' => true]);
-    
-            // Create super admin with the hashed password
-            \App\Models\User::create([
-                'name' => $validatedData['admin_name'],
-                'email' => $validatedData['admin_email'],
-                'password' => Hash::make($validatedData['admin_password']),
-                'email_verified_at' => now(),
-            ]);
-    
+
             // Run seeder
             Artisan::call('db:seed', ['--force' => true]);
     
-            // Clear and optimize cache
-            Artisan::call('optimize:clear');
-            Artisan::call('optimize');
-    
-            // Generate key
-            Artisan::call('key:generate');
+            // Create super admin user
+            $user = \App\Models\User::create([
+                'name' => $validatedData['admin_name'],
+                'email' => $validatedData['admin_email'],
+                'password' => \Hash::make($validatedData['admin_password']),
+                'email_verified_at' => now(),
+            ]);
+
+            // Assign the super_admin role
+            $user->assignRole('super_admin'); // 👈 Make sure 'super_admin' role exists
     
             // Update .env file settings
             $this->updateEnv([
@@ -148,8 +145,8 @@ class InstallationController extends Controller
                 'APP_INSTALLED' => true,
 
             ]);
-            Artisan::call('config:clear');
-            Artisan::call('cache:clear');
+    
+
             Artisan::call('storage:link');
         } catch (\Throwable $e) {
             return back()->with('error', 'Installation failed: ' . $e->getMessage());

@@ -28,14 +28,20 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        if (
-            app()->runningInConsole() === false &&
-            Schema::hasTable('site_settings') &&
-            config('app.installed')
-        ) {
-            $siteLogo = \App\Models\SiteSetting::first()?->site_logo;
-            $siteFavicon = \App\Models\SiteSetting::first()?->site_favicon;
-        } else {
+        
+        try {
+            if (
+                app()->runningInConsole() === false &&
+                config('app.installed') &&
+                \Illuminate\Support\Facades\Schema::hasTable('site_settings')
+            ) {
+                $siteLogo = \App\Models\SiteSetting::first()?->site_logo;
+                $siteFavicon = \App\Models\SiteSetting::first()?->site_favicon;
+            } else {
+                $siteLogo = null;
+                $siteFavicon = null;
+            }
+        } catch (\Throwable $e) {
             $siteLogo = null;
             $siteFavicon = null;
         }
