@@ -53,6 +53,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo($siteLogo ? asset('storage/' . $siteLogo) : null)
             ->favicon(asset($siteLogo ? asset('storage/' . $siteFavicon) : null))
             ->path('mystic')
+            ->passwordReset()
             ->login()
             ->navigationGroups([
                 'Content Management',

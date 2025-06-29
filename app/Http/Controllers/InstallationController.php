@@ -143,6 +143,10 @@ class InstallationController extends Controller
             $this->updateEnv([
 
                 'APP_INSTALLED' => true,
+                'APP_DEBUG' => false,
+
+                'APP_ENV' => "production",
+
 
             ]);
     
