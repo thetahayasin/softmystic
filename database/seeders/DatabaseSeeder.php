@@ -14,7 +14,8 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
-            UserSeeder::class,
+            ShieldSeeder::class,
+            //UserSeeder::class,
             LocaleSeeder::class,
             AuthorSeeder::class,
             CategorySeeder::class,
@@ -27,6 +28,8 @@ class DatabaseSeeder extends Seeder
             SiteSettingSeeder::class,
             SiteTranslationSeeder::class,
             //SoftwareTranslationSeeder::class,
+            
+
 
 
 

@@ -46,6 +46,11 @@ class UserResource extends Resource
                         ->required()
                         ->email()
                         ->unique(ignoreRecord: true),
+
+                    Forms\Components\Select::make('roles')
+                        ->relationship('roles', 'name')
+                        ->preload()
+                        ->searchable(),
                     Toggle::make('is_active')
                             ->label('Active')
                             ->default(true)

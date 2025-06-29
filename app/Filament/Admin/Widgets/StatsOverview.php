@@ -9,6 +9,7 @@ use App\Models\SoftwareTranslation;
 use Carbon\Carbon;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Illuminate\Support\Facades\Auth;
 
 class StatsOverview extends BaseWidget
 {
@@ -66,5 +67,10 @@ class StatsOverview extends BaseWidget
                 return $counts[$date] ?? 0;
             })
             ->toArray();
+    }
+
+    public static function canView(): bool
+    {
+        return Auth::user()?->can('widget_StatsOverview');
     }
 }

@@ -6,6 +6,7 @@ use Filament\Widgets\ChartWidget;
 use App\Models\Software;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class SoftwarePostsChart extends ChartWidget
 {
@@ -52,5 +53,10 @@ class SoftwarePostsChart extends ChartWidget
     protected function getType(): string
     {
         return 'line';
+    }
+
+    public static function canView(): bool
+    {
+        return Auth::user()?->can('widget_SoftwarePostsChart');
     }
 }

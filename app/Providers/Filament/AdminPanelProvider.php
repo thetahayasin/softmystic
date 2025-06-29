@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Http\Middleware\CheckIfAppInstalled;
+use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use App\Http\Middleware\EnsureUserIsActive;
 use App\Models\SiteSetting;
 use Filament\Http\Middleware\Authenticate;
@@ -76,6 +77,9 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
                 CheckIfAppInstalled::class,
                 EnsureUserIsActive::class
+            ])
+            ->plugins([
+                FilamentShieldPlugin::make(),
             ])
             ->authMiddleware([
                 Authenticate::class,
