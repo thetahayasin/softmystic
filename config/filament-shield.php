@@ -34,18 +34,12 @@ return [
 
     'permission_prefixes' => [
         'resource' => [
-            // 'view',
+            'view',
             'view_any',
             'create',
             'update',
-            // 'restore',
-            // 'restore_any',
-            // 'replicate',
-            // 'reorder',
-            // 'delete',
             'delete',
-            // 'force_delete',
-            // 'force_delete_any',
+            'delete_any'
         ],
 
         'page' => 'page',

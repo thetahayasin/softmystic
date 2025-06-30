@@ -70,10 +70,12 @@ class ShieldSeeder extends Seeder
         ];
 
         $actions = [
+            'view',
             'view_any',
             'create',
             'update',
             'delete',
+            'delete_any'
             
  
         ];
