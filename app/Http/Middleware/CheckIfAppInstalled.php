@@ -33,9 +33,23 @@ class CheckIfAppInstalled
                 // }
 
                 // Return a custom view for the "app not installed" message
-                return response()->view('install.not-installed', [
-                    'installationUrl' => route('install.step1') // Assuming you have this route defined
-                ]);
+                return tap(response()->view('install.not-installed', [
+                    'installationUrl' => route('install.step1'),
+                ]), function () {
+                    if (empty(config('app.key')) || strlen(config('app.key')) < 32) {
+                        if (!file_exists(storage_path('app/.key_generated'))) {
+                            try {
+                                \Artisan::call('key:generate', ['--force' => true]);
+                                \Artisan::call('config:clear');
+                
+                                file_put_contents(storage_path('app/.key_generated'), now()->toDateTimeString());
+                            } catch (\Exception $e) {
+                                // Optional: handle or log error
+                            }
+                        }
+                    }
+                });
+                
             }
         }
     }
