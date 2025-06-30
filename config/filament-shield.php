@@ -43,7 +43,7 @@ return [
             // 'replicate',
             // 'reorder',
             // 'delete',
-            'delete_any',
+            'delete',
             // 'force_delete',
             // 'force_delete_any',
         ],

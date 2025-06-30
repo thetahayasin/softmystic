@@ -136,7 +136,7 @@
                             <p class="text-sm text-base-content opacity-70 pb-2 line-clamp-3">{{ $app['tagline'] }}</p>
                         </div>
                         <div class="card-actions mt-4">
-                            <button class="btn btn-primary btn-sm w-full">Download</button>
+                            <button class="btn btn-primary btn-sm w-full">{{ $trns->download ?? 'Download' }}</button>
                         </div>
                     </div>
                 </div>

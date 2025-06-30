@@ -73,7 +73,8 @@ class ShieldSeeder extends Seeder
             'view_any',
             'create',
             'update',
-            'delete_any',
+            'delete',
+            
  
         ];
 

@@ -60,6 +60,7 @@ class HomeController extends Controller
             'hero_title',
             'hero_text',
             'featured_apps',
+            'download',
             'latest_updates',
             'new_releases',
             'trending_apps',

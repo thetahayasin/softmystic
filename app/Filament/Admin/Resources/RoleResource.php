@@ -31,7 +31,7 @@ class RoleResource extends Resource implements HasShieldPermissions
             'view_any',
             'create',
             'update',
-            'delete_any',
+            'delete',
         ];
     }
 
