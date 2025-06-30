@@ -25,7 +25,7 @@ A modern, multilingual, and multi-platform software directory and download porta
 - **Admin Panel**: Filament
 - **Testing**: PHPUnit
 
-## Quick Start (Recommended)
+## Quick Start
 
 1. Clone the repository and install dependencies:
    ```bash
@@ -43,22 +43,6 @@ A modern, multilingual, and multi-platform software directory and download porta
    - **Step 3:** Super admin account setup
 
 4. After installation, you'll be redirected to the admin login page.
-
-> For advanced/manual setup, see below.
-
-### Manual Setup (optional/advanced)
-
-If you prefer, you can still set up manually:
-
-```bash
-cp .env.example .env
-php artisan key:generate
-php artisan migrate --seed
-php artisan storage:link
-php artisan serve
-```
-
-Visit [http://localhost:8000](http://localhost:8000) in your browser.
 
 ### Admin Panel
 
