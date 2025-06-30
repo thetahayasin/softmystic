@@ -45,7 +45,7 @@ A modern, multilingual, and multi-platform software directory and download porta
 ### Admin Panel
 
 - Access the admin panel at `/mystic` (Filament).
-- Default credentials: (set via installer or seeder).
+- Default credentials: (set via installer).
 
 ### Configuration
 
