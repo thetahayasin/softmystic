@@ -18,7 +18,7 @@ A modern, multilingual, and multi-platform software directory and download porta
 ## Tech Stack
 
 - **Backend**: Laravel 12.x
-- **Frontend**: Blade, Tailwind CSS, Filament UI, Livewire
+- **Frontend**: Blade, Tailwind CSS, Filament UI, Livewire, DaisyUI
 - **Database**: MySQL (or any Laravel-supported DB)
 - **Admin Panel**: Filament
 - **Testing**: PHPUnit
