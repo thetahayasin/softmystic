@@ -64,8 +64,8 @@ A modern, multilingual, and multi-platform software directory and download porta
 
 ## Customization
 
-- **Themes**: Easily switch or extend Tailwind CSS themes.
-- **Translations**: Add new languages via the admin or by editing translation files.
+- **Themes**: Easily switch themes from admin panel (Supports all DaisyUI 4 Themes).
+- **Translations**: Add new languages via the admin.
 - **Ads**: Manage ad slots from the admin panel.
 
 ## Contributing
