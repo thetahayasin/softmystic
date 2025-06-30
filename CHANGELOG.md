@@ -12,12 +12,6 @@ All notable changes to this project will be documented in this file.
 - SEO and structured data enhancements.
 - Advertisement management.
 
-### Changed
-- (Describe any changes here)
-
-### Fixed
-- (Describe any bug fixes here)
-
 ---
 
 ## [v1.0.0] - YYYY-MM-DD
@@ -30,5 +24,3 @@ All notable changes to this project will be documented in this file.
 - Frontend pages for home, category, software detail, and download.
 
 ---
-
-> For previous changes, see the [Laravel skeleton changelog](https://github.com/laravel/laravel/blob/12.x/CHANGELOG.md).
