@@ -2,8 +2,6 @@
 
 A modern, multilingual, and multi-platform software directory and download portal built with Laravel, Filament, and Livewire. This project enables you to showcase, categorize, and distribute software with rich metadata, ratings, and translation support.
 
-![Homepage Screenshot](public/screenshots/homepage.png) <!-- (Add your own screenshot here) -->
-
 ## Features
 
 - **Multilingual**: Full translation support for software, categories, licenses, and site content.
@@ -46,7 +44,7 @@ A modern, multilingual, and multi-platform software directory and download porta
 
 ### Admin Panel
 
-- Access the admin panel at `/admin` (Filament).
+- Access the admin panel at `/mystic` (Filament).
 - Default credentials: (set via installer or seeder).
 
 ### Configuration
@@ -76,4 +74,4 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ## License
 
-[MIT](LICENSE)
+This software is licensed under the End User License Agreement (EULA). Please see the [LICENSE](LICENSE) file for details.
