@@ -74,4 +74,4 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ## License
 
-This software is licensed under the End User License Agreement (EULA). Please see the [LICENSE](LICENSE) file for details.
+This software is licensed under the End User License Agreement (EULA).
