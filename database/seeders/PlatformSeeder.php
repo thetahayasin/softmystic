@@ -15,11 +15,8 @@ class PlatformSeeder extends Seeder
     public function run(): void
     {
         $platforms = [
-            ['name' => 'Android'],
             ['name' => 'Windows'],
-            ['name' => 'iOS'],
-            ['name' => 'MacOS'],
-            ['name' => 'Linux'],
+
         ];
 
         foreach ($platforms as $platform) {

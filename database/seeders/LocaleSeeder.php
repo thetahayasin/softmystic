@@ -15,13 +15,7 @@ class LocaleSeeder extends Seeder
     {
         $locales = [
             ['key' => 'en', 'name' => 'English'],
-            ['key' => 'fr', 'name' => 'French'],
-            ['key' => 'de', 'name' => 'German'],
-            ['key' => 'es', 'name' => 'Spanish'],
-            ['key' => 'it', 'name' => 'Italian'],
-            ['key' => 'pt', 'name' => 'Portuguese'],
-            ['key' => 'ar', 'name' => 'Arabic'],
-            ['key' => 'zh', 'name' => 'Chinese'],
+
         ];
     
         foreach ($locales as $locale) {
