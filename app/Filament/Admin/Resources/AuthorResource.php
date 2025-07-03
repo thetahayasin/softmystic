@@ -6,7 +6,7 @@ use App\Filament\Admin\Resources\AuthorResource\Pages;
 use App\Models\Author;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\TextArea;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
@@ -55,7 +55,7 @@ class AuthorResource extends Resource
                         ->required()
                         ->url(),
             
-                    TextArea::make('description')
+                    Textarea::make('description')
                         ->label('Description (Optional)')
                         ->nullable()
                         ->columnSpanFull(),
