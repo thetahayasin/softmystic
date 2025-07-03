@@ -352,8 +352,7 @@
     <form method="dialog">
       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
     </form>
-    <h2 class="text-lg font-bold text-base-content">Change Log</h2>
-    <p class="py-4 text-base-content">{!! $software->softwareTranslations->first()?->change_log !!}</p>
+    <section class="py-4 text-base-content content-wysiwyg">{!! $software->softwareTranslations->first()?->change_log !!}</section>
   </div>
 </dialog>
 @endif
