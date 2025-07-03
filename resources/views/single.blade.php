@@ -222,13 +222,17 @@
     <section class="w-full max-w-8xl overflow-hidden relative group mb-4 mt-6">
         <div id="carousel-app" class="carousel flex space-x-4 snap-x overflow-x-scroll scrollbar-hide scroll-smooth">
             <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
-                <h3 class="text-sm font-semibold">{{ $trns->author ?? 'Author' }}</h3>
-                <p class="text-sm line-clamp-1">{{ $software->author->first()?->name }}</p>
+                <h2 class="text-sm font-semibold">{{ $trns->author ?? 'Author' }}</h2>
+                <a href="{{ $software->author->first()?->url }}" target="_blank">
+                    <p class="text-sm line-clamp-1">{{ $software->author->first()?->name }}</p>
+                </a>
+                
             </article>
             <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
-                <h3 class="text-sm font-semibold">{{ $trns->version ?? 'Version' }}</h3>
+                <h2 class="text-sm font-semibold">{{ $trns->version ?? 'Version' }}</h2>
                 <p class="text-sm flex items-center gap-1 line-clamp-1">
                     {{ $software->version }}
+                    @if($software->softwareTranslations->first()?->change_log != null)
                     <button class="text-sm line-clamp-1 badge-outline text-xs badge" onclick="version_modal.showModal()">
                         <svg class="w-4 h-4 fill-current text-base-content" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -237,23 +241,24 @@
                                 clip-rule="evenodd" />
                         </svg>
                     </button>
+                    @endif
                 </p>
 
             </article>
             <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
-                <h3 class="text-sm font-semibold">{{ $trns->license ?? 'License' }}</h3>
+                <h2 class="text-sm font-semibold">{{ $trns->license ?? 'License' }}</h2>
                 <button class="text-sm line-clamp-1 badge-outline text-xs badge" onclick="license_modal.showModal()">{{ $software->license->licenseTranslations->first()?->name }}</button>
             </article>
             <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
-                <h3 class="text-sm font-semibold">{{ $trns->category ?? 'Category' }}</h3>
+                <h2 class="text-sm font-semibold">{{ $trns->category ?? 'Category' }}</h2>
                 <p class="text-sm line-clamp-1">{{ $software->category->categoryTranslations->first()?->name }}</p>
             </article>
             <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
-                <h3 class="text-sm font-semibold">{{ $trns->size ?? 'Size' }}</h3>
+                <h2 class="text-sm font-semibold">{{ $trns->size ?? 'Size' }}</h2>
                 <p class="text-sm line-clamp-1">{{ $software->readableFilesize }}</p>
             </article>
             <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
-                <h3 class="text-sm font-semibold">{{ $trns->requirements ?? 'Requirements' }}</h3>
+                <h2 class="text-sm font-semibold">{{ $trns->requirements ?? 'Requirements' }}</h2>
                 <div class="flex flex-wrap gap-1 text-sm">
                     @forelse($software->requirements as $requirement)
                         <span class="badge badge-outline text-xs text-base-content">{{ $requirement->name }}</span>
@@ -341,6 +346,7 @@
     <p class="py-4 text-base-content">{{ $software->license->licenseTranslations->first()?->description }}</p>
   </div>
 </dialog>
+@if($software->softwareTranslations->first()?->change_log != null)
 <dialog id="version_modal" class="modal">
   <div class="modal-box bg-base-200">
     <form method="dialog">
@@ -350,5 +356,6 @@
     <p class="py-4 text-base-content">{!! $software->softwareTranslations->first()?->change_log !!}</p>
   </div>
 </dialog>
+@endif
 
 @endsection
