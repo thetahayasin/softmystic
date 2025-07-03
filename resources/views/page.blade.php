@@ -108,7 +108,7 @@
     </section>
 
     <!-- Page Content -->
-    <section class="prose max-w-full text-base-content mb-10">
+    <section class="prose max-w-full text-base-content mb-10 content-wysiwyg">
         {!! $page->translations->first()?->content !!}
     </section>
 
