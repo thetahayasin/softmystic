@@ -101,7 +101,7 @@
         
         <!-- Left: Text Content -->
         <div class="w-full lg:w-1/2 text-center lg:text-left">
-            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight tracking-tight bg-gradient-to-r from-primary via-secondary to-secondary bg-clip-text text-transparent">
+            <h1 class="text-4xl md:text-4xl font-extrabold mb-4 leading-tight tracking-tight bg-gradient-to-r from-primary via-secondary to-secondary bg-clip-text text-transparent">
                 {{ $trns->hero_title ?? 'Default' }}
             </h1>
             <p class="text-lg md:text-2xl mb-8 font-medium text-base-content">
