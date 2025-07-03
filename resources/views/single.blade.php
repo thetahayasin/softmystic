@@ -303,7 +303,7 @@
         <!-- Screenshots -->
         <section class="overflow-x-auto space-x-4 flex mb-10" aria-label="Software Screenshots">
             @foreach($software->screenshots as $index => $screenshot)
-            <a href="{{ asset('storage/' . $screenshot) }}" target="_blank">
+            <a href="{{ asset('storage/' . $screenshot) }}" target="_blank" class="rounded-2xl flex-shrink-0 w-auto h-[200px]">
                 <img
                     src="{{ asset('storage/' . $screenshot) }}"
                     class="rounded-2xl flex-shrink-0 w-auto h-[200px]"
