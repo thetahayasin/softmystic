@@ -16,3 +16,88 @@
 html {
     scroll-behavior: smooth;
 }
+
+
+
+/* WYSIWYG content container */
+.content-wysiwyg {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  color: var(--bf); /* base-foreground */
+}
+
+/* Headings */
+.content-wysiwyg h1,
+.content-wysiwyg h2,
+.content-wysiwyg h3,
+.content-wysiwyg h4 {
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  color: var(--n); /* neutral */
+}
+
+/* Paragraph spacing */
+.content-wysiwyg p {
+  margin-bottom: 1em;
+}
+
+/* Links */
+.content-wysiwyg a {
+  color: var(--p); /* primary */
+  text-decoration: underline;
+}
+
+.content-wysiwyg a:hover {
+  text-decoration: none;
+}
+
+/* Lists */
+.content-wysiwyg ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1em;
+  list-style-position: outside;
+}
+
+.content-wysiwyg ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1em;
+  list-style-position: outside;
+}
+
+/* Images */
+.content-wysiwyg img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem; /* rounded-lg */
+  margin: 1em 0;
+  box-shadow: 0 4px 6px rgb(0 0 0 / 0.1); /* shadow-md */
+  display: block;
+}
+
+/* Tables */
+.content-wysiwyg table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1em;
+  border: 1px solid var(--n); /* neutral border */
+}
+
+.content-wysiwyg th,
+.content-wysiwyg td {
+  border: 1px solid var(--n);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  color: var(--bf);
+}
+
+/* Blockquotes */
+.content-wysiwyg blockquote {
+  border-left: 4px solid var(--p); /* primary color */
+  padding-left: 1rem;
+  color: var(--nf); /* neutral foreground */
+  font-style: italic;
+  margin: 1em 0;
+}
