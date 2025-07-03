@@ -34,7 +34,7 @@ class LicenseTranslationsRelationManager extends RelationManager
                                             ];
                                         }),
                 Forms\Components\TextInput::make('name')->required()->label('Name Translation')->minLength(3)->maxLength(255),
-                Forms\Components\TextArea::make('description')->nullable()->label('Description Translation (Limit:255 characters)')->minLength(3)->maxLength(255)->columnSpanFull(),
+                Forms\Components\Textarea::make('description')->nullable()->label('Description Translation (Limit:255 characters)')->minLength(3)->maxLength(255)->columnSpanFull(),
             ]);
     }
 
