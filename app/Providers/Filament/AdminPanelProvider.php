@@ -38,6 +38,7 @@ class AdminPanelProvider extends PanelProvider
                 \Illuminate\Support\Facades\Schema::hasTable('site_settings')
             ) {
                 $siteLogo = \App\Models\SiteSetting::first()?->site_logo;
+                $siteName = \App\Models\SiteSetting::first()?->site_name;
                 $siteFavicon = \App\Models\SiteSetting::first()?->site_favicon;
             } else {
                 $siteLogo = null;
@@ -52,6 +53,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
+            ->brandName($siteName ?? env('APP_NAME'))
             ->brandLogo($siteLogo ? asset('storage/' . $siteLogo) : null)
             ->favicon(asset($siteLogo ? asset('storage/' . $siteFavicon) : null))
             ->path('mystic')
