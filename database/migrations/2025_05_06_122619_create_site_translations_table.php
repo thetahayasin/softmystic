@@ -33,7 +33,7 @@ return new class extends Migration
             $table->string('single_meta_title')->nullable();
             $table->string('single_meta_description')->nullable();
             $table->string('nothing_found');
-            $table->string('downloading_text');
+            $table->string('downloading_text')->nullable();
             $table->string('search_results');
             $table->string('category');
             $table->string('download_button');
