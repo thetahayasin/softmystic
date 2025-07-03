@@ -283,7 +283,7 @@
 
 
     <!-- Description -->
-    <section class="space-y-4 text-base-content leading-relaxed text-justify pb-4">
+    <section class="space-y-4 text-base-content leading-relaxed text-justify pb-4 content-wysiwyg">
         {!! $software->softwareTranslations->first()?->content !!}
     </section>
 
