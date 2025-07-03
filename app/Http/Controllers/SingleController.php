@@ -191,7 +191,7 @@ class SingleController extends Controller
             );
         }
         $category_url = $this->generateHelpUrl($locale_slug, $platform_slug, $software->category?->slug, $default_locale_slug, $default_platform_slug);
-        $downloadUrl = $this->generateDownloadingUrl($alt_locale_slug, $platform_slug, $software->slug, $default_locale_slug, $default_platform_slug);
+        $downloadUrl = $this->generateDownloadingUrl($locale_slug, $platform_slug, $software->slug, $default_locale_slug, $default_platform_slug);
         // Pass all data to view
         return view('single', compact(
             'software',
