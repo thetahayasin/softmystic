@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('version');
             $table->foreignId('author_id');
             $table->string('logo');
-            $table->string('download_url');
+            $table->text('download_url');
             $table->string('buy_url')->nullable();
             $table->bigInteger('downloads')->default(0);
             $table->foreignId('category_id')->constrained()->onDelete('restrict');
