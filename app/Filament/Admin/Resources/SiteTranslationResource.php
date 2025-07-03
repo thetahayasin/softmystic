@@ -98,14 +98,9 @@ class SiteTranslationResource extends Resource
                         ->default('Softimystic is a multiplatform appstore.')
                         ->maxLength(255)
                         ->label('Site Wide Footer Copyright Text'),
-                    TextInput::make('downloading_text')
-                        ->nullable()
-                        ->maxLength(255)
-                        ->label('Downloading Page - [Short Codes can be used]')
-                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version]'),
 
                     TextInput::make('nothing_found')
-                        ->nullable()
+                        ->required()
                         ->maxLength(255)
                         ->label('No Record Found Text')
 
@@ -172,6 +167,11 @@ class SiteTranslationResource extends Resource
                         ->nullable()
                         ->maxLength(255)
                         ->label('Single Page Meta Description - [Short Codes can be used]')
+                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version]'),
+                    TextInput::make('downloading_text')
+                        ->required()
+                        ->maxLength(255)
+                        ->label('Downloading Page - [Short Codes can be used]')
                         ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version]'),
                 ])->columns(2),
 
