@@ -66,7 +66,7 @@
 
     <!-- ad 2 -->
     @if($ads['download_page_ad_2'] != null)
-        <div class="card bg-base-200 hover:bg-base-300 transition duration-300 ease-in-out rounded-2xl mb-10 mt-10 max-h-[90px]">
+        <div class="card bg-base-200 hover:bg-base-300 transition duration-300 ease-in-out rounded-2xl mt-10 max-h-[90px]">
             {!! $ads['download_page_ad_2'] !!}
         </div>
     @endif
@@ -74,7 +74,7 @@
 
 
     <!-- Related Apps -->
-    <section id="related" class="w-full max-w-8xl px-2 overflow-hidden relative group mb-10">
+    <section id="related" class="w-full max-w-8xl px-2 overflow-hidden relative group mb-10 mt-10">
         <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->popular ?? 'Popular Apps' }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             @foreach ($related as $app)
