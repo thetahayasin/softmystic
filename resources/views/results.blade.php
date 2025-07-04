@@ -21,6 +21,7 @@
         }
     @endphp
 
+    @if($softwares->isNotEmpty())
     {{-- JSON-LD: ItemList for Search Results --}}
     <script type="application/ld+json">
     {
@@ -41,6 +42,7 @@
       ]
     }
     </script>
+    @endif
 
     <script type="application/ld+json">
     {
