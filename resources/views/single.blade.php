@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('meta_title'){{ $meta_title ?? '' }} - {{ $ads->site_name }}@endsection
-@section('meta_description'){!! \Illuminate\Support\Str::limit($meta_description ?: '', 160, '...') !!}@endsection
+@section('meta_description'){!! \Illuminate\Support\Str::limit($meta_description ?: '', 140, '...') !!}@endsection
 
 @section('styles')
 <link rel="canonical" href="{{ $software->url }}">
     <meta name="robots" content="index, follow" />
     <!-- Open Graph -->
     <meta property="og:title" content="{{ $meta_title ?? '' }} - {{ $ads->site_name }}" />
-    <meta property="og:description" content="{!! \Illuminate\Support\Str::limit($meta_description ?: '', 160, '...') !!}" />
+    <meta property="og:description" content="{!! \Illuminate\Support\Str::limit($meta_description ?: '', 140, '...') !!}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ $software->url }}" />
     <meta property="og:image" content="{{ asset('storage/' . $software->logo) }}" />
@@ -15,7 +15,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{ $meta_title ?? '' }} - {{ $ads->site_name }}" />
-    <meta name="twitter:description" content="{!! \Illuminate\Support\Str::limit($meta_description ?: '', 160, '...') !!}" />
+    <meta name="twitter:description" content="{!! \Illuminate\Support\Str::limit($meta_description ?: '', 140, '...') !!}" />
     <meta name="twitter:image" content="{{ asset('storage/' . $software->logo) }}" />
     @if(!empty($alternateUrls))
         @foreach ($alternateUrls as $alt)
