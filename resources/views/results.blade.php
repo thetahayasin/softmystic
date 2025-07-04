@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta_description')
-    {!! \Illuminate\Support\Str::limit($meta_description, 160, '...') !!}
+    {!! \Illuminate\Support\Str::limit($meta_description, 140, '...') !!}
 @endsection
 
 @section('styles')
@@ -71,7 +71,7 @@
 
     {{-- Open Graph --}}
     <meta property="og:title" content="{{ $meta_title ?? '' }} - {{ $ads->site_name }}" />
-    <meta property="og:description" content="{{ \Illuminate\Support\Str::limit($meta_description ?? '', 160) }}" />
+    <meta property="og:description" content="{{ \Illuminate\Support\Str::limit($meta_description ?? '', 140) }}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ $cannonical }}" />
     @if($ads->site_logo)
@@ -81,7 +81,7 @@
     {{-- Twitter Card --}}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{ $meta_title ?? '' }} - {{ $ads->site_name }}" />
-    <meta name="twitter:description" content="{{ \Illuminate\Support\Str::limit($meta_description ?? '', 160) }}" />
+    <meta name="twitter:description" content="{{ \Illuminate\Support\Str::limit($meta_description ?? '', 140) }}" />
     @if($ads->site_logo)
         <meta name="twitter:image" content="{{ asset('storage/'.$ads->site_logo) }}" />
     @endif
