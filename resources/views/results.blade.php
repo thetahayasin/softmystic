@@ -112,16 +112,17 @@
         </ul>
     </nav>
 
-    {{-- Top Ad --}}
-    @if(!empty($ads['results_page_ad']))
-        <section class="w-full px-4 mb-10 flex justify-center items-center mt-10 max-h-[90px] bg-base-200 rounded-2xl">
-            <div class="max-w-full text-center">
-                {!! $ads['results_page_ad'] !!}
-            </div>
-        </section>
-    @endif
+
     <section id="new-releases" class="w-full max-w-8xl px-2 overflow-hidden relative group">
-        <h1 class="text-xl font-bold mb-5 text-base-content">{{ Route::currentRouteName() == 'result.index' ? $trns?->search_results.' "'.$q.'"' : $cat_name }}</h2>
+        {{-- Top Ad --}}
+        @if(!empty($ads['results_page_ad']))
+            <section class="w-full px-4 flex justify-center items-center max-h-[90px] bg-base-200 rounded-2xl mb-5">
+                <div class="max-w-full text-center">
+                    {!! $ads['results_page_ad'] !!}
+                </div>
+            </section>
+        @endif
+        <h1 class="text-xl font-bold text-base-content mb-5">{{ Route::currentRouteName() == 'result.index' ? $trns?->search_results.' "'.$q.'"' : $cat_name }}</h2>
         @if(Route::currentRouteName() == 'category.index')
         <hr>
         <p class="text-md border-bottom mt-4 mb-4">{{ $cat_description }}</p>
@@ -132,19 +133,30 @@
     {{-- Search Results --}}
     <section class="space-y-4 w-full max-w-8xl px-2 overflow-hidden relative group mb-10">
         @forelse($softwares as $software)
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 card bg-base-200">
-                <div class="flex items-start gap-4">
-                    <img src="{{ asset('storage/' . $software['logo']) }}" alt="{{ $software['name'] }} Logo" class="w-12 h-12 object-contain" loading="lazy">
-                    <div>
-                        <a href="{{ $software['url'] }}">
-                            <h2 class="text-xl font-bold text-base-content hover:underline">{{ $software['name'] }}</h2>
-                        </a>
-                        <div class="text-sm">{{ $software['updated'] }} – {{ $software['fileSize'] }} – {{ $software['license'] }}</div>
-                        <p class="text-sm mt-2">{{ $software['tagline'] }}</p>
-                    </div>
-                </div>
-                <a href="{{ $software['url'] }}" class="btn btn-primary btn-sm sm:btn-md px-4 sm:w-32">{{ $trns->download ?? 'Download' }}</a>
+        
+<a href="{{ $software['url'] }}" class="block group">
+    <div class="relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 card bg-base-200 hover:bg-base-300 transition duration-300 ease-in-out">
+        <!-- Content Section -->
+        <div class="flex flex-col items-center sm:flex-row sm:items-start gap-4 text-center sm:text-left w-full">
+            <img src="{{ asset('storage/' . $software['logo']) }}" alt="{{ $software['name'] }} Logo" class="w-12 h-12 object-contain" loading="lazy">
+            <div>
+                <h2 class="text-xl font-bold text-base-content">{{ $software['name'] }}</h2>
+                <div class="text-sm">{{ $software['updated'] }} – {{ $software['fileSize'] }} – {{ $software['license'] }}</div>
+                <p class="text-sm mt-2">{{ $software['tagline'] }}</p>
             </div>
+        </div>
+
+        <!-- Download Button -->
+        <div class="z-10 w-full sm:w-auto">
+            <span class="btn btn-primary btn-sm sm:btn-md w-full sm:w-32 pointer-events-none">
+                {{ $trns->download ?? 'Download' }}
+            </span>
+        </div>
+    </div>
+</a>
+
+        
+
         @empty
             <div class="text-center py-10 text-gray-400 text-lg">
                 {{ $trns->nothing_found ?? 'Nothing Found' }}
@@ -158,7 +170,7 @@
 
         {{-- Bottom Ad --}}
         @if(!empty($ads['results_page_ad_2']))
-            <section class="w-full px-4 mt-10 flex justify-center items-center max-h-[90px] bg-base-200 rounded-2xl">
+            <section class="w-full px-4 mt-5 flex justify-center items-center max-h-[90px] bg-base-200 rounded-2xl">
                 <div class="max-w-full text-center">
                     {!! $ads['results_page_ad_2'] !!}
                 </div>
