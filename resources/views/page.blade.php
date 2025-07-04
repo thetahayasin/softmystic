@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('meta_title'){{ $page->translations->first()?->title ?? '' }} - {{ $ads->site_name }}@endsection
-@section('meta_description'){{ \Illuminate\Support\Str::limit(strip_tags($page->translations->first()?->content ?? ''), 120, '...') }}@endsection
+@section('meta_description'){{ \Illuminate\Support\Str::limit(strip_tags($page->translations->first()?->content ?? ''), 140, '...') }}@endsection
 
 @section('styles')
     <link rel="canonical" href="{{ url()->current() }}">
     <meta name="robots" content="index, follow" />
 
     <meta property="og:title" content="{{ $page->translations->first()?->title ?? '' }} - {{ $ads->site_name }}" />
-    <meta property="og:description" content="{{ \Illuminate\Support\Str::limit(strip_tags($page->translations->first()?->content ?? ''), 120, '...') }}" />
+    <meta property="og:description" content="{{ \Illuminate\Support\Str::limit(strip_tags($page->translations->first()?->content ?? ''), 140, '...') }}" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="{{ url()->current() }}" />
     @if($ads->site_logo)
@@ -17,7 +17,7 @@
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{ $page->translations->first()?->title ?? '' }} - {{ $ads->site_name }}" />
-    <meta name="twitter:description" content="{{ \Illuminate\Support\Str::limit(strip_tags($page->translations->first()?->content ?? ''), 120, '...') }}" />
+    <meta name="twitter:description" content="{{ \Illuminate\Support\Str::limit(strip_tags($page->translations->first()?->content ?? ''), 140, '...') }}" />
     @if($ads->site_logo)
     <meta name="twitter:image" content="{{ asset('storage/'.$ads->site_logo) }}" />
     @endif
@@ -33,7 +33,7 @@
     "mainEntity": {
         "@type": "Article",
         "headline": @json($page->translations->first()?->title ?? ''),
-        "description": @json(\Illuminate\Support\Str::limit(strip_tags($page->translations->first()?->content ?? ''), 160)),
+        "description": @json(\Illuminate\Support\Str::limit(strip_tags($page->translations->first()?->content ?? ''), 140)),
         "author": {
         "@type": "Organization",
         "name": @json($ads->site_name)
