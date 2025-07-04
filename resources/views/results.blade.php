@@ -112,7 +112,7 @@
 
     {{-- Top Ad --}}
     @if(!empty($ads['results_page_ad']))
-        <section class="w-full px-4 mb-10 flex justify-center items-center mt-10 max-h-[90px]">
+        <section class="w-full px-4 mb-10 flex justify-center items-center mt-10 max-h-[90px] bg-base-200 hover:bg-base-300 rounded-2xl">
             <div class="max-w-full text-center">
                 {!! $ads['results_page_ad'] !!}
             </div>
@@ -156,7 +156,7 @@
 
         {{-- Bottom Ad --}}
         @if(!empty($ads['results_page_ad_2']))
-            <section class="w-full px-4 mt-10 flex justify-center items-center max-h-[90px]">
+            <section class="w-full px-4 mt-10 flex justify-center items-center max-h-[90px] bg-base-200 hover:bg-base-300 rounded-2xl">
                 <div class="max-w-full text-center">
                     {!! $ads['results_page_ad_2'] !!}
                 </div>
