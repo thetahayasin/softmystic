@@ -182,7 +182,7 @@
         @endforeach
 
             @if($ads['home_page_ad_2'] != null)
-                <div class="card bg-secondary/10 hover:bg-primary/5 transition duration-300 ease-in-out rounded-2xl h-60">
+                <div class="card bg-base-200 transition duration-300 ease-in-out rounded-2xl items-center text-center">
                     {!! $ads['home_page_ad_2'] !!}
                 </div>
             @endif
