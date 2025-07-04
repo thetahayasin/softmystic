@@ -35,7 +35,15 @@
         </div>
 
         @if ($rated)
-            <span class="text-green-600">· Thanks for rating!</span>
+<span class="text-green-600 inline-flex items-center gap-1 leading-none">
+  <span class="text-lg">•</span>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+       xmlns="http://www.w3.org/2000/svg">
+    <path d="M20.25 6L9 17.25L3.75 12"
+          stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</span>
         @endif
     </div>
 </div>
