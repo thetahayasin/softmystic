@@ -83,7 +83,7 @@
 
     <!-- Ad Top -->
     @if($ads['single_page_ad'])
-        <div class="card bg-base-200 hover:bg-base-300 max-h-[90px] transition duration-300 ease-in-out rounded-2xl mb-10 mt-10">
+        <div class="card bg-base-200 max-h-[90px] transition duration-300 ease-in-out rounded-2xl mb-10 mt-10">
             {!! $ads['single_page_ad'] !!}
         </div>
     @endif
@@ -114,7 +114,7 @@
 
     <!-- Ad Bottom -->
     @if($ads['single_page_ad_2'])
-        <div class="card bg-base-200 hover:bg-base-300 transition duration-300 ease-in-out rounded-2xl mt-10 mb-4 max-h-[90px]">
+        <div class="card bg-base-200 transition duration-300 ease-in-out rounded-2xl mt-10 mb-4 max-h-[90px]">
             {!! $ads['single_page_ad_2'] !!}
         </div>
     @endif
