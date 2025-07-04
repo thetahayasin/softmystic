@@ -88,7 +88,7 @@
 
 @section('content')
 @if($ads['home_page_ad'] != null)
-<section class="w-full px-4 flex justify-center items-center mt-10">
+<section class="w-full px-4 flex justify-center items-center mt-10 bg-base-200 transition duration-300 ease-in-out rounded-2xl items-center text-center">
     
         <div class="max-w-full text-center max-h-[90px]">
             {!! $ads['home_page_ad'] !!}
