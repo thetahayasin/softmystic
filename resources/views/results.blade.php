@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta_description')
-    {{ \Illuminate\Support\Str::limit($meta_description, 160, '...') }}
+    {!! \Illuminate\Support\Str::limit($meta_description, 160, '...') !!}
 @endsection
 
 @section('styles')
@@ -26,7 +26,7 @@
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      "name": "{{ addslashes($meta_title) }}",
+      "name": "{!! addslashes($meta_title) !!}",
       "itemListElement": [
         @foreach ($softwares as $index => $software)
         {
@@ -35,7 +35,7 @@
           "url": "{{ $software['url'] }}",
           "name": "{{ addslashes($software['name']) }}",
           "image": "{{ asset('storage/' . $software['logo']) }}",
-          "description": "{{ addslashes($software['tagline']) }}"
+          "description": "{!! addslashes($software['tagline']) !!}"
         }@if (!$loop->last),@endif
         @endforeach
       ]
@@ -119,7 +119,7 @@
         </section>
     @endif
     <section id="new-releases" class="w-full max-w-8xl px-2 overflow-hidden relative group">
-        <h1 class="text-xl font-bold mb-5 text-base-content">{{ Route::currentRouteName() == 'result.index' ? $trns?->search_results.' '.$trns?->for.' "'.$q.'"' : $cat_name }}</h2>
+        <h1 class="text-xl font-bold mb-5 text-base-content">{{ Route::currentRouteName() == 'result.index' ? $trns?->search_results.' "'.$q.'"' : $cat_name }}</h2>
         @if(Route::currentRouteName() == 'category.index')
         <hr>
         <p class="text-md border-bottom mt-4 mb-4">{{ $cat_description }}</p>
