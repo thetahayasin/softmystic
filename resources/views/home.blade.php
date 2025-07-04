@@ -68,9 +68,7 @@
     <meta property="og:title" content="{{ $trns->home_meta_title ?? '' }} - {{ $ads->site_name }}" />
     <meta property="og:description" content="{{ $trns->home_meta_description ?? '' }}" />
     <meta property="og:type" content="website" />
-    @if($ads->site_logo)
-    <meta name="og:image" content="{{ asset('storage/'.$ads->site_logo) }}" />
-    @endif    <meta property="og:url" content="{{ url()->current() }}" />
+   <meta property="og:url" content="{{ url()->current() }}" />
     @if($ads->site_logo)
     <meta property="og:image" content="{{ asset('storage/'.$ads->site_logo) }}" />
     @endif
