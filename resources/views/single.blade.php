@@ -69,7 +69,7 @@
         "@type": "Offer",
         "price": 0.00,
         "priceCurrency": "USD"
-    }@if ($software->total_ratings > 0),
+    },
     "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "{{ number_format($software->average_rating, 1) }}",
@@ -77,7 +77,7 @@
         "bestRating": "10",
         "worstRating": "2"
     }
-    @endif
+    
     }
     </script>
 
