@@ -19,6 +19,7 @@
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "name": "{{$ads->site_name}}", 
   "url": "{{ url('/') }}",
   "potentialAction": {
     "@type": "SearchAction",
