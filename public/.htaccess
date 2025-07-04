@@ -13,6 +13,10 @@
     RewriteCond %{HTTP:x-xsrf-token} .
     RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
 
+    # Redirect www to non-www (www.example.com to example.com)
+    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
@@ -22,4 +26,35 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+</IfModule>
+
+# GZIP Compression for Text-based Files
+<IfModule mod_deflate.c>
+    # Compress HTML, CSS, JavaScript, Text, XML, and Fonts
+    AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/x-javascript text/javascript application/xml application/xml+rss application/json font/woff font/woff2 application/font-woff2
+
+    # Compress Image Formats
+    AddOutputFilterByType DEFLATE image/jpeg image/png image/gif image/webp
+
+    # Remove browser bugs (not all browsers handle compression properly)
+    Header append Vary: Accept-Encoding env=DEFLATE
+</IfModule>
+
+# Caching Rules for Images
+<IfModule mod_headers.c>
+    # Cache Images for 1 year
+    <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg)$">
+        Header set Cache-Control "max-age=31536000, public"
+    </FilesMatch>
+
+    # Cache CSS, JavaScript for 1 year
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "max-age=31536000, public"
+    </FilesMatch>
+
+    # Cache HTML for 1 hour (adjust as needed)
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "max-age=3600, must-revalidate"
+    </FilesMatch>
 </IfModule>
