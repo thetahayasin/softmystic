@@ -131,6 +131,10 @@ class HomeController extends Controller
         if (!empty($options['is_featured'])) {
             $query->where('is_featured', true);
         }
+        
+        if (!empty($options['is_sponsored'])) {
+            $query->where('is_sponsored', true);
+        }
 
         if (!empty($options['order_by'])) {
             $query->orderByDesc($options['order_by']);
