@@ -19,7 +19,7 @@
 
     <!-- ad 1 -->
     @if(!empty($ads['download_page_ad']))
-        <section class="w-full px-4 mt-5 mb-5 flex justify-center items-center max-h-[90px] bg-base-200 rounded-2xl">
+        <section class="w-full px-4 mt-5 mb-5 flex justify-center items-center max-h-[90px] bg-base-200/40 card">
             <div class="max-w-full text-center">
                 {!! $ads['download_page_ad'] !!}
             </div>
@@ -66,7 +66,7 @@
 
     <!-- ad 2 -->
     @if(!empty($ads['download_page_ad_2']))
-        <section class="w-full px-4 mt-5 flex justify-center items-center max-h-[90px] bg-base-200 rounded-2xl">
+        <section class="w-full px-4 mt-5 flex justify-center items-center max-h-[90px] bg-base-200/40 card">
             <div class="max-w-full text-center">
                 {!! $ads['download_page_ad_2'] !!}
             </div>
@@ -80,11 +80,17 @@
         <section id="related" class="w-full max-w-8xl px-2 overflow-hidden relative group mb-5 mt-5">
             <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->popular ?? 'Popular Apps' }}</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+
                 @foreach ($related as $app)
                     <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
-                        <div class="flex items-center p-4 bg-base-200 rounded-2xl hover:bg-base-300 transition duration-300 ease-in-out">
-                            <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="w-12 h-12 rounded-lg mr-4">
-                            <div>
+                        <div class="card flex-row items-center p-4 bg-base-100 border border-base-300 hover:bg-base-200/40 transition duration-300 ease-in-out">
+                            <img
+                                loading="lazy"
+                                src="{{ asset('storage/' . $app['logo']) }}"
+                                alt="{{ $app['name'] }} Logo"
+                                class="w-12 h-12 rounded-lg mr-4 flex-shrink-0"
+                            >
+                            <div class="flex flex-col">
                                 <h3 class="font-bold line-clamp-1 text-base-content" title="{{ $app['name'] }}">{{ $app['name'] }}</h3>
                                 <p class="text-sm opacity-70 line-clamp-2 text-base-content" title="{{ $app['tagline'] }}">{{ $app['tagline'] }}</p>
                             </div>
