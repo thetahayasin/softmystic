@@ -79,7 +79,6 @@
 @endsection
 
 @section('content')
-<div class="px-2 lg:px-0">
 
     <!-- Ad Top -->
     @if($ads['single_page_ad'])
@@ -119,5 +118,5 @@
         </div>
     @endif
 
-</div>
+
 @endsection
