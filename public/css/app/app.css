@@ -23,7 +23,7 @@ html {
 .content-wysiwyg {
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
-  color: var(--bf); /* base-foreground */
+  color: oklch(var(--bc)); /* base-foreground */
 }
 
 /* Headings */
@@ -37,19 +37,30 @@ html {
   color: var(--n); /* neutral */
 }
 
+.content-wysiwyg h2{
+    font-size: 1.3rem;
+}
+
+.content-wysiwyg h3{
+    font-size: 1rem;
+}
+
 /* Paragraph spacing */
 .content-wysiwyg p {
   margin-bottom: 1em;
+  font-size: 1.1rem;
 }
 
 /* Links */
 .content-wysiwyg a {
-  color: var(--p); /* primary */
+  color: oklch(var(--p)); /* primary color */
   text-decoration: underline;
+  transition: color 0.2s ease;
 }
 
 .content-wysiwyg a:hover {
-  text-decoration: none;
+  color: oklch(var(--bc)); /* primary foreground or contrast color */
+  text-decoration: none; /* or keep underline if you want */
 }
 
 /* Lists */
@@ -95,7 +106,7 @@ html {
 
 /* Blockquotes */
 .content-wysiwyg blockquote {
-  border-left: 4px solid var(--p); /* primary color */
+  border-left: 4px solid oklch(var(--p)); /* primary color */
   padding-left: 1rem;
   color: var(--nf); /* neutral foreground */
   font-style: italic;
