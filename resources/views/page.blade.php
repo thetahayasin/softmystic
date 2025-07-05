@@ -81,14 +81,16 @@
 @section('content')
 
     <!-- Ad Top -->
-    @if($ads['single_page_ad'])
-        <div class="card bg-base-200 max-h-[90px] transition duration-300 ease-in-out rounded-2xl mb-10 mt-10">
-            {!! $ads['single_page_ad'] !!}
-        </div>
+    @if(!empty($ads['single_page_ad']))
+        <section class="w-full px-4 flex justify-center items-center max-h-[90px] bg-base-200 rounded-2xl mb-5 mt-5">
+            <div class="max-w-full text-center">
+                {!! $ads['single_page_ad'] !!}
+            </div>
+        </section>
     @endif
 
     <!-- Breadcrumb -->
-    <nav class="text-sm breadcrumbs text-gray-500 px-2 mb-10">
+    <nav class="text-sm breadcrumbs text-gray-500 px-2 mb-5">
         <ul>
             <li>
                 <a href="{{ route('home', ['param1' => $locale_slug]) }}" class="text-base-content">
@@ -112,10 +114,12 @@
     </section>
 
     <!-- Ad Bottom -->
-    @if($ads['single_page_ad_2'])
-        <div class="card bg-base-200 transition duration-300 ease-in-out rounded-2xl mt-10 mb-4 max-h-[90px]">
-            {!! $ads['single_page_ad_2'] !!}
-        </div>
+    @if(!empty($ads['results_page_ad_2']))
+        <section class="w-full px-4 flex justify-center items-center max-h-[90px] bg-base-200 rounded-2xl mb-5">
+            <div class="max-w-full text-center">
+                {!! $ads['results_page_ad_2'] !!}
+            </div>
+        </section>
     @endif
 
 
