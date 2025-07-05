@@ -226,8 +226,8 @@
         <div id="carousel-app" class="carousel flex space-x-4 snap-x overflow-x-scroll scrollbar-hide scroll-smooth">
             <article class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
                 <h2 class="text-sm font-semibold">{{ $trns->author ?? 'Author' }}</h2>
-                <a href="{{ $software->author->first()?->url }}" class="text-primary underline hover:text-base-content" target="_blank">
-                    <p class="text-sm line-clamp-1">{{ $software->author->first()?->name }}</p>
+                <a href="{{ $software->author?->url }}" class="text-primary underline hover:text-base-content" target="_blank">
+                    <p class="text-sm line-clamp-1">{{ $software->author?->name }}</p>
                 </a>
                 
             </article>
