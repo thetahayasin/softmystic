@@ -90,7 +90,7 @@
 
     <!-- ad 1 -->
     @if($ads['single_page_ad'] != null)
-    <section class="w-full px-4 flex justify-center items-center mt-5 bg-base-200 transition duration-300 ease-in-out rounded-2xl items-center text-center mb-5">
+    <section class="w-full px-4 flex justify-center items-center mt-5 bg-base-200/40 card items-center text-center mb-5">
         
             <div class="max-w-full text-center max-h-[90px]">
                 {!! $ads['single_page_ad'] !!}
@@ -178,7 +178,7 @@
     </nav>
 
     <!-- App Header -->
-    <section class="flex flex-col md:flex-row md:items-center md:justify-between space-y-6 md:space-y-0 border-b pb-6 text-center md:text-left">
+    <section class="flex flex-col md:flex-row md:items-center md:justify-between space-y-6 md:space-y-0 border-b border-base-300 pb-6 text-center md:text-left">
         <div class="flex flex-col items-center md:flex-row md:items-center md:space-x-4 space-y-4 md:space-y-0">
         <img 
             src="{{ $software->logo ? asset('storage/' . $software->logo) : 'https://placehold.co/80x80?text=Logo' }}" 
@@ -224,14 +224,14 @@
     <!-- Info Cards Slider -->
     <section class="w-full max-w-8xl overflow-hidden relative group mb-4 mt-6">
         <div id="carousel-app" class="carousel flex space-x-4 snap-x overflow-x-scroll scrollbar-hide scroll-smooth">
-            <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
+            <article class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
                 <h2 class="text-sm font-semibold">{{ $trns->author ?? 'Author' }}</h2>
-                <a href="{{ $software->author->first()?->url }}" target="_blank">
+                <a href="{{ $software->author->first()?->url }}" class="text-primary underline hover:text-base-content" target="_blank">
                     <p class="text-sm line-clamp-1">{{ $software->author->first()?->name }}</p>
                 </a>
                 
             </article>
-            <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
+            <article class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
                 <h2 class="text-sm font-semibold">{{ $trns->version ?? 'Version' }}</h2>
                 <p class="text-sm flex items-center gap-1 line-clamp-1">
                     {{ $software->version }}
@@ -248,28 +248,29 @@
                 </p>
 
             </article>
-            <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
+            <article class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
                 <h2 class="text-sm font-semibold">{{ $trns->license ?? 'License' }}</h2>
                 <button class="text-sm line-clamp-1 badge-outline text-xs badge" onclick="license_modal.showModal()">{{ $software->license->licenseTranslations->first()?->name }}</button>
             </article>
-            <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
+            <article class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
                 <h2 class="text-sm font-semibold">{{ $trns->category ?? 'Category' }}</h2>
                 <p class="text-sm line-clamp-1">{{ $software->category->categoryTranslations->first()?->name }}</p>
             </article>
-            <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
+            <article class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
                 <h2 class="text-sm font-semibold">{{ $trns->size ?? 'Size' }}</h2>
                 <p class="text-sm line-clamp-1">{{ $software->readableFilesize }}</p>
             </article>
-            <article class="card bg-base-200 rounded-2xl min-w-[160px] p-3 flex-shrink-0">
-                <h2 class="text-sm font-semibold">{{ $trns->requirements ?? 'Requirements' }}</h2>
-                <div class="flex flex-wrap gap-1 text-sm">
-                    @forelse($software->requirements as $requirement)
-                        <span class="badge badge-outline text-xs text-base-content">{{ $requirement->name }}</span>
-                    @empty
-                        <span class="text-xs italic text-gray-500 text-base-content">No requirements listed</span>
-                    @endforelse
-                </div>
-            </article>
+            @if ($software->requirements->isNotEmpty())
+                <article class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
+                    <h2 class="text-sm font-semibold">{{ $trns->requirements ?? 'Requirements' }}</h2>
+                    <div class="flex flex-wrap gap-1 text-sm">
+                        @foreach($software->requirements as $requirement)
+                            <span class="badge badge-outline text-xs text-base-content">{{ $requirement->name }}</span>
+                        @endforeach
+                    </div>
+                </article>
+            @endif
+
         </div>
         <!-- Left Scroll Button -->
         <button aria-label="Previous Slide" id="left-btn"
@@ -297,7 +298,7 @@
 
     <!-- ad 2 -->
     @if($ads['single_page_ad_2'] != null)
-    <section class="w-full px-4 flex justify-center items-center mb-5 bg-base-200 transition duration-300 ease-in-out rounded-2xl items-center text-center">
+    <section class="w-full px-4 flex justify-center items-center mb-5 bg-base-200/40 card transition duration-300 ease-in-out items-center text-center">
         
             <div class="max-w-full text-center max-h-[90px]">
                 {!! $ads['single_page_ad_2'] !!}
@@ -313,7 +314,7 @@
             <a href="{{ asset('storage/' . $screenshot) }}" target="_blank" class="rounded-2xl flex-shrink-0 w-auto h-[200px] z-10">
                 <img
                     src="{{ asset('storage/' . $screenshot) }}"
-                    class="rounded-2xl flex-shrink-0 w-auto h-[200px]"
+                    class="card flex-shrink-0 w-auto h-[200px]"
                     alt="{{ $software->name }} Screenshot {{ $index + 1 }}"
                     loading="lazy"
                     width="300"
@@ -330,9 +331,14 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 @foreach ($related as $app)
                     <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
-                        <div class="flex items-center p-4 bg-base-200 rounded-2xl hover:bg-base-300 transition duration-300 ease-in-out">
-                            <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="w-12 h-12 rounded-lg mr-4">
-                            <div>
+                        <div class="card flex-row items-center p-4 bg-base-100 border border-base-300 hover:bg-base-200/40 transition duration-300 ease-in-out">
+                            <img
+                                loading="lazy"
+                                src="{{ asset('storage/' . $app['logo']) }}"
+                                alt="{{ $app['name'] }} Logo"
+                                class="w-12 h-12 rounded-lg mr-4 flex-shrink-0"
+                            >
+                            <div class="flex flex-col">
                                 <h3 class="font-bold line-clamp-1 text-base-content" title="{{ $app['name'] }}">{{ $app['name'] }}</h3>
                                 <p class="text-sm opacity-70 line-clamp-2 text-base-content" title="{{ $app['tagline'] }}">{{ $app['tagline'] }}</p>
                             </div>
