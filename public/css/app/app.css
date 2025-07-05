@@ -23,6 +23,7 @@ html {
 .content-wysiwyg {
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
+  font-size: 1.1rem;
   color: oklch(var(--bc)); /* base-foreground */
 }
 
