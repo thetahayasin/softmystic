@@ -97,7 +97,7 @@
     
 </section>
 @endif
-<section class="w-full max-w-8xl px-2 overflow-hidden relative group mb-10 mt-10">
+<section class="w-full max-w-8xl overflow-hidden relative group mb-10 mt-10">
     <div class="hero flex flex-col lg:flex-row items-center justify-between bg-base-200 border border-white/20 backdrop-blur-lg rounded-2xl p-6 md:p-12 relative overflow-hidden gap-6">
         
         <!-- Left: Text Content -->
@@ -155,7 +155,7 @@
 
     
     <!-- Featured Downloads Section -->
-    <section id="featured" class="w-full max-w-8xl px-2 overflow-hidden relative group mb-10">
+    <section id="featured" class="w-full max-w-8xl overflow-hidden relative group mb-10">
         <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->featured_apps ?? 'Default' }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
         @foreach ($featured as $app)
@@ -191,7 +191,7 @@
     </section>
 
     <!-- Latest Updates -->
-    <section id="latest-updates" class="w-full max-w-8xl px-2 overflow-hidden relative group mb-10">
+    <section id="latest-updates" class="w-full max-w-8xl overflow-hidden relative group mb-10">
         <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->latest_updates ?? 'Default' }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             
@@ -210,7 +210,7 @@
     </section>
 
     <!-- New Releases -->
-    <section id="new-releases" class="w-full max-w-8xl px-2 overflow-hidden relative group mb-10">
+    <section id="new-releases" class="w-full max-w-8xl overflow-hidden relative group mb-10">
         <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->new_releases ?? 'Default' }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             @foreach ($newreleases as $app)
@@ -228,7 +228,7 @@
     </section>
 
 <!-- Trending / Popular Apps -->
-<section class="w-full max-w-8xl px-2 overflow-hidden relative group mb-10">
+<section class="w-full max-w-8xl overflow-hidden relative group mb-10">
     <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->trending_apps ?? 'Default' }}</h2>
 
     <div id="carousel-app"
