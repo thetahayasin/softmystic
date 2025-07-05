@@ -116,7 +116,7 @@
     <section id="new-releases" class="w-full max-w-8xl overflow-hidden relative group">
         {{-- Top Ad --}}
         @if(!empty($ads['results_page_ad']))
-            <section class="w-full px-4 flex justify-center items-center max-h-[90px] bg-base-200 rounded-2xl mb-5">
+            <section class="w-full px-4 flex justify-center items-center max-h-[90px] bg-base-200/40 card mb-5">
                 <div class="max-w-full text-center">
                     {!! $ads['results_page_ad'] !!}
                 </div>
@@ -135,7 +135,7 @@
         @forelse($softwares as $software)
         
         <a href="{{ $software['url'] }}" class="block group">
-            <div class="relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 card bg-base-200 hover:bg-base-300 transition duration-300 ease-in-out">
+            <div class="relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 card bg-base-100 hover:bg-base-200/40 border border-base-300 transition duration-300 ease-in-out">
                 <!-- Content Section -->
                 <div class="flex flex-col items-center sm:flex-row sm:items-start gap-4 text-center sm:text-left w-full">
                     <img src="{{ asset('storage/' . $software['logo']) }}" alt="{{ $software['name'] }} Logo" class="w-12 h-12 object-contain" loading="lazy">
@@ -170,7 +170,7 @@
 
         {{-- Bottom Ad --}}
         @if(!empty($ads['results_page_ad_2']))
-            <section class="w-full px-4 mt-5 flex justify-center items-center max-h-[90px] bg-base-200 rounded-2xl">
+            <section class="w-full px-4 mt-5 flex justify-center items-center max-h-[90px] bg-base-200/40 card">
                 <div class="max-w-full text-center">
                     {!! $ads['results_page_ad_2'] !!}
                 </div>
