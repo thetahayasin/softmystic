@@ -1,5 +1,5 @@
 @if ($paginator->hasPages())
-    <div class="mt-6 flex justify-center">
+    <div class="mt-0 flex justify-center">
         <div class="join">
 
             {{-- Previous Page Link --}}
