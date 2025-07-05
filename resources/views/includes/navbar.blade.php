@@ -7,12 +7,12 @@
             <button id="pages-toggle" tabindex="0" class="btn btn-ghost text-xl rounded-full" aria-haspopup="true" aria-label="Change Platform" aria-expanded="false" aria-controls="platforms-menu">
                 OS
             </button>
-            <ul id="pages-menu" class="menu dropdown-content p-2 flex flex-col bg-base-100 border border-base-200 text-sm font-bold rounded-lg w-52 mt-2 hidden absolute z-40 text-base-content" role="menu" aria-label="Platform List">
+            <ul id="pages-menu" class="menu dropdown-content p-2 flex flex-col bg-base-100 border border-base-200 text-sm font-bold w-52 mt-2 hidden absolute z-40 text-base-content" role="menu" aria-label="Platform List">
                 @foreach ($platforms as $platform)
 
                     <li role="none">
                         <a href="{{ route('home', ['param1' => $locale_slug, 'param2' => $platform['slug'] != $default_platform_slug ? $platform['slug'] : null]) }}"
-                           class="flex items-center space-x-2 w-full p-2 rounded-lg hover:bg-base-200" role="menuitem" title="{{ $platform['name'] }}">
+                           class="flex items-center space-x-2 w-full p-2 hover:bg-base-200/60" role="menuitem" title="{{ $platform['name'] }}">
                             {{ $platform['name'] }}
                         </a>
                     </li>
@@ -41,12 +41,12 @@
                 <button id="locale-toggle" tabindex="0" class="btn btn-ghost rounded-full" aria-haspopup="true" aria-expanded="false" aria-controls="locale-menu" aria-label="Change Language">
                     <i class="fas fa-globe text-xl"></i>
                 </button>
-                <ul id="locale-menu" class="menu dropdown-content p-2 flex border border-base-200 flex-col bg-base-100 text-sm font-bold rounded-lg w-52 mt-2 hidden absolute left-0 -ml-20 z-40 text-base-content" role="menu" aria-label="Language Selection">
+                <ul id="locale-menu" class="menu dropdown-content p-2 flex border border-base-200 flex-col bg-base-100 text-sm font-bold w-52 mt-2 hidden absolute left-0 -ml-20 z-40 text-base-content" role="menu" aria-label="Language Selection">
                     @if (Route::currentRouteName() == 'single.index' || Route::currentRouteName() == 'result.index' || Route::currentRouteName() == 'category.index' || Route::currentRouteName() == 'downloading.index' || Route::currentRouteName() == 'page.index')
                         @foreach ($locales as $locale)
                             <li role="none">
                                 <a href="{{ $localeSwitchUrls[$locale->key] ?? '#' }}"
-                                   class="rounded-lg block px-3 py-2 hover:bg-base-200"
+                                   class="block px-3 py-2 hover:bg-base-200/60"
                                    role="menuitem" title="{{ $locale->name }}">{{ $locale->name }}</a>
                             </li>
                         @endforeach
@@ -54,7 +54,7 @@
                         @foreach ($locales as $locale)
                             <li role="none">
                                 <a href="{{ route('home', ['param1' => $locale['slug'] != $default_locale_slug ? $locale['slug'] : null, 'param2' => $platform_slug ?? null]) }}"
-                                   class="rounded-lg block px-3 py-2 hover:bg-base-200"
+                                   class="block px-3 py-2 hover:bg-base-200/60"
                                    role="menuitem" title="{{ $locale['name'] }}">{{ $locale['name'] }}</a>
                             </li>
                         @endforeach
@@ -105,9 +105,9 @@
     </button>
 
     <!-- Scrollable Category List with Contrast -->
-    <div class="w-full overflow-x-auto whitespace-nowrap p-1 bg-neutral backdrop-blur-md rounded-b-lg text-base-content scrollbar-hide category-scroll" role="list">
+    <div class="w-full overflow-x-auto whitespace-nowrap p-1 bg-primary backdrop-blur-md rounded-b-lg text-base-content scrollbar-hide category-scroll" role="list">
         @foreach ($categories as $cat)
-            <a href="{{ $cat['url'] }}" class="inline-block text-neutral-content font-semibold mx-3 hover:text-neutral-content/70 transition" role="listitem" title="{{ $cat['name'] }}">
+            <a href="{{ $cat['url'] }}" class="inline-block text-base-content font-semibold mx-3 hover:text-base-content/50 transition" role="listitem" title="{{ $cat['name'] }}">
                 {{ $cat['name'] }}
             </a>
         @endforeach
