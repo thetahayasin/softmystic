@@ -88,191 +88,193 @@
 @endsection
 
 @section('content')
-@if($ads['home_page_ad'] != null)
-<section class="w-full px-4 flex justify-center items-center mt-10 bg-base-200 transition duration-300 ease-in-out rounded-2xl items-center text-center">
-    
-        <div class="max-w-full text-center max-h-[90px]">
-            {!! $ads['home_page_ad'] !!}
-        </div>
-    
-</section>
-@endif
-<section class="w-full max-w-8xl overflow-hidden relative group mb-10 mt-10">
-    <div class="hero flex flex-col lg:flex-row items-center justify-between bg-base-200 border border-white/20 backdrop-blur-lg rounded-2xl p-6 md:p-12 relative overflow-hidden gap-6">
+
+    @if($ads['home_page_ad'] != null)
+    <section class="w-full px-4 flex justify-center items-center mt-10 bg-base-200 transition duration-300 ease-in-out rounded-2xl items-center text-center">
         
-        <!-- Left: Text Content -->
-        <div class="w-full lg:w-1/2 text-center lg:text-left">
-            <h1 class="text-4xl md:text-4xl font-extrabold mb-4 leading-tight tracking-tight bg-gradient-to-r from-primary via-secondary to-secondary bg-clip-text text-transparent">
-                {{ $trns->hero_title ?? 'Default' }}
-            </h1>
-            <p class="text-lg md:text-2xl mb-8 font-medium text-base-content">
-                {{ $trns->hero_text ?? 'Default' }}
-            </p>
+            <div class="max-w-full text-center max-h-[90px]">
+                {!! $ads['home_page_ad'] !!}
+            </div>
+        
+    </section>
+    @endif
+    <section class="w-full max-w-8xl overflow-hidden relative group mb-10 mt-10">
+        <div class="hero flex flex-col lg:flex-row items-center justify-between bg-base-200 border border-white/20 backdrop-blur-lg rounded-2xl p-6 md:p-12 relative overflow-hidden gap-6">
             
-
-        </div>
-
-        <!-- Right: Software Cards -->
-        <div class="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-        @foreach ($sponsored as $app)
-            <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}" class="flex flex-col h-full">
-                <div class="card bg-base-100 shadow-sm border border-base-300 relative flex flex-col h-full">
-                    
-                    <!-- Star Icon -->
-                    <div class="absolute top-2 right-2 bg-base text-white p-1 rounded-full shadow-md">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-600" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2L15.09 8.26 22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z" />
-                        </svg>
-                    </div>
-
-                    <!-- Image -->
-                    <figure class="px-4 pt-4">
-                        <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="rounded-xl w-24 h-24 object-cover mx-auto" />
-                    </figure>
-
-                    <!-- Body -->
-                    <div class="card-body pt-2 text-center flex flex-col flex-grow justify-between">
-                        <div>
-                            <h2 class="card-title justify-center line-clamp-2">{{ $app['name'] }}</h2>
-                            <p class="text-sm text-base-content opacity-70 pb-2 line-clamp-3">{{ $app['tagline'] }}</p>
-                        </div>
-                        <div class="card-actions mt-4">
-                            <button class="btn btn-primary btn-sm w-full">{{ $trns->download ?? 'Download' }}</button>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        @endforeach
-
-
-        </div>
-
-    </div>
-</section>
-
-
-
-
+            <!-- Left: Text Content -->
+            <div class="w-full lg:w-1/2 text-center lg:text-left">
+                <h1 class="text-4xl md:text-4xl font-extrabold mb-4 leading-tight tracking-tight bg-gradient-to-r from-primary via-secondary to-secondary bg-clip-text text-transparent">
+                    {{ $trns->hero_title ?? 'Default' }}
+                </h1>
+                <p class="text-lg md:text-2xl mb-8 font-medium text-base-content">
+                    {{ $trns->hero_text ?? 'Default' }}
+                </p>
+                
     
-    <!-- Featured Downloads Section -->
-    <section id="featured" class="w-full max-w-8xl overflow-hidden relative group mb-10">
-        <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->featured_apps ?? 'Default' }}</h2>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-        @foreach ($featured as $app)
-            <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
-                <div class="card bg-base-200 hover:bg-base-300 transition duration-300 ease-in-out rounded-2xl items-center text-center">
-                    
-                    <!-- Image -->
-                    <figure class="px-3 pt-5">
-                        <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="rounded-xl w-24 h-24 object-cover" />
-                    </figure>
-
-                    <!-- Content -->
-                    <div class="card-body py-4 items-center text-center">
-                        <h3 class="card-title line-clamp-1 text-base-content justify-center" title="{{ $app['name'] }}">
-                            {{ $app['name'] }}
-                        </h3>
-
-                        <p class="text-sm line-clamp-2 text-base-content opacity-70" title="{{ $app['tagline'] }}">
-                            {{ $app['tagline'] }}
-                        </p>
-
+            </div>
+    
+            <!-- Right: Software Cards -->
+            <div class="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            @foreach ($sponsored as $app)
+                <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}" class="flex flex-col h-full">
+                    <div class="card bg-base-100 shadow-sm border border-base-300 relative flex flex-col h-full">
+                        
+                        <!-- Star Icon -->
+                        <div class="absolute top-2 right-2 bg-base text-white p-1 rounded-full shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L15.09 8.26 22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z" />
+                            </svg>
+                        </div>
+    
+                        <!-- Image -->
+                        <figure class="px-4 pt-4">
+                            <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="rounded-xl w-24 h-24 object-cover mx-auto" />
+                        </figure>
+    
+                        <!-- Body -->
+                        <div class="card-body pt-2 text-center flex flex-col flex-grow justify-between">
+                            <div>
+                                <h2 class="card-title justify-center line-clamp-2">{{ $app['name'] }}</h2>
+                                <p class="text-sm text-base-content opacity-70 pb-2 line-clamp-3">{{ $app['tagline'] }}</p>
+                            </div>
+                            <div class="card-actions mt-4">
+                                <button class="btn btn-primary btn-sm w-full">{{ $trns->download ?? 'Download' }}</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </a>
-        @endforeach
-
-            @if($ads['home_page_ad_2'] != null)
-                <div class="card bg-base-200 transition duration-300 ease-in-out rounded-2xl items-center text-center">
-                    {!! $ads['home_page_ad_2'] !!}
-                </div>
-            @endif
+                </a>
+            @endforeach
+    
+    
+            </div>
+    
         </div>
     </section>
-
-    <!-- Latest Updates -->
-    <section id="latest-updates" class="w-full max-w-8xl overflow-hidden relative group mb-10">
-        <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->latest_updates ?? 'Default' }}</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            
-            @foreach ($updates as $app)
+    
+    
+    
+    
+        
+        <!-- Featured Downloads Section -->
+        <section id="featured" class="w-full max-w-8xl overflow-hidden relative group mb-10">
+            <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->featured_apps ?? 'Default' }}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            @foreach ($featured as $app)
                 <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
-                    <div class="flex items-center p-4 bg-base-200 rounded-2xl hover:bg-base-300 transition duration-300 ease-in-out">
-                        <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="w-12 h-12 rounded-lg mr-4">
-                        <div>
-                            <h3 class="font-bold line-clamp-1 text-base-content" title="{{ $app['name'] }}">{{ $app['name'] }}</h3>
-                            <p class="text-sm opacity-70 line-clamp-2 text-base-content" title="{{ $app['tagline'] }}">{{ $app['tagline'] }}</p>
+                    <div class="card bg-base-200 hover:bg-base-300 transition duration-300 ease-in-out rounded-2xl items-center text-center">
+                        
+                        <!-- Image -->
+                        <figure class="px-3 pt-5">
+                            <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="rounded-xl w-24 h-24 object-cover" />
+                        </figure>
+    
+                        <!-- Content -->
+                        <div class="card-body py-4 items-center text-center">
+                            <h3 class="card-title line-clamp-1 text-base-content justify-center" title="{{ $app['name'] }}">
+                                {{ $app['name'] }}
+                            </h3>
+    
+                            <p class="text-sm line-clamp-2 text-base-content opacity-70" title="{{ $app['tagline'] }}">
+                                {{ $app['tagline'] }}
+                            </p>
+    
+                        </div>
+                    </div>
+                </a>
+            @endforeach
+    
+                @if($ads['home_page_ad_2'] != null)
+                    <div class="card bg-base-200 transition duration-300 ease-in-out rounded-2xl items-center text-center">
+                        {!! $ads['home_page_ad_2'] !!}
+                    </div>
+                @endif
+            </div>
+        </section>
+    
+        <!-- Latest Updates -->
+        <section id="latest-updates" class="w-full max-w-8xl overflow-hidden relative group mb-10">
+            <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->latest_updates ?? 'Default' }}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                @foreach ($updates as $app)
+                    <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
+                        <div class="flex items-center p-4 bg-base-200 rounded-2xl hover:bg-base-300 transition duration-300 ease-in-out">
+                            <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="w-12 h-12 rounded-lg mr-4">
+                            <div>
+                                <h3 class="font-bold line-clamp-1 text-base-content" title="{{ $app['name'] }}">{{ $app['name'] }}</h3>
+                                <p class="text-sm opacity-70 line-clamp-2 text-base-content" title="{{ $app['tagline'] }}">{{ $app['tagline'] }}</p>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        </section>
+    
+        <!-- New Releases -->
+        <section id="new-releases" class="w-full max-w-8xl overflow-hidden relative group mb-10">
+            <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->new_releases ?? 'Default' }}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                @foreach ($newreleases as $app)
+                    <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
+                        <div class="flex items-center p-4 bg-base-200 rounded-2xl hover:bg-base-300 transition duration-300 ease-in-out">
+                            <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="w-12 h-12 rounded-lg mr-4">
+                            <div>
+                                <h3 class="font-bold line-clamp-1 text-base-content" title="{{ $app['name'] }}">{{ $app['name'] }}</h3>
+                                <p class="text-sm opacity-70 line-clamp-2 text-base-content" title="{{ $app['tagline'] }}">{{ $app['tagline'] }}</p>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        </section>
+    
+    <!-- Trending / Popular Apps -->
+    <section class="w-full max-w-8xl overflow-hidden relative group mb-10">
+        <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->trending_apps ?? 'Default' }}</h2>
+    
+        <div id="carousel-app"
+             class="carousel flex items-stretch space-x-4 snap-x overflow-x-scroll scrollbar-hide scroll-smooth">
+            @foreach ($popular as $app)
+                <a href="{{ $app['url'] }}"
+                   title="{{ $app['name'] }} - {{ $app['tagline'] }}"
+                   aria-label="Download {{ $app['name'] }}"
+                   class="carousel-item w-32 sm:w-40 flex-shrink-0">
+                    <div class="flex flex-col bg-base-200 hover:bg-base-300 transition duration-300 ease-in-out rounded-lg p-4 h-full">
+                        
+                        <!-- Logo -->
+                        <img loading="lazy"
+                             src="{{ asset('storage/' . $app['logo']) }}"
+                             alt="{{ $app['name'] }} Logo"
+                             class="w-24 h-24 mx-auto rounded-lg object-cover" />
+    
+                        <!-- Content -->
+                        <div class="flex flex-col mt-2 flex-grow justify-top">
+                            <h3 class="font-semibold text-sm text-center line-clamp-2 text-base-content" title="{{ $app['name'] }}">
+                                {{ $app['name'] }}
+                            </h3>
+                            <p class="text-xs text-center text-base-content opacity-70 line-clamp-3" title="{{ $app['tagline'] }}">
+                                {{ $app['tagline'] }}
+                            </p>
                         </div>
                     </div>
                 </a>
             @endforeach
         </div>
-    </section>
+    
+        <!-- Scroll Buttons -->
+        <button aria-label="Previous Slide" id="left-btn"
+            class="absolute left-0 top-1/2 border border-white/20 bg-secondary text-secondary-content rounded-full shadow p-2 opacity-0 group-hover:opacity-100 hidden btn btn-circle btn-sm transition-all duration-300"
+            onclick="scrollCarousel_app(-1)">
+            ❮
+        </button>
+    
+        <button aria-label="Next Slide" id="right-btn"
+            class="absolute right-0 top-1/2 border border-white/20 bg-secondary text-secondary-content rounded-full shadow p-2 opacity-0 group-hover:opacity-100 hidden btn btn-circle btn-sm transition-all duration-300"
+            onclick="scrollCarousel_app(1)">
+            ❯
+        </button>
+    </section>    
 
-    <!-- New Releases -->
-    <section id="new-releases" class="w-full max-w-8xl overflow-hidden relative group mb-10">
-        <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->new_releases ?? 'Default' }}</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            @foreach ($newreleases as $app)
-                <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
-                    <div class="flex items-center p-4 bg-base-200 rounded-2xl hover:bg-base-300 transition duration-300 ease-in-out">
-                        <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="w-12 h-12 rounded-lg mr-4">
-                        <div>
-                            <h3 class="font-bold line-clamp-1 text-base-content" title="{{ $app['name'] }}">{{ $app['name'] }}</h3>
-                            <p class="text-sm opacity-70 line-clamp-2 text-base-content" title="{{ $app['tagline'] }}">{{ $app['tagline'] }}</p>
-                        </div>
-                    </div>
-                </a>
-            @endforeach
-        </div>
-    </section>
-
-<!-- Trending / Popular Apps -->
-<section class="w-full max-w-8xl overflow-hidden relative group mb-10">
-    <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->trending_apps ?? 'Default' }}</h2>
-
-    <div id="carousel-app"
-         class="carousel flex items-stretch space-x-4 snap-x overflow-x-scroll scrollbar-hide scroll-smooth">
-        @foreach ($popular as $app)
-            <a href="{{ $app['url'] }}"
-               title="{{ $app['name'] }} - {{ $app['tagline'] }}"
-               aria-label="Download {{ $app['name'] }}"
-               class="carousel-item w-32 sm:w-40 flex-shrink-0">
-                <div class="flex flex-col bg-base-200 hover:bg-base-300 transition duration-300 ease-in-out rounded-lg p-4 h-full">
-                    
-                    <!-- Logo -->
-                    <img loading="lazy"
-                         src="{{ asset('storage/' . $app['logo']) }}"
-                         alt="{{ $app['name'] }} Logo"
-                         class="w-24 h-24 mx-auto rounded-lg object-cover" />
-
-                    <!-- Content -->
-                    <div class="flex flex-col mt-2 flex-grow justify-top">
-                        <h3 class="font-semibold text-sm text-center line-clamp-2 text-base-content" title="{{ $app['name'] }}">
-                            {{ $app['name'] }}
-                        </h3>
-                        <p class="text-xs text-center text-base-content opacity-70 line-clamp-3" title="{{ $app['tagline'] }}">
-                            {{ $app['tagline'] }}
-                        </p>
-                    </div>
-                </div>
-            </a>
-        @endforeach
-    </div>
-
-    <!-- Scroll Buttons -->
-    <button aria-label="Previous Slide" id="left-btn"
-        class="absolute left-0 top-1/2 border border-white/20 bg-secondary text-secondary-content rounded-full shadow p-2 opacity-0 group-hover:opacity-100 hidden btn btn-circle btn-sm transition-all duration-300"
-        onclick="scrollCarousel_app(-1)">
-        ❮
-    </button>
-
-    <button aria-label="Next Slide" id="right-btn"
-        class="absolute right-0 top-1/2 border border-white/20 bg-secondary text-secondary-content rounded-full shadow p-2 opacity-0 group-hover:opacity-100 hidden btn btn-circle btn-sm transition-all duration-300"
-        onclick="scrollCarousel_app(1)">
-        ❯
-    </button>
-</section>
 
 
 @endsection
