@@ -288,7 +288,7 @@
 
 
     <!-- Description -->
-    <section class="space-y-4 text-base-content leading-relaxed text-justify pb-4 content-wysiwyg">
+    <section class="space-y-4 text-base-content leading-relaxed text-justify pb-4 content-wysiwyg prose">
         {!! $software->softwareTranslations->first()?->content !!}
     </section>
 
