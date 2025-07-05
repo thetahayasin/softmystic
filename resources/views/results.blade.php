@@ -98,7 +98,7 @@
 
 @section('content')
     {{-- Breadcrumbs --}}
-    <nav class="text-sm breadcrumbs px-2 mb-4" aria-label="Breadcrumb">
+    <nav class="text-sm breadcrumbs mb-4" aria-label="Breadcrumb">
         <ul>
             <li>
                 <a href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}" class="text-base-content">
@@ -113,7 +113,7 @@
     </nav>
 
 
-    <section id="new-releases" class="w-full max-w-8xl px-2 overflow-hidden relative group">
+    <section id="new-releases" class="w-full max-w-8xl overflow-hidden relative group">
         {{-- Top Ad --}}
         @if(!empty($ads['results_page_ad']))
             <section class="w-full px-4 flex justify-center items-center max-h-[90px] bg-base-200 rounded-2xl mb-5">
@@ -131,7 +131,7 @@
     </section>
 
     {{-- Search Results --}}
-    <section class="space-y-4 w-full max-w-8xl px-2 overflow-hidden relative group mb-10">
+    <section class="space-y-4 w-full max-w-8xl overflow-hidden relative group mb-10">
         @forelse($softwares as $software)
         
 <a href="{{ $software['url'] }}" class="block group">
