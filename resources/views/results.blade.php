@@ -98,7 +98,7 @@
 
 @section('content')
     {{-- Breadcrumbs --}}
-    <nav class="text-sm breadcrumbs mb-4" aria-label="Breadcrumb">
+    <nav class="text-sm breadcrumbs mb-5" aria-label="Breadcrumb">
         <ul>
             <li>
                 <a href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}" class="text-base-content">
@@ -125,35 +125,35 @@
         <h1 class="text-xl font-bold text-base-content mb-5">{{ Route::currentRouteName() == 'result.index' ? $trns?->search_results.' "'.$q.'"' : $cat_name }}</h2>
         @if(Route::currentRouteName() == 'category.index')
         <hr>
-        <p class="text-md border-bottom mt-4 mb-4">{{ $cat_description }}</p>
+        <p class="text-md border-bottom mt-4 mb-5">{{ $cat_description }}</p>
         <hr class="mb-4">
         @endif   
     </section>
 
     {{-- Search Results --}}
-    <section class="space-y-4 w-full max-w-8xl overflow-hidden relative group mb-10">
+    <section class="space-y-4 w-full max-w-8xl overflow-hidden relative group mb-5">
         @forelse($softwares as $software)
         
-<a href="{{ $software['url'] }}" class="block group">
-    <div class="relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 card bg-base-200 hover:bg-base-300 transition duration-300 ease-in-out">
-        <!-- Content Section -->
-        <div class="flex flex-col items-center sm:flex-row sm:items-start gap-4 text-center sm:text-left w-full">
-            <img src="{{ asset('storage/' . $software['logo']) }}" alt="{{ $software['name'] }} Logo" class="w-12 h-12 object-contain" loading="lazy">
-            <div>
-                <h2 class="text-xl font-bold text-base-content">{{ $software['name'] }}</h2>
-                <div class="text-sm">{{ $software['updated'] }} – {{ $software['fileSize'] }} – {{ $software['license'] }}</div>
-                <p class="text-sm mt-2">{{ $software['tagline'] }}</p>
+        <a href="{{ $software['url'] }}" class="block group">
+            <div class="relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 card bg-base-200 hover:bg-base-300 transition duration-300 ease-in-out">
+                <!-- Content Section -->
+                <div class="flex flex-col items-center sm:flex-row sm:items-start gap-4 text-center sm:text-left w-full">
+                    <img src="{{ asset('storage/' . $software['logo']) }}" alt="{{ $software['name'] }} Logo" class="w-12 h-12 object-contain" loading="lazy">
+                    <div>
+                        <h2 class="text-xl font-bold text-base-content">{{ $software['name'] }}</h2>
+                        <div class="text-sm">{{ $software['updated'] }} – {{ $software['fileSize'] }} – {{ $software['license'] }}</div>
+                        <p class="text-sm mt-2">{{ $software['tagline'] }}</p>
+                    </div>
+                </div>
+        
+                <!-- Download Button -->
+                <div class="z-10 w-full sm:w-auto">
+                    <span class="btn btn-primary btn-sm sm:btn-md w-full sm:w-32 pointer-events-none">
+                        {{ $trns->download ?? 'Download' }}
+                    </span>
+                </div>
             </div>
-        </div>
-
-        <!-- Download Button -->
-        <div class="z-10 w-full sm:w-auto">
-            <span class="btn btn-primary btn-sm sm:btn-md w-full sm:w-32 pointer-events-none">
-                {{ $trns->download ?? 'Download' }}
-            </span>
-        </div>
-    </div>
-</a>
+        </a>
 
         
 
