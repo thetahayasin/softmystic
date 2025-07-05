@@ -60,7 +60,7 @@ html {
 
 .content-wysiwyg a:hover {
   color: oklch(var(--bc)); /* primary foreground or contrast color */
-  text-decoration: none; /* or keep underline if you want */
+  text-decoration: underline; /* or keep underline if you want */
 }
 
 /* Lists */
