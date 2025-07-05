@@ -20,7 +20,7 @@
 
 @include('includes.navbar')
 
-<div class="px-2">@yield('content')</div>
+<div class="px-2 lg:px-0">@yield('content')</div>
 
 
 @include('includes.footer')
