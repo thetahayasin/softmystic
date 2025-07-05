@@ -87,7 +87,6 @@
 
 @section('content')
 
-<div class="px-2 lg:px-0">
 
     <!-- ad 1 -->
     @if($ads['single_page_ad'] != null)
@@ -336,7 +335,6 @@
     </section>
 
 
-</div>
 
 <dialog id="license_modal" class="modal">
   <div class="modal-box bg-base-200">
