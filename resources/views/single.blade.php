@@ -325,7 +325,7 @@
 
     <!-- Related Apps -->
     @if (!empty($related) && count($related) > 0)
-        <section id="related" class="w-full max-w-8xl px-2 overflow-hidden relative group mb-10">
+        <section id="related" class="w-full max-w-8xl px-2 overflow-hidden relative group mb-5">
             <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->related ?? 'Related Apps' }}</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 @foreach ($related as $app)
