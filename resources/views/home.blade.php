@@ -90,7 +90,7 @@
 @section('content')
 
     @if($ads['home_page_ad'] != null)
-    <section class="w-full px-4 flex justify-center items-center mt-5 bg-base-200 transition duration-300 ease-in-out rounded-2xl items-center text-center">
+    <section class="card w-full px-4 flex justify-center items-center mt-5 bg-base-200/40 items-center text-center">
         
             <div class="max-w-full text-center max-h-[90px]">
                 {!! $ads['home_page_ad'] !!}
@@ -99,7 +99,7 @@
     </section>
     @endif
     <section class="w-full max-w-8xl overflow-hidden relative group mb-5 mt-5">
-        <div class="hero flex flex-col lg:flex-row items-center justify-between bg-base-200 border border-white/20 backdrop-blur-lg rounded-2xl p-6 md:p-12 relative overflow-hidden gap-6">
+        <div class="card flex flex-col lg:flex-row items-center justify-between bg-base-100 border border border-base-300 backdrop-blur-lg p-6 md:p-12 relative overflow-hidden gap-6">
             
             <!-- Left: Text Content -->
             <div class="w-full lg:w-1/2 text-center lg:text-left">
@@ -117,7 +117,7 @@
             <div class="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4">
             @foreach ($sponsored as $app)
                 <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}" class="flex flex-col h-full">
-                    <div class="card bg-base-100 shadow-sm border border-base-300 relative flex flex-col h-full">
+                    <div class="card bg-base-100 shadow-sm border border-base-300 hover:bg-base-200/40 transition duration-300 relative flex flex-col h-full">
                         
                         <!-- Star Icon -->
                         <div class="absolute top-2 right-2 bg-base text-white p-1 rounded-full shadow-md">
@@ -161,7 +161,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
             @foreach ($featured as $app)
                 <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
-                    <div class="card bg-base-200 hover:bg-base-300 transition duration-300 ease-in-out rounded-2xl items-center text-center">
+                    <div class="card bg-base-100 border border-base-300 hover:bg-base-200/40 transition duration-300 ease-in-out items-center text-center">
                         
                         <!-- Image -->
                         <figure class="px-3 pt-5">
@@ -184,7 +184,7 @@
             @endforeach
     
                 @if($ads['home_page_ad_2'] != null)
-                    <div class="card bg-base-200 transition duration-300 ease-in-out rounded-2xl items-center text-center">
+                    <div class="card bg-base-200/40 items-center text-center">
                         {!! $ads['home_page_ad_2'] !!}
                     </div>
                 @endif
@@ -195,12 +195,39 @@
         <section id="latest-updates" class="w-full max-w-8xl overflow-hidden relative group mb-5">
             <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->latest_updates ?? 'Default' }}</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                
                 @foreach ($updates as $app)
                     <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
-                        <div class="flex items-center p-4 bg-base-200 rounded-2xl hover:bg-base-300 transition duration-300 ease-in-out">
-                            <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="w-12 h-12 rounded-lg mr-4">
-                            <div>
+                        <div class="card flex-row items-center p-4 bg-base-100 border border-base-300 hover:bg-base-200/40 transition duration-300 ease-in-out">
+                            <img
+                                loading="lazy"
+                                src="{{ asset('storage/' . $app['logo']) }}"
+                                alt="{{ $app['name'] }} Logo"
+                                class="w-12 h-12 rounded-lg mr-4 flex-shrink-0"
+                            >
+                            <div class="flex flex-col">
+                                <h3 class="font-bold line-clamp-1 text-base-content" title="{{ $app['name'] }}">{{ $app['name'] }}</h3>
+                                <p class="text-sm opacity-70 line-clamp-2 text-base-content" title="{{ $app['tagline'] }}">{{ $app['tagline'] }}</p>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        </section>
+
+        <!-- New Releases -->
+        <section id="latest-updates" class="w-full max-w-8xl overflow-hidden relative group mb-5">
+            <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->new_releases ?? 'Default' }}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                @foreach ($newreleases as $app)
+                    <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
+                        <div class="card flex-row items-center p-4 bg-base-100 border border-base-300 hover:bg-base-200/40 transition duration-300 ease-in-out">
+                            <img
+                                loading="lazy"
+                                src="{{ asset('storage/' . $app['logo']) }}"
+                                alt="{{ $app['name'] }} Logo"
+                                class="w-12 h-12 rounded-lg mr-4 flex-shrink-0"
+                            >
+                            <div class="flex flex-col">
                                 <h3 class="font-bold line-clamp-1 text-base-content" title="{{ $app['name'] }}">{{ $app['name'] }}</h3>
                                 <p class="text-sm opacity-70 line-clamp-2 text-base-content" title="{{ $app['tagline'] }}">{{ $app['tagline'] }}</p>
                             </div>
@@ -210,23 +237,6 @@
             </div>
         </section>
     
-        <!-- New Releases -->
-        <section id="new-releases" class="w-full max-w-8xl overflow-hidden relative group mb-5">
-            <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->new_releases ?? 'Default' }}</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                @foreach ($newreleases as $app)
-                    <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
-                        <div class="flex items-center p-4 bg-base-200 rounded-2xl hover:bg-base-300 transition duration-300 ease-in-out">
-                            <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="w-12 h-12 rounded-lg mr-4">
-                            <div>
-                                <h3 class="font-bold line-clamp-1 text-base-content" title="{{ $app['name'] }}">{{ $app['name'] }}</h3>
-                                <p class="text-sm opacity-70 line-clamp-2 text-base-content" title="{{ $app['tagline'] }}">{{ $app['tagline'] }}</p>
-                            </div>
-                        </div>
-                    </a>
-                @endforeach
-            </div>
-        </section>
     
     <!-- Trending / Popular Apps -->
     <section class="w-full max-w-8xl overflow-hidden relative group mb-5">
@@ -239,7 +249,7 @@
                    title="{{ $app['name'] }} - {{ $app['tagline'] }}"
                    aria-label="Download {{ $app['name'] }}"
                    class="carousel-item w-32 sm:w-40 flex-shrink-0">
-                    <div class="flex flex-col bg-base-200 hover:bg-base-300 transition duration-300 ease-in-out rounded-lg p-4 h-full">
+                    <div class=" card flex flex-col bg-base-100 border border-base-300 hover:bg-base-200/40 transition duration-300 ease-in-out rounded-lg p-4 h-full">
                         
                         <!-- Logo -->
                         <img loading="lazy"
