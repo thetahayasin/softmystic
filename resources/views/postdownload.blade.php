@@ -18,14 +18,16 @@
 @section('content')
 
     <!-- ad 1 -->
-    @if($ads['download_page_ad'] != null)
-        <div class="card bg-base-200 transition duration-300 ease-in-out rounded-2xl mb-10 mt-10 max-h-[90px]">
-            {!! $ads['download_page_ad'] !!}
-        </div>
+    @if(!empty($ads['download_page_ad']))
+        <section class="w-full px-4 mt-5 mb-5 flex justify-center items-center max-h-[90px] bg-base-200 rounded-2xl">
+            <div class="max-w-full text-center">
+                {!! $ads['download_page_ad'] !!}
+            </div>
+        </section>
     @endif
 
     <!-- Breadcrumbs -->
-    <nav class="text-sm breadcrumbs text-gray-500 px-2 mb-10">
+    <nav class="text-sm breadcrumbs text-gray-500 px-2 mb-5">
         <ul>
         <li>
             <a href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}" class="text-base-content">
@@ -63,31 +65,36 @@
     </section>
 
     <!-- ad 2 -->
-    @if($ads['download_page_ad_2'] != null)
-        <div class="card bg-base-200 transition duration-300 ease-in-out rounded-2xl mt-10 max-h-[90px]">
-            {!! $ads['download_page_ad_2'] !!}
-        </div>
+    @if(!empty($ads['download_page_ad_2']))
+        <section class="w-full px-4 mt-5 flex justify-center items-center max-h-[90px] bg-base-200 rounded-2xl">
+            <div class="max-w-full text-center">
+                {!! $ads['download_page_ad_2'] !!}
+            </div>
+        </section>
     @endif
 
 
 
-    <!-- Related Apps -->
-    <section id="related" class="w-full max-w-8xl px-2 overflow-hidden relative group mb-10 mt-10">
-        <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->popular ?? 'Popular Apps' }}</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            @foreach ($related as $app)
-                <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
-                    <div class="flex items-center p-4 bg-base-200 rounded-2xl hover:bg-base-300 transition duration-300 ease-in-out">
-                        <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="w-12 h-12 rounded-lg mr-4">
-                        <div>
-                            <h3 class="font-bold line-clamp-1 text-base-content" title="{{ $app['name'] }}">{{ $app['name'] }}</h3>
-                            <p class="text-sm opacity-70 line-clamp-2 text-base-content" title="{{ $app['tagline'] }}">{{ $app['tagline'] }}</p>
+    @if (!empty($related) && count($related) > 0)
+        <!-- Related Apps -->
+        <section id="related" class="w-full max-w-8xl px-2 overflow-hidden relative group mb-5 mt-5">
+            <h2 class="text-xl font-bold mb-5 text-base-content">{{ $trns->popular ?? 'Popular Apps' }}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                @foreach ($related as $app)
+                    <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
+                        <div class="flex items-center p-4 bg-base-200 rounded-2xl hover:bg-base-300 transition duration-300 ease-in-out">
+                            <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="w-12 h-12 rounded-lg mr-4">
+                            <div>
+                                <h3 class="font-bold line-clamp-1 text-base-content" title="{{ $app['name'] }}">{{ $app['name'] }}</h3>
+                                <p class="text-sm opacity-70 line-clamp-2 text-base-content" title="{{ $app['tagline'] }}">{{ $app['tagline'] }}</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            @endforeach
-        </div>
-    </section>
+                    </a>
+                @endforeach
+            </div>
+        </section>
+    @endif
+
 
 
 
