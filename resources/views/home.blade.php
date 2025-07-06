@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('meta_title'){{ $trns->home_meta_title ?? '' }} - {{ $ads->site_name }}@endsection
+@section('meta_title'){{ $trns->home_meta_title ?? '' }}@endsection
 @section('meta_description'){{ \Illuminate\Support\Str::limit(optional($trns)->home_meta_description, 140, '...') }}@endsection
 @section('styles')
 <link rel="canonical" href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}">
