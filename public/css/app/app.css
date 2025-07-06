@@ -1,33 +1,27 @@
-/* Hide buttons on touch devices */
 @media (pointer: coarse) {
-    #left-btn, #right-btn, #carousel-next, #carousel-prev {
-        display: none;
-    }
+  #left-btn,
+  #right-btn,
+  #carousel-next,
+  #carousel-prev {
+      display: none;
+  }
 }
-
-/* Hide scrollbar */
 .scrollbar-hide::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
-
-
-
-/* WYSIWYG content container */
 .content-wysiwyg {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   line-height: 1.6;
   font-size: 1.1rem;
-  color: oklch(var(--bc)); /* base-foreground */
+  color: oklch(var(--bc));
 }
-
-/* Headings */
 .content-wysiwyg h1,
 .content-wysiwyg h2,
 .content-wysiwyg h3,
@@ -35,68 +29,53 @@ html {
   font-weight: 600;
   margin-top: 1.5em;
   margin-bottom: 0.5em;
-  color: var(--n); /* neutral */
+  color: var(--n);
 }
-
-.content-wysiwyg h2{
-    font-size: 1.3rem;
+.content-wysiwyg h2 {
+  font-size: 1.3rem;
 }
-
-.content-wysiwyg h3{
-    font-size: 1rem;
+.content-wysiwyg h3 {
+  font-size: 1rem;
 }
-
-/* Paragraph spacing */
 .content-wysiwyg p {
   margin-bottom: 1em;
   font-size: 1.1rem;
 }
-
-/* Links */
 .content-wysiwyg a {
-  color: oklch(var(--p)); /* primary color */
+  color: oklch(var(--p));
   text-decoration: underline;
   transition: color 0.2s ease;
 }
-
 .content-wysiwyg a:hover {
-  color: oklch(var(--bc)); /* primary foreground or contrast color */
-  text-decoration: underline; /* or keep underline if you want */
+  color: oklch(var(--bc));
+  text-decoration: underline;
 }
-
-/* Lists */
 .content-wysiwyg ul {
   list-style-type: disc;
   padding-left: 1.5rem;
   margin-bottom: 1em;
   list-style-position: outside;
 }
-
 .content-wysiwyg ol {
   list-style-type: decimal;
   padding-left: 1.5rem;
   margin-bottom: 1em;
   list-style-position: outside;
 }
-
-/* Images */
 .content-wysiwyg img {
   max-width: 100%;
   height: auto;
-  border-radius: 0.5rem; /* rounded-lg */
+  border-radius: 0.5rem;
   margin: 1em 0;
-  box-shadow: 0 4px 6px rgb(0 0 0 / 0.1); /* shadow-md */
+  box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
   display: block;
 }
-
-/* Tables */
 .content-wysiwyg table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 1em;
-  border: 1px solid var(--n); /* neutral border */
+  border: 1px solid var(--n);
 }
-
 .content-wysiwyg th,
 .content-wysiwyg td {
   border: 1px solid var(--n);
@@ -104,12 +83,15 @@ html {
   text-align: left;
   color: var(--bf);
 }
-
-/* Blockquotes */
 .content-wysiwyg blockquote {
-  border-left: 4px solid oklch(var(--p)); /* primary color */
+  border-left: 4px solid oklch(var(--p));
   padding-left: 1rem;
-  color: var(--nf); /* neutral foreground */
+  color: var(--nf);
   font-style: italic;
   margin: 1em 0;
+}
+@media (max-width: 639px) {
+  .carousel-btn {
+    display: none !important;
+  }
 }
