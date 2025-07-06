@@ -99,7 +99,7 @@
     </section>
     @endif
     <section class="w-full max-w-8xl overflow-hidden relative group mb-5 mt-5">
-        <div class="card flex flex-col lg:flex-row items-center justify-between bg-base-100 border border border-base-300 backdrop-blur-lg p-6 md:p-12 relative overflow-hidden gap-6">
+        <div class="card flex flex-col lg:flex-row items-center justify-between bg-base-100 border border-base-300 backdrop-blur-lg p-6 md:p-12 relative overflow-hidden gap-6">
             
             <!-- Left: Text Content -->
             <div class="w-full lg:w-1/2 text-center lg:text-left">
@@ -109,50 +109,52 @@
                 <p class="text-lg md:text-2xl mb-8 font-medium text-base-content">
                     {{ $trns->hero_text ?? 'Default' }}
                 </p>
-                
-    
             </div>
     
             <!-- Right: Software Cards -->
             <div class="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            @foreach ($sponsored as $app)
-                <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}" class="flex flex-col h-full">
-                    <div class="card bg-base-100 shadow-sm border border-base-300 hover:bg-base-200/40 transition duration-300 relative flex flex-col h-full">
-                        
-                        <!-- Star Icon -->
-                        <div class="absolute top-2 right-2 bg-base text-white p-1 rounded-full shadow-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-600" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2L15.09 8.26 22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z" />
-                            </svg>
-                        </div>
-    
-                        <!-- Image -->
-                        <figure class="px-4 pt-4">
-                            <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="rounded-xl w-24 h-24 object-cover mx-auto" />
-                        </figure>
-    
-                        <!-- Body -->
-                        <div class="card-body pt-2 text-center flex flex-col flex-grow justify-between">
-                            <div>
-                                <h2 class="card-title justify-center line-clamp-2">{{ $app['name'] }}</h2>
-                                <p class="text-sm text-base-content opacity-70 pb-2 line-clamp-3">{{ $app['tagline'] }}</p>
+                @foreach ($sponsored as $app)
+                    <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}" class="flex flex-col h-full">
+                        <div class="card bg-base-100 shadow-sm border border-base-300 hover:bg-base-200/40 transition duration-300 relative flex flex-col h-full">
+                            
+                            <!-- Star Icon -->
+                            <div class="absolute top-2 right-2 bg-base text-white p-1 rounded-full shadow-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2L15.09 8.26 22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
                             </div>
-                            <div class="card-actions mt-4">
-                                <button class="btn btn-primary btn-sm w-full">{{ $trns->download ?? 'Download' }}</button>
+    
+                            <!-- Image -->
+                            <figure class="px-4 pt-4 min-h-[96px] flex justify-center">
+                                <img
+                                    src="{{ asset('storage/' . $app['logo']) }}"
+                                    loading="lazy"
+                                    alt="{{ $app['name'] }} Logo"
+                                    width="96"
+                                    height="96"
+                                    class="rounded-xl w-24 h-24 object-cover mx-auto"
+                                />
+                            </figure>
+    
+                            <!-- Body -->
+                            <div class="card-body pt-2 text-center flex flex-col flex-grow justify-between">
+                                <div>
+                                    <h2 class="card-title justify-center line-clamp-2">{{ $app['name'] }}</h2>
+                                    <p class="text-sm text-base-content opacity-70 pb-2 line-clamp-3">{{ $app['tagline'] }}</p>
+                                </div>
+                                <div class="card-actions mt-4">
+                                    <button class="btn btn-primary btn-sm w-full">
+                                        {{ $trns->download ?? 'Download' }}
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            @endforeach
-    
-    
+                    </a>
+                @endforeach
             </div>
-    
         </div>
     </section>
-    
-    
-    
+
     
         
         <!-- Featured Downloads Section -->
