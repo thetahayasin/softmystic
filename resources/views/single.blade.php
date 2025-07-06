@@ -180,46 +180,47 @@
 
     <!-- App Header -->
     <section class="flex flex-col md:flex-row md:items-center md:justify-between space-y-6 md:space-y-0 border-b border-base-300 pb-6 text-center md:text-left">
-        <div class="flex flex-col items-center md:flex-row md:items-center md:space-x-4 space-y-4 md:space-y-0">
-        <img 
-            src="{{ $software->logo ? asset('storage/' . $software->logo) : 'https://placehold.co/80x80?text=Logo' }}" 
-            alt="{{ $software->name }} logo" 
-            title="{{ $software->name }}" 
-            width="80" 
-            height="80" 
-            loading="lazy" 
-            class="rounded-lg"
-        />     
+    <div class="flex flex-col items-center md:flex-row md:items-center md:space-x-4 space-y-4 md:space-y-0">
+
+        <!-- ✅ Wrap image in a fixed-size container -->
+        <figure class="w-[80px] h-[80px] shrink-0 flex items-center justify-center">
+            <img 
+                src="{{ $software->logo ? asset('storage/' . $software->logo) : 'https://placehold.co/80x80?text=Logo' }}" 
+                alt="{{ $software->name }} logo" 
+                title="{{ $software->name }}" 
+                width="80" 
+                height="80" 
+                loading="lazy" 
+                class="rounded-lg w-[80px] h-[80px] object-cover"
+            />
+        </figure>
+
         <div class="space-y-1">
             <h1 class="text-xl font-semibold text-base-content">{{ $software->name }}</h1>
-
             <p class="italic text-sm text-base-content">{{ $software->softwareTranslations->first()?->tagline }}</p>
-
-
             <livewire:software-rating :software="$software" />
         </div>
-        </div>
-        <div class="flex flex-col items-center md:items-end space-y-2">
-            <a href="{{ $downloadUrl }}" 
-            class="btn btn-primary w-64" 
-            rel="nofollow noopener noreferrer" 
-            title="Download {{ $software->name }}">
+    </div>
+
+    <div class="flex flex-col items-center md:items-end space-y-2">
+        <a href="{{ $downloadUrl }}" 
+           class="btn btn-primary w-64" 
+           rel="nofollow noopener noreferrer" 
+           title="Download {{ $software->name }}">
             {{ $trns->download ?? 'Download' }}
-            </a>
+        </a>
 
-            @if ($software->buy_url != null)
+        @if ($software->buy_url != null)
             <a href="{{ $software->buy_url }}" 
-            class="btn btn-secondary w-64" 
-            target="_blank"
-            rel="nofollow noopener noreferrer" 
-            title="Buy {{ $software->name }}">
-            {{ $trns->buy_now ?? 'Buy Now' }}
-            </a> 
-            @endif
-
-
-        </div>
-    </section>
+               class="btn btn-secondary w-64" 
+               target="_blank"
+               rel="nofollow noopener noreferrer" 
+               title="Buy {{ $software->name }}">
+                {{ $trns->buy_now ?? 'Buy Now' }}
+            </a>
+        @endif
+    </div>
+</section>
 
 
     <!-- Info Cards Slider -->
