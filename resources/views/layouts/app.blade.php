@@ -6,9 +6,9 @@
     <title>@yield('meta_title', 'Your Site Name - Best Apps & Downloads')</title>
     <meta name="description" content="@yield('meta_description', 'Discover the best apps, featured downloads, latest updates, and new releases on Your Site Name.')" />
     <link rel="icon" href="{{ asset('storage/site_images/site_favicon.ico') }}" />
-    <link href="{{ asset('css/daisyui/full.min.css') }}" rel="stylesheet" />
-    <script src="{{ asset('js/tailwind/full.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('css/app/app.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/app/app.css') }}" defer/>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     @yield('styles')
     @livewireStyles
     {!! $settings->header_code !!}
