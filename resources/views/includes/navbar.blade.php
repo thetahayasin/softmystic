@@ -107,7 +107,7 @@
     <!-- Scrollable Category List with Contrast -->
     <div class="w-full overflow-x-auto whitespace-nowrap p-1 bg-primary backdrop-blur-md rounded-b-lg text-base-content scrollbar-hide category-scroll" role="list">
         @foreach ($categories as $cat)
-            <a href="{{ $cat['url'] }}" class="inline-block text-primary-content/60 font-semibold mx-3 hover:text-primary-content/30 transition" role="listitem" title="{{ $cat['name'] }}">
+            <a href="{{ $cat['url'] }}" class="inline-block text-primary-content/70 font-semibold mx-3 hover:text-primary-content/40 transition" role="listitem" title="{{ $cat['name'] }}">
                 {{ $cat['name'] }}
             </a>
         @endforeach
