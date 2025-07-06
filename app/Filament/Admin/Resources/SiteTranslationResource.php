@@ -148,31 +148,31 @@ class SiteTranslationResource extends Resource
                     TextInput::make('download_meta_title')
                         ->nullable()
                         ->maxLength(255)
-                        ->label('Download Meta Title - [Short Codes can be used]')
-                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version]'),
+                        ->label('Downloading Meta Title - [Short Codes can be used]')
+                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version], [software_platform]'),
         
                     TextInput::make('download_meta_description')
                         ->nullable()
                         ->maxLength(255)
-                        ->label('Download Meta Description - [Short Codes can be used]')
-                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version]'),
+                        ->label('Downloading Meta Description - [Short Codes can be used]')
+                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version], [software_platform]'),
         
                     TextInput::make('single_meta_title')
                         ->nullable()
                         ->maxLength(255)
                         ->label('Single Page Meta Title - [Short Codes can be used]')
-                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version]'),
+                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version], [software_platform]'),
         
                     TextInput::make('single_meta_description')
                         ->nullable()
                         ->maxLength(255)
                         ->label('Single Page Meta Description - [Short Codes can be used]')
-                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version]'),
+                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version], [software_platform]'),
                     TextInput::make('downloading_text')
                         ->nullable()
                         ->maxLength(255)
                         ->label('Downloading Page - [Short Codes can be used]')
-                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version]'),
+                        ->helperText('Additional Shortcodes available: [software_name], [software_Description], [software_tagline], [year], [software_version], [software_platform]'),
                 ])->columns(2),
 
                 // Section for single Translations
