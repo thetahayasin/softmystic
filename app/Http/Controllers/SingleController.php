@@ -94,7 +94,7 @@ class SingleController extends Controller
 
         // Current software details
         $software = Software::with([
-            'author:id,name',
+            'author:id,name,url',
             'softwareTranslations' => function ($q) use ($locale_id) {
                 $q->select('id', 'software_id', 'locale_id', 'tagline', 'content', 'change_log')
                   ->where('locale_id', $locale_id);
@@ -247,6 +247,8 @@ class SingleController extends Controller
             '[version]'              => $siteTranslations->version ?? '',
             '[software_description]' => strip_tags($software->softwareTranslations->first()?->content) ?? '',
             '[software_tagline]'     => $software->softwareTranslations->first()->tagline ?? '',
+            '[software_platform]'     => $software->platform->first()->name ?? '',
+
         ];
     
         // Apply strip_tags to each replacement value
