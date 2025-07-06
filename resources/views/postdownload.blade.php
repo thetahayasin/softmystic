@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('meta_title'){{ $meta_title ?? '' }} - {{ $ads->site_name }}@endsection
+@section('meta_title'){{ $meta_title ?? '' }}@endsection
 @section('meta_description'){{ \Illuminate\Support\Str::limit($meta_description ?: '', 140, '...') }}@endsection
 
 @section('styles')
