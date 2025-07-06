@@ -98,7 +98,7 @@
         
     </section>
     @endif
-    <section class="w-full max-w-8xl overflow-hidden relative group mb-5 mt-5">
+    <section class="w-full max-w-8xl overflow-hidden relative group mb-5 mt-5 min-h-[400px] sm:min-h-0">
         <div class="card flex flex-col lg:flex-row items-center justify-between bg-base-100 border border-base-300 backdrop-blur-lg p-6 md:p-12 relative overflow-hidden gap-6">
             
             <!-- Left: Text Content -->
