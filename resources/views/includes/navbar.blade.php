@@ -115,13 +115,19 @@
 
 <!-- Category Text Ribbon (Contrasting Glass Style) -->
 <section class="relative w-full overflow-hidden group" aria-label="Category Navigation">
-    <!-- Carousel Buttons -->
-    <button class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 z-10 hidden rounded-bl-2xl carousel-prev btn-square w-7 btn-ghost text-primary-content" aria-label="Previous Categories">
-        <span class="font-semibold text-xl">❮</span>
-    </button>
-    <button class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 z-10 hidden rounded-br-2xl carousel-next btn-square w-7 btn-ghost text-primary-content" aria-label="Next Categories">
-        <span class="font-semibold text-xl">❯</span>
-    </button>
+<!-- Carousel Buttons -->
+<!-- Carousel Buttons -->
+<button
+  class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 z-10 rounded-bl-2xl carousel-prev btn-square w-7 btn-ghost text-primary-content carousel-btn"
+  aria-label="Previous Categories">
+  <span class="font-semibold text-xl">❮</span>
+</button>
+<button
+  class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 z-10 rounded-br-2xl carousel-next btn-square w-7 btn-ghost text-primary-content carousel-btn"
+  aria-label="Next Categories">
+  <span class="font-semibold text-xl">❯</span>
+</button>
+
 
     <!-- Scrollable Category List with Contrast -->
     <div class="w-full overflow-x-auto whitespace-nowrap p-1 bg-primary backdrop-blur-md rounded-b-lg text-base-content scrollbar-hide category-scroll">
