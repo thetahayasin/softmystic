@@ -25,7 +25,7 @@
             <a href="{{ route('home', ['param1' => $locale_slug, 'param2' => $platform_slug ?? null]) }}" class="block h-full" aria-label="Home">
                 <div class="h-full px-4 py-2 rounded-lg flex items-center">
                     @if ($ads->site_logo)
-                        <img loading="lazy" src="{{ asset('storage/' . $ads->site_logo) }}" alt="Website Logo" class="max-h-8 w-full" />
+                        <img loading="lazy" src="{{ asset('storage/' . $ads->site_logo) }}" alt="Website Logo" class="max-h-8 w-full" width="320" height="60" />
                     @else
                         <span class="text-xl font-bold">{{ $ads->site_name }}</span>
                     @endif
