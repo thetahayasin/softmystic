@@ -8,7 +8,6 @@
     <link rel="icon" href="{{ asset('storage/site_images/site_favicon.ico') }}" />
     <link href="{{ asset('css/daisyui/full.min.css') }}" rel="stylesheet" />
     <script src="{{ asset('js/tailwind/full.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('css/fontawesome/all.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/app/app.css') }}" />
     @yield('styles')
     @livewireStyles
@@ -29,7 +28,6 @@
 
 </main>
 <script src="{{ asset('js/app/app.js') }}"></script>
-<script src="{{ asset('js/fontawesome/all.min.js') }}"></script>
 @yield('scripts')
 @livewireScripts
 {!! $settings->footer_code !!}
