@@ -148,7 +148,7 @@
         
                 <!-- Download Button -->
                 <div class="z-10 w-full sm:w-auto">
-                    <span class="btn btn-primary btn-sm sm:btn-md w-full sm:w-32 pointer-events-none">
+                    <span class="btn btn-primary btn-sm sm:btn-md w-full sm:w-32">
                         {{ $trns->download ?? 'Download' }}
                     </span>
                 </div>
