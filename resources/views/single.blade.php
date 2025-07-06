@@ -104,7 +104,7 @@
     <nav class="flex justify-between items-center text-sm breadcrumbs text-gray-500 px-2 mt-0 mb-7">
         <ul>
             <li>
-                <a href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}" class="text-base-content">
+                <a href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}" class="text-base-content" aria-label="Home">
                     <svg class="home-icon w-4 h-4 fill-current text-base-content" viewBox="0 0 20 20">
                         <path d="M10 2.5L2.5 8.75V17.5H7.5V12.5H12.5V17.5H17.5V8.75L10 2.5Z" />
                     </svg>
@@ -116,7 +116,7 @@
             <li class="text-base-content/70">{{ $software->name }} {{ $software->version }}</li>
         </ul>
         <div class="p-0">
-                <button class="" onclick="share_modal.showModal()">
+                <button class="" onclick="share_modal.showModal()" aria-label="Share Button">
                     <svg fill="#000000" class="w-6 h-6 fill-current text-base-content" viewBox="-5 -5 24 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-share"><path d='M8 3.414v5.642a1 1 0 1 1-2 0V3.414L4.879 4.536A1 1 0 0 1 3.464 3.12L6.293.293a.997.997 0 0 1 1.414 0l2.829 2.828A1 1 0 1 1 9.12 4.536L8 3.414zM3 6a1 1 0 1 1 0 2H2v4h10V8h-1a1 1 0 0 1 0-2h1a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h1z' /></svg>
                 </button>
 
@@ -129,7 +129,7 @@
                     <div class="flex justify-center items-center gap-4 flex-wrap">
 
                         <!-- Email -->
-                        <a href="mailto:?subject={{ $meta_title ?? '' }} - {{ $ads->site_name }}&body={{ urlencode($software->url) }}" class="btn btn-circle bg-base-300 hover:bg-base-300 text-white">
+                        <a href="mailto:?subject={{ $meta_title ?? '' }} - {{ $ads->site_name }}&body={{ urlencode($software->url) }}" class="btn btn-circle bg-base-300 hover:bg-base-300 text-white" aria-label="Share on Mail">
                             <svg class="w-6 h-6 fill-current text-base-content" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
 
                             <rect x="0" fill="none" width="20" height="20"/>
@@ -144,19 +144,19 @@
                         </a>
 
                         <!-- Facebook -->
-                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($software->url) }}" target="_blank" rel="noopener noreferrer" class="btn btn-circle bg-base-300 hover:bg-base-300 text-white">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($software->url) }}" target="_blank" rel="noopener noreferrer" class="btn btn-circle bg-base-300 hover:bg-base-300 text-white" aria-label="Share on Facebook">
                             <svg class="w-6 h-6 fill-current text-base-content" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M23.9981 11.9991C23.9981 5.37216 18.626 0 11.9991 0C5.37216 0 0 5.37216 0 11.9991C0 17.9882 4.38789 22.9522 10.1242 23.8524V15.4676H7.07758V11.9991H10.1242V9.35553C10.1242 6.34826 11.9156 4.68714 14.6564 4.68714C15.9692 4.68714 17.3424 4.92149 17.3424 4.92149V7.87439H15.8294C14.3388 7.87439 13.8739 8.79933 13.8739 9.74824V11.9991H17.2018L16.6698 15.4676H13.8739V23.8524C19.6103 22.9522 23.9981 17.9882 23.9981 11.9991Z"/>
                             </svg>
                         </a>
 
                         <!-- X (Twitter) -->
-                        <a href="https://twitter.com/intent/tweet?url={{ urlencode($software->url) }}&text={{ $meta_title ?? '' }} - {{ $ads->site_name }}" target="_blank" rel="noopener noreferrer" class="btn btn-circle bg-base-300 hover:bg-base-300 text-white">
+                        <a aria-label="Share on X" href="https://twitter.com/intent/tweet?url={{ urlencode($software->url) }}&text={{ $meta_title ?? '' }} - {{ $ads->site_name }}" target="_blank" rel="noopener noreferrer" class="btn btn-circle bg-base-300 hover:bg-base-300 text-white">
                             <svg fill="#000000" class="w-6 h-6 fill-current text-base-content" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="M22,5.8a8.49,8.49,0,0,1-2.36.64,4.13,4.13,0,0,0,1.81-2.27,8.21,8.21,0,0,1-2.61,1,4.1,4.1,0,0,0-7,3.74A11.64,11.64,0,0,1,3.39,4.62a4.16,4.16,0,0,0-.55,2.07A4.09,4.09,0,0,0,4.66,10.1,4.05,4.05,0,0,1,2.8,9.59v.05a4.1,4.1,0,0,0,3.3,4A3.93,3.93,0,0,1,5,13.81a4.9,4.9,0,0,1-.77-.07,4.11,4.11,0,0,0,3.83,2.84A8.22,8.22,0,0,1,3,18.34a7.93,7.93,0,0,1-1-.06,11.57,11.57,0,0,0,6.29,1.85A11.59,11.59,0,0,0,20,8.45c0-.17,0-.35,0-.53A8.43,8.43,0,0,0,22,5.8Z"/></svg>
                         </a>
 
                         <!-- LinkedIn -->
-                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode($software->url) }}&title={{ $meta_title ?? '' }} - {{ $ads->site_name }}&summary={{ \Illuminate\Support\Str::limit($meta_description ?: '', 120, '...') }}&source={{ $ads->site_name }}" target="_blank" rel="noopener noreferrer" class="btn btn-circle bg-base-300 hover:bg-base-300 text-white">
+                        <a aria-label="Share on LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode($software->url) }}&title={{ $meta_title ?? '' }} - {{ $ads->site_name }}&summary={{ \Illuminate\Support\Str::limit($meta_description ?: '', 120, '...') }}&source={{ $ads->site_name }}" target="_blank" rel="noopener noreferrer" class="btn btn-circle bg-base-300 hover:bg-base-300 text-white">
                             <svg fill="#000000" class="w-6 h-6 fill-current text-base-content" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
                                 viewBox="0 0 32 32" xml:space="preserve">
                                 <path d="M23,0H9C4,0,0,4,0,9v14c0,5,4,9,9,9h14c5,0,9-4,9-9V9C32,4,28,0,23,0z M12,25c0,0.6-0.4,1-1,1H7c-0.6,0-1-0.4-1-1V13
@@ -167,7 +167,7 @@
                         </a>
 
                         <!-- WhatsApp -->
-                        <a href="https://wa.me/?text={{ urlencode($software->url) }}" target="_blank" rel="noopener noreferrer" class="btn btn-circle bg-base-300 hover:bg-base-300 text-white">
+                        <a aria-label="Share on Whatsapp" href="https://wa.me/?text={{ urlencode($software->url) }}" target="_blank" rel="noopener noreferrer" class="btn btn-circle bg-base-300 hover:bg-base-300 text-white">
                             <svg fill="#000000" class="w-6 h-6 fill-current text-base-content" viewBox="-2 -2 24 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-whatsapp"><path d='M9.516.012C4.206.262.017 4.652.033 9.929a9.798 9.798 0 0 0 1.085 4.465L.06 19.495a.387.387 0 0 0 .47.453l5.034-1.184a9.981 9.981 0 0 0 4.284 1.032c5.427.083 9.951-4.195 10.12-9.58C20.15 4.441 15.351-.265 9.516.011zm6.007 15.367a7.784 7.784 0 0 1-5.52 2.27 7.77 7.77 0 0 1-3.474-.808l-.701-.347-3.087.726.65-3.131-.346-.672A7.62 7.62 0 0 1 2.197 9.9c0-2.07.812-4.017 2.286-5.48a7.85 7.85 0 0 1 5.52-2.271c2.086 0 4.046.806 5.52 2.27a7.672 7.672 0 0 1 2.287 5.48c0 2.052-.825 4.03-2.287 5.481z'/><path d='M14.842 12.045l-1.931-.55a.723.723 0 0 0-.713.186l-.472.478a.707.707 0 0 1-.765.16c-.913-.367-2.835-2.063-3.326-2.912a.694.694 0 0 1 .056-.774l.412-.53a.71.71 0 0 0 .089-.726L7.38 5.553a.723.723 0 0 0-1.125-.256c-.539.453-1.179 1.14-1.256 1.903-.137 1.343.443 3.036 2.637 5.07 2.535 2.349 4.566 2.66 5.887 2.341.75-.18 1.35-.903 1.727-1.494a.713.713 0 0 0-.408-1.072z'/></svg>
                         </a>
 
@@ -237,7 +237,7 @@
                 <p class="text-sm flex items-center gap-1 line-clamp-1">
                     {{ $software->version }}
                     @if($software->softwareTranslations->first()?->change_log != null)
-                    <button class="text-sm line-clamp-1 badge-outline text-xs badge" onclick="version_modal.showModal()">
+                    <button class="text-sm line-clamp-1 badge-outline text-xs badge" onclick="version_modal.showModal()" aria-label="See Change Log">
                         <svg class="w-4 h-4 fill-current text-base-content" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                             <path fill-rule="evenodd"
