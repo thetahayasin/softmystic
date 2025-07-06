@@ -22,6 +22,7 @@
             <link rel="alternate" hreflang="{{ $alt['hreflang'] != $default_locale_key ? $alt['hreflang'] : 'x-default' }}" href="{{ $alt['url'] }}" />
         @endforeach
     @endif
+    @livewireStyles
 
     <script type="application/ld+json">
     {
@@ -287,6 +288,8 @@
             onclick="scrollCarousel_app(1)">
             ❯
         </button>
+        
+
     </section>
 
 
@@ -372,3 +375,8 @@
 @endif
 
 @endsection
+
+@section('scripts')
+@livewireScripts
+@endsection
+
