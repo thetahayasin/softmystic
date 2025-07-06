@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('meta_title')
-    {{ $meta_title ?? '' }} - {{ $ads->site_name }}
+    {{ $meta_title ?? '' }}
 @endsection
 
 @section('meta_description')
