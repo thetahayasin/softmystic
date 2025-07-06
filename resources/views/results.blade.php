@@ -108,7 +108,7 @@
                 </a>
             </li>
             <li><a href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}" class="text-base-content">{{ $platform_name }}</a></li>
-            <li><span class="text-base-content font-medium">{{ $meta_title }}</span></li>
+            <li><span class="text-base-content font-medium">{{ Route::currentRouteName() == 'result.index' ? $trns?->search_results.' "'.$q.'"' : $cat_name }}</span></li>
         </ul>
     </nav>
 
