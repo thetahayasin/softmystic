@@ -243,6 +243,8 @@ class PostDownloadController extends Controller
             '[version]'              => $siteTranslations->version ?? '',
             '[software_description]' => $software->softwareTranslations->first()->content ?? '',
             '[software_tagline]'     => $software->softwareTranslations->first()->tagline ?? '',
+            '[software_platform]'     => $software->platform->first()->name ?? '',
+
         ];
 
         
