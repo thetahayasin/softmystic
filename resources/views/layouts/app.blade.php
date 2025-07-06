@@ -6,9 +6,8 @@
     <title>@yield('meta_title', 'Your Site Name - Best Apps & Downloads')</title>
     <meta name="description" content="@yield('meta_description', 'Discover the best apps, featured downloads, latest updates, and new releases on Your Site Name.')" />
     <link rel="icon" href="{{ asset('storage/site_images/site_favicon.ico') }}" />
-    <!--<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.24/dist/full.min.css" rel="stylesheet" defer/>-->
-    <!--<script src="https://cdn.tailwindcss.com"></script>-->
-    <link rel="stylesheet" href="{{ asset('css/app/app.css') }}" defer/>
+    <link rel="stylesheet" href="{{ asset('css/app/app.css') }}" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="{{ asset('css/app/app.css') }}"></noscript>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @yield('styles')
