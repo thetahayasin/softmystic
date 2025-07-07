@@ -71,16 +71,13 @@
         "price": 0.00,
         "priceCurrency": "USD"
     }
-      @if($software->total_ratings > 0)
-      ,
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "{{ number_format($software->average_rating, 1) }}",
-        "ratingCount": "{{ $software->total_ratings }}",
-        "bestRating": "10",
-        "worstRating": "2"
-      }
-      @endif
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{ $software->total_ratings > 0 ? number_format($software->average_rating, 1) : '10.0' }}",
+    "ratingCount": "{{ $software->total_ratings > 0 ? $software->total_ratings : 1 }}",
+    "bestRating": "10",
+    "worstRating": "2"
+  }
     
     }
     </script>
