@@ -70,7 +70,7 @@
         "@type": "Offer",
         "price": 0.00,
         "priceCurrency": "USD"
-    }
+    },
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "{{ $software->total_ratings > 0 ? number_format($software->average_rating, 1) : '10.0' }}",
