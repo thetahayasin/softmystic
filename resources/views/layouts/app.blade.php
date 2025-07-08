@@ -6,6 +6,8 @@
     <title>@yield('meta_title', 'Your Site Name - Best Apps & Downloads')</title>
     <meta name="description" content="@yield('meta_description', 'Discover the best apps, featured downloads, latest updates, and new releases on Your Site Name.')" />
     <link rel="icon" href="{{ asset('storage/site_images/site_favicon.png') }}" type="image/png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('storage/site_images/site_favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('storage/site_images/site_favicon.png') }}">
 
     <link rel="stylesheet" href="{{ asset('css/app/app.css') }}" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="{{ asset('css/app/app.css') }}"></noscript>
