@@ -92,16 +92,14 @@ class SiteSettingResource extends Resource
                                     ->getUploadedFileNameForStorageUsing(fn ($file) => 'site_favicon.' . $file->getClientOriginalExtension())
                                     ->directory('site_images')
                                     ->preserveFilenames()
-                                    ->maxSize(20) 
-                                    ->helperText('Favicon image should be in ico format and max filesize is 20KB. 48x48 recommended resolution')
+                                    ->maxSize(20) // KB
+                                    ->helperText('Favicon should be a PNG file. Max filesize: 20KB. Recommended size: 192x192 or 48x48.')
                                     ->acceptedFileTypes([
-                                        'image/x-icon',
-                                        'image/vnd.microsoft.icon',
-                                        'application/x-ico',
-                                        'image/ico',
-                                        '.ico'
-                                    ]) // Cover all potential MIME types
+                                        'image/png',
+                                        '.png',
+                                    ])
                                     ->label('Site Favicon'),
+
                                     
                                 Forms\Components\Select::make('locale_id')
                                     ->required()
