@@ -34,8 +34,12 @@
         "@type": "Article",
         "headline": @json($page->translations->first()?->title ?? ''),
         "description": @json(\Illuminate\Support\Str::limit(strip_tags($page->translations->first()?->content ?? ''), 140)),
+        @if($ads->site_logo)
+        "image": @json($ads->site_logo),
+        @endif
         "author": {
         "@type": "Organization",
+        "url": @json(request()->getSchemeAndHttpHost()),
         "name": @json($ads->site_name)
         },
         "publisher": {
