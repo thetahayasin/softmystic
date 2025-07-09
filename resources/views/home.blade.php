@@ -92,7 +92,7 @@
     @if($ads['home_page_ad'] != null)
     <section class="card w-full px-4 flex justify-center items-center mt-5 bg-base-200/40 items-center text-center">
         
-            <div class="max-w-full text-center max-h-[90px]">
+            <div class="max-w-full text-center">
                 {!! $ads['home_page_ad'] !!}
             </div>
         
