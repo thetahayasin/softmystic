@@ -19,7 +19,7 @@
 
     <!-- ad 1 -->
     @if(!empty($ads['download_page_ad']))
-        <section class="w-full px-4 mt-5 mb-5 flex justify-center items-center max-h-[90px] bg-base-200/40 card">
+        <section class="w-full px-4 mt-5 mb-5 flex justify-center items-center bg-base-200/40 card">
             <div class="max-w-full text-center">
                 {!! $ads['download_page_ad'] !!}
             </div>
@@ -66,7 +66,7 @@
 
     <!-- ad 2 -->
     @if(!empty($ads['download_page_ad_2']))
-        <section class="w-full px-4 mt-5 flex justify-center items-center max-h-[90px] bg-base-200/40 card">
+        <section class="w-full px-4 mt-5 flex justify-center items-center bg-base-200/40 card">
             <div class="max-w-full text-center">
                 {!! $ads['download_page_ad_2'] !!}
             </div>
