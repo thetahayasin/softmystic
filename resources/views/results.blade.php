@@ -116,7 +116,7 @@
     <section id="new-releases" class="w-full max-w-8xl overflow-hidden relative group">
         {{-- Top Ad --}}
         @if(!empty($ads['results_page_ad']))
-            <section class="w-full px-4 flex justify-center items-center max-h-[90px] bg-base-200/40 card mb-5">
+            <section class="w-full px-4 flex justify-center items-center bg-base-200/40 card mb-5">
                 <div class="max-w-full text-center">
                     {!! $ads['results_page_ad'] !!}
                 </div>
@@ -170,7 +170,7 @@
 
         {{-- Bottom Ad --}}
         @if(!empty($ads['results_page_ad_2']))
-            <section class="w-full px-4 mt-5 flex justify-center items-center max-h-[90px] bg-base-200/40 card">
+            <section class="w-full px-4 mt-5 flex justify-center items-center bg-base-200/40 card">
                 <div class="max-w-full text-center">
                     {!! $ads['results_page_ad_2'] !!}
                 </div>
