@@ -93,7 +93,7 @@
     @if($ads['single_page_ad'] != null)
     <section class="w-full px-4 flex justify-center items-center mt-5 bg-base-200/40 card items-center text-center mb-5">
         
-            <div class="max-w-full text-center max-h-[90px]">
+            <div class="max-w-full text-center">
                 {!! $ads['single_page_ad'] !!}
             </div>
         
@@ -304,7 +304,7 @@
     @if($ads['single_page_ad_2'] != null)
     <section class="w-full px-4 flex justify-center items-center mb-5 bg-base-200/40 card transition duration-300 ease-in-out items-center text-center">
         
-            <div class="max-w-full text-center max-h-[90px]">
+            <div class="max-w-full text-center">
                 {!! $ads['single_page_ad_2'] !!}
             </div>
         
