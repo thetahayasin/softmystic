@@ -9,14 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class DownloadsChart extends ChartWidget
 {
-    protected static ?string $heading = 'Downloads (Last 7 Days)';
+    protected static ?string $heading = 'Downloads (Top 10)';
     protected static ?int $sort = 2;
 
     protected function getData(): array
     {
         // Get downloads grouped by software name for the last 7 days
         $downloads = Software::select('name', DB::raw('SUM(downloads) as total_downloads'))
-            ->where('updated_at', '>=', now()->subDays(6)->startOfDay())
             ->groupBy('name')
             ->orderByDesc('total_downloads')
             ->limit(10) // Optional: Limit to top 10 software
