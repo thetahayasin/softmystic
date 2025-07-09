@@ -105,6 +105,7 @@ class PostDownloadController extends Controller
         ->where('platform_id', $platform_id)
         ->firstOrFail();
         //increase downloads by 1    
+        $software->timestamps = false;
         $software->increment('downloads');
 
 
