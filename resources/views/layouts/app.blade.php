@@ -30,8 +30,8 @@
 
 
 </main>
-<script src="{{ asset('js/app/app.js') }}" defer></script>
 @yield('scripts')
+<script src="{{ asset('js/app/app.js') }}" defer></script>
 
 {!! $settings->footer_code !!}
 <script>
