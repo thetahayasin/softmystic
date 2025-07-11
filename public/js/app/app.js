@@ -85,32 +85,40 @@ const carousel_app = document.getElementById("carousel-app"),
       leftBtn = document.getElementById("left-btn"),
       rightBtn = document.getElementById("right-btn");
 
-function scrollCarousel_app(direction) {
-  carousel_app.scrollBy({
-    left: direction * 400,
-    behavior: "smooth"
-  });
-  setTimeout(checkScrollPosition, 300);
+// Only run carousel logic if all elements exist
+if (carousel_app && leftBtn && rightBtn) {
+
+    function scrollCarousel_app(direction) {
+        carousel_app.scrollBy({
+            left: direction * 400,
+            behavior: "smooth"
+        });
+
+        setTimeout(() => {
+            requestAnimationFrame(checkScrollPosition);
+        }, 350); // wait for smooth scroll to apply
+    }
+
+    function checkScrollPosition() {
+        const buffer = 2;
+        const scrollLeft = Math.round(carousel_app.scrollLeft);
+        const clientWidth = carousel_app.clientWidth;
+        const scrollWidth = carousel_app.scrollWidth;
+
+        leftBtn.classList.toggle("hidden", scrollLeft <= buffer);
+        rightBtn.classList.toggle("hidden", scrollLeft + clientWidth >= scrollWidth - buffer);
+    }
+
+    checkScrollPosition(); // initial state
+    carousel_app.addEventListener("scroll", checkScrollPosition);
+
+    leftBtn.addEventListener("click", e => {
+        e.preventDefault();
+        scrollCarousel_app(-1);
+    });
+
+    rightBtn.addEventListener("click", e => {
+        e.preventDefault();
+        scrollCarousel_app(1);
+    });
 }
-
-function checkScrollPosition() {
-  const buffer = 2;
-  const scrollLeft = Math.ceil(carousel_app.scrollLeft);
-  const clientWidth = carousel_app.clientWidth;
-  const scrollWidth = Math.floor(carousel_app.scrollWidth);
-
-  leftBtn.classList.toggle("hidden", scrollLeft <= buffer);
-  rightBtn.classList.toggle("hidden", scrollLeft + clientWidth >= scrollWidth - buffer);
-}
-
-checkScrollPosition();
-carousel_app.addEventListener("scroll", checkScrollPosition);
-
-leftBtn.addEventListener("click", e => {
-  e.preventDefault();
-  scrollCarousel_app(-1);
-});
-rightBtn.addEventListener("click", e => {
-  e.preventDefault();
-  scrollCarousel_app(1);
-});
