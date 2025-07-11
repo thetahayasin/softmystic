@@ -186,7 +186,7 @@
             @endforeach
     
                 @if($ads['home_page_ad_2'] != null)
-                    <div class="card bg-base-200/40 items-center text-center">
+                    <div class="card bg-base-200/40 items-center text-center max-w-[252px] max-h-[226px] min-w-[252px] min-h-[226px] w-full">
                         {!! $ads['home_page_ad_2'] !!}
                     </div>
                 @endif
