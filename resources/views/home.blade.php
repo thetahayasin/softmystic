@@ -92,7 +92,7 @@
     @if($ads['home_page_ad'] != null)
     <section class="card w-full px-4 flex justify-center items-center mt-5 bg-base-200/40 items-center text-center">
         
-            <div class="max-w-full text-center">
+            <div class="w-full max-w-[728px] min-w-[300px] text-center text-center">
                 {!! $ads['home_page_ad'] !!}
             </div>
         
@@ -163,7 +163,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
             @foreach ($featured as $app)
                 <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
-                    <div class="card bg-base-100 border border-base-300 hover:bg-base-200/40 transition duration-300 ease-in-out items-center text-center">
+                    <div class="card bg-base-100 border border-base-300 hover:bg-base-200/40 transition duration-300 ease-in-out items-center text-center h-full">
                         
                         <!-- Image -->
                         <figure class="px-3 pt-5">
@@ -251,7 +251,7 @@
                    title="{{ $app['name'] }} - {{ $app['tagline'] }}"
                    aria-label="Download {{ $app['name'] }}"
                    class="carousel-item w-32 sm:w-40 flex-shrink-0">
-                    <div class=" card flex flex-col bg-base-100 border border-base-300 hover:bg-base-200/40 transition duration-300 ease-in-out rounded-lg p-4 h-full">
+                    <div class=" card flex flex-col bg-base-100 border border-base-300 hover:bg-base-200/40 transition duration-300 ease-in-out rounded-lg p-4 h-full w-full">
                         
                         <!-- Logo -->
                         <img loading="lazy"
@@ -290,3 +290,4 @@
 
 
 @endsection
+
