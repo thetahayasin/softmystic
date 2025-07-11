@@ -23,42 +23,46 @@ closeBtn.addEventListener("click", () => {
   searchIcon.classList.add("fa-search");
 });
 
-// Category Carousel
 const carousel = document.querySelector(".category-scroll"),
       prevButton = document.querySelector(".carousel-prev"),
       nextButton = document.querySelector(".carousel-next");
 
-const updateButtons = () => {
-  const scrollLeft = carousel.scrollLeft;
-  const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+if (carousel && prevButton && nextButton) {
+    const buffer = 2;
 
-  scrollLeft > 0
-    ? prevButton.classList.remove("hidden")
-    : prevButton.classList.add("hidden");
+    const updateButtons = () => {
+        const scrollLeft = Math.round(carousel.scrollLeft);
+        const maxScroll = carousel.scrollWidth - carousel.clientWidth;
 
-  scrollLeft < maxScroll
-    ? nextButton.classList.remove("hidden")
-    : nextButton.classList.add("hidden");
-};
+        prevButton.classList.toggle("hidden", scrollLeft <= buffer);
+        nextButton.classList.toggle("hidden", scrollLeft >= maxScroll - buffer);
+    };
 
-const scrollCarousel = (direction) => {
-  carousel.scrollBy({
-    left: direction * 300,
-    behavior: "smooth"
-  });
-  setTimeout(updateButtons, 300);
-};
+    const scrollCarousel = (direction) => {
+        carousel.scrollBy({
+            left: direction * 300,
+            behavior: "smooth"
+        });
 
-prevButton.addEventListener("click", () => scrollCarousel(-1));
-nextButton.addEventListener("click", () => scrollCarousel(1));
-carousel.addEventListener("scroll", updateButtons);
-updateButtons();
+        // Defer the update to allow smooth scrolling to complete
+        setTimeout(() => {
+            requestAnimationFrame(updateButtons);
+        }, 350);
+    };
 
-// Hide buttons on touch devices (optional JS fallback)
-if ("ontouchstart" in window || navigator.maxTouchPoints) {
-  prevButton.classList.add("hidden");
-  nextButton.classList.add("hidden");
+    prevButton.addEventListener("click", () => scrollCarousel(-1));
+    nextButton.addEventListener("click", () => scrollCarousel(1));
+    carousel.addEventListener("scroll", updateButtons);
+
+    updateButtons();
+
+    // Optional: hide buttons on touch
+    if ("ontouchstart" in window || navigator.maxTouchPoints) {
+        prevButton.classList.add("hidden");
+        nextButton.classList.add("hidden");
+    }
 }
+
 
 // Locale toggle
 const localeToggle = document.getElementById("locale-toggle"),
