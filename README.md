@@ -51,6 +51,7 @@ A modern, multilingual, and multi-platform software directory and download porta
 
 - Update site settings, logo, and ads via the admin panel.
 - Add locales and platforms for multilingual and multi-platform support.
+- For Generating sitemaps run "php artisan sitemap:generate" or set as cron
 
 ## Folder Structure
 
