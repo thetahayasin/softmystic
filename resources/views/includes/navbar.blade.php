@@ -1,6 +1,6 @@
 <!-- Fixed Glass Navbar -->
 <div class="fixed top-0 left-0 right-0 z-30 flex justify-center backdrop-blur-md bg-white/10 border-b border-base-200">
-    <nav class="navbar p-2 relative items-stretch w-full max-w-[1080px] text-base-content" role="navigation" aria-label="Main Navigation">
+    <nav class="navbar p-2 relative items-stretch w-full max-w-[1080px] text-base-content" role="navigation" aria-label="Main Navigation" id="navbar">
 
         <!-- Left: Pages Dropdown -->
         <div id="pages-dropdown" class="dropdown z-30 items-center relative">
@@ -77,7 +77,7 @@
             <!-- Search Icon -->
             <div class="group relative">
                 <button id="search-btn" class="btn btn-ghost rounded-full" aria-label="Open Search">
-                    <svg viewBox="0 0 24 24" class="w-6 h-6 text-base-content transition" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg id="search-icon" viewBox="0 0 24 24" class="w-6 h-6 text-base-content transition" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M11 6C13.7614 6 16 8.23858 16 11M16.6588 16.6549L21 21M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" 
                               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
