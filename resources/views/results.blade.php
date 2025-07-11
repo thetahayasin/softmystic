@@ -117,7 +117,7 @@
         {{-- Top Ad --}}
         @if(!empty($ads['results_page_ad']))
             <section class="w-full px-4 flex justify-center items-center bg-base-200/40 card mb-5">
-                <div class="max-w-full text-center">
+                <div class="w-full max-w-[728px] min-w-[300px] text-center text-center">
                     {!! $ads['results_page_ad'] !!}
                 </div>
             </section>
@@ -171,7 +171,7 @@
         {{-- Bottom Ad --}}
         @if(!empty($ads['results_page_ad_2']))
             <section class="w-full px-4 mt-5 flex justify-center items-center bg-base-200/40 card">
-                <div class="max-w-full text-center">
+                <div class="w-full max-w-[728px] min-w-[300px] text-center text-center">
                     {!! $ads['results_page_ad_2'] !!}
                 </div>
             </section>
