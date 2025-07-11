@@ -96,8 +96,8 @@ class ResultsController extends Controller
 
         $meta_title = $meta_description = '';
         if ($q && $trns) {
-            $meta_title = $this->parseShortcodes($trns->search_meta_title ?? '', $q, $trns);
-            $meta_description = $this->parseShortcodes($trns->search_meta_description ?? '', $q, $trns);
+            $meta_title = $this->parseShortcodes($trns->search_meta_title ?? '', $q, $trns, $platform_name);
+            $meta_description = $this->parseShortcodes($trns->search_meta_description ?? '', $q, $trns, $platform_name);
         }
 
         $alternateUrls = collect($locales)->map(fn($loc) => [
@@ -140,7 +140,7 @@ class ResultsController extends Controller
         return url('/') . '/' . implode('/', $segments);
     }
 
-    function parseShortcodes(string $text, string $q, object $siteTranslations): string
+    function parseShortcodes(string $text, string $q, object $siteTranslations,string $platform): string
     {
         $replacements = [
             '[download]' => $siteTranslations->download ?? '',
@@ -153,6 +153,8 @@ class ResultsController extends Controller
             '[category]' => $siteTranslations->category ?? '',
             '[year]' => date('Y'),
             '[version]' => $siteTranslations->version ?? '',
+            '[platform]' => $platform ?? '',
+
         ];
 
         $cleanReplacements = array_map(fn($val) => strip_tags($val), $replacements);
