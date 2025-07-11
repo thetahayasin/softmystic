@@ -125,25 +125,25 @@ class SiteTranslationResource extends Resource
                         ->nullable()
                         ->maxLength(255)
                         ->label('Category Meta Title - [Short Codes can be used]')
-                        ->helperText('Title for category pages meta tag. For current category use shortcodes [category_name] and [category_description]'),
+                        ->helperText('Title for category pages meta tag. For current category use shortcodes [category_name], [platform] and [category_description]'),
         
                     TextInput::make('category_meta_description')
                         ->nullable()
                         ->maxLength(255)
                         ->label('Category Meta Description - [Short Codes can be used]')
-                        ->helperText('Description for category pages meta tag. For current category use shortcodes [category_name] and [category_description]'),
+                        ->helperText('Description for category pages meta tag. For current category use shortcodes [category_name], [platform] and [category_description]'),
         
                     TextInput::make('search_meta_title')
                         ->nullable()
                         ->maxLength(255)
                         ->label('Search Meta Title - [Short Codes can be used]')
-                        ->helperText('Title for search result pages meta tag. For current search query use shortcode [search_query]'),
+                        ->helperText('Title for search result pages meta tag. For current search query use shortcode [search_query] and [platform]'),
         
                     TextInput::make('search_meta_description')
                         ->nullable()
                         ->maxLength(255)
                         ->label('Search Meta Description - [Short Codes can be used]')
-                        ->helperText('Description for search result pages meta tag. For current search query use shortcode [search_query]'),
+                        ->helperText('Description for search result pages meta tag. For current search query use shortcode [search_query] and [platform]'),
         
                     TextInput::make('download_meta_title')
                         ->nullable()
