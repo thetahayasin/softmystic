@@ -105,8 +105,8 @@ class CategoryController extends Controller
 
         $meta_title = $meta_description = '';
         if ($q && $trns) {
-            $meta_title = $this->parseShortcodes($trns->category_meta_title ?? '', $cat, $trns);
-            $meta_description = $this->parseShortcodes($trns->category_meta_description ?? '', $cat, $trns);
+            $meta_title = $this->parseShortcodes($trns->category_meta_title ?? '', $cat, $trns, $platform_name);
+            $meta_description = $this->parseShortcodes($trns->category_meta_description ?? '', $cat, $trns, $platform_name);
         }
 
         $alternateUrls = collect($locales)->map(fn($loc) => [
@@ -126,7 +126,6 @@ class CategoryController extends Controller
 
         $cat_name = $cat->categoryTranslations->first()?->name ?? '';
         $cat_description = $cat->categoryTranslations->first()?->description ?? '';
-
 
         return view('results', compact(
             'softwares', 'trns', 'platform_slug', 'locale_slug', 'localeSwitchUrls', 'cannonical',
@@ -153,7 +152,7 @@ class CategoryController extends Controller
         return url('/') . '/' . implode('/', $segments);
     }
 
-    function parseShortcodes(string $text, object $cat, object $siteTranslations): string
+    function parseShortcodes(string $text, object $cat, object $siteTranslations, string $platform): string
     {
         $replacements = [
             '[download]' => $siteTranslations->download ?? '',
@@ -167,6 +166,8 @@ class CategoryController extends Controller
             '[category]' => $siteTranslations->category ?? '',
             '[year]' => date('Y'),
             '[version]' => $siteTranslations->version ?? '',
+            '[platform]' => $platform ?? '',
+
         ];
 
         $cleanReplacements = array_map(fn($val) => strip_tags($val), $replacements);
