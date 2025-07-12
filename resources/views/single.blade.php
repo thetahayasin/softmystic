@@ -204,10 +204,10 @@
         </figure>
 
         <div class="space-y-1">
-            <h1 class="text-xl font-bold text-base-content">
+            <h1 class="text-lg font-semibold text-base-content">
                 {{ $software->name }}
-                <span class="text-sm font-normal">
-                    {{ $trns?->for }} {{ $software->platform->name }}
+                <span class="text-sm font-normal underline italic">
+                    <a aria-label="Home" href="{{ route('home', [ 'param1' => $locale_slug, 'param2' => $platform_slug ]) }}">{{ $trns?->for }} {{ $software->platform->name }}</a>
                 </span>
             </h1>  
             <p class="italic text-sm text-base-content">{{ $software->softwareTranslations->first()?->tagline }}</p>
