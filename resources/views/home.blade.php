@@ -167,7 +167,7 @@
                         
                         <!-- Image -->
                         <figure class="px-3 pt-5">
-                            <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="rounded-xl w-24 h-24 object-cover" />
+                            <img loading="lazy" src="{{ asset('storage/' . $app['logo']) }}" alt="{{ $app['name'] }} Logo" class="rounded-xl w-24 h-24 object-cover" width="96" height="96" />
                         </figure>
     
                         <!-- Content -->
@@ -205,6 +205,8 @@
                                 src="{{ asset('storage/' . $app['logo']) }}"
                                 alt="{{ $app['name'] }} Logo"
                                 class="w-12 h-12 rounded-lg mr-4 flex-shrink-0"
+                                width="48"
+                                height="48"
                             >
                             <div class="flex flex-col">
                                 <h3 class="font-bold line-clamp-1 text-base-content" title="{{ $app['name'] }}">{{ $app['name'] }}</h3>
@@ -228,6 +230,8 @@
                                 src="{{ asset('storage/' . $app['logo']) }}"
                                 alt="{{ $app['name'] }} Logo"
                                 class="w-12 h-12 rounded-lg mr-4 flex-shrink-0"
+                                width="48"
+                                height="48"
                             >
                             <div class="flex flex-col">
                                 <h3 class="font-bold line-clamp-1 text-base-content" title="{{ $app['name'] }}">{{ $app['name'] }}</h3>
@@ -257,7 +261,10 @@
                         <img loading="lazy"
                              src="{{ asset('storage/' . $app['logo']) }}"
                              alt="{{ $app['name'] }} Logo"
-                             class="w-24 h-24 mx-auto rounded-lg object-cover" />
+                             class="w-24 h-24 mx-auto rounded-lg object-cover"
+                             width="96"
+                             height="96"
+                             />
     
                         <!-- Content -->
                         <div class="flex flex-col mt-2 flex-grow justify-top">
