@@ -1,31 +1,30 @@
+// 🔍 Search Bar Toggle
 const searchBtn = document.getElementById("search-btn"),
-      searchBar = document.getElementById("search-bar"),
-      searchIcon = document.getElementById("search-icon"),
-      closeBtn = document.getElementById("close-btn"),
-      closeIcon = document.getElementById("close-icon"),
-      navbar = document.getElementById("navbar");
+    searchBar = document.getElementById("search-bar"),
+    searchIcon = document.getElementById("search-icon"),
+    closeBtn = document.getElementById("close-btn"),
+    navbar = document.getElementById("navbar");
 
 searchBtn.addEventListener("click", () => {
-  if (searchBar.classList.contains("hidden")) {
-    searchBar.classList.remove("hidden");
-    searchBar.classList.add("flex");
-    navbar.classList.add("hidden");
-    searchIcon.classList.remove("fa-search");
-    searchIcon.classList.add("fa-times");
-  }
+    if (searchBar.classList.contains("hidden")) {
+        searchBar.classList.remove("hidden");
+        searchBar.classList.add("flex");
+        navbar.classList.add("hidden");
+        searchIcon.classList.replace("fa-search", "fa-times");
+    }
 });
 
 closeBtn.addEventListener("click", () => {
-  searchBar.classList.add("hidden");
-  searchBar.classList.remove("flex");
-  navbar.classList.remove("hidden");
-  searchIcon.classList.remove("fa-times");
-  searchIcon.classList.add("fa-search");
+    searchBar.classList.add("hidden");
+    searchBar.classList.remove("flex");
+    navbar.classList.remove("hidden");
+    searchIcon.classList.replace("fa-times", "fa-search");
 });
 
+// 🖼️ Category Carousel
 const carousel = document.querySelector(".category-scroll"),
-      prevButton = document.querySelector(".carousel-prev"),
-      nextButton = document.querySelector(".carousel-next");
+    prevButton = document.querySelector(".carousel-prev"),
+    nextButton = document.querySelector(".carousel-next");
 
 if (carousel && prevButton && nextButton) {
     const buffer = 2;
@@ -33,92 +32,87 @@ if (carousel && prevButton && nextButton) {
     const updateButtons = () => {
         const scrollLeft = Math.round(carousel.scrollLeft);
         const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-
         prevButton.classList.toggle("hidden", scrollLeft <= buffer);
         nextButton.classList.toggle("hidden", scrollLeft >= maxScroll - buffer);
     };
 
     const scrollCarousel = (direction) => {
-        carousel.scrollBy({
-            left: direction * 300,
-            behavior: "smooth"
-        });
-
-        // Defer the update to allow smooth scrolling to complete
-        setTimeout(() => {
-            requestAnimationFrame(updateButtons);
-        }, 350);
+        carousel.scrollBy({ left: direction * 300, behavior: "smooth" });
+        setTimeout(updateButtons, 350);
     };
 
     prevButton.addEventListener("click", () => scrollCarousel(-1));
     nextButton.addEventListener("click", () => scrollCarousel(1));
-    carousel.addEventListener("scroll", updateButtons);
+
+    // Throttle scroll event
+    let scrollTimeout;
+    carousel.addEventListener("scroll", () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(updateButtons, 100);
+    });
 
     updateButtons();
 
-    // Optional: hide buttons on touch
-    if ("ontouchstart" in window || navigator.maxTouchPoints) {
+    // Hide buttons on mobile/touch
+    if ("ontouchstart" in window || navigator.maxTouchPoints > 0) {
         prevButton.classList.add("hidden");
         nextButton.classList.add("hidden");
     }
 }
 
-
-// Locale toggle
+// 🌐 Locale Dropdown
 const localeToggle = document.getElementById("locale-toggle"),
-      localeMenu = document.getElementById("locale-menu");
+    localeMenu = document.getElementById("locale-menu");
 
-localeToggle.addEventListener("click", () => {
-  localeMenu.classList.toggle("hidden");
+localeToggle?.addEventListener("click", () => {
+    localeMenu?.classList.toggle("hidden");
 });
 
-// Pages dropdown toggle
+// 📄 Pages Dropdown
 const pagesToggle = document.getElementById("pages-dropdown"),
-      pagesMenu = document.getElementById("pages-menu");
+    pagesMenu = document.getElementById("pages-menu");
 
-pagesToggle.addEventListener("click", () => {
-  pagesMenu.classList.toggle("hidden");
+pagesToggle?.addEventListener("click", () => {
+    pagesMenu?.classList.toggle("hidden");
 });
 
-// App Carousel (e.g., featured apps)
+// 🎮 App Carousel
 const carousel_app = document.getElementById("carousel-app"),
-      leftBtn = document.getElementById("left-btn"),
-      rightBtn = document.getElementById("right-btn");
+    leftBtn = document.getElementById("left-btn"),
+    rightBtn = document.getElementById("right-btn");
 
-// Only run carousel logic if all elements exist
 if (carousel_app && leftBtn && rightBtn) {
+    const buffer = 2;
 
-    function scrollCarousel_app(direction) {
-        carousel_app.scrollBy({
-            left: direction * 400,
-            behavior: "smooth"
-        });
-
-        setTimeout(() => {
-            requestAnimationFrame(checkScrollPosition);
-        }, 350); // wait for smooth scroll to apply
-    }
-
-    function checkScrollPosition() {
-        const buffer = 2;
+    const checkScrollPosition = () => {
         const scrollLeft = Math.round(carousel_app.scrollLeft);
         const clientWidth = carousel_app.clientWidth;
         const scrollWidth = carousel_app.scrollWidth;
-
         leftBtn.classList.toggle("hidden", scrollLeft <= buffer);
         rightBtn.classList.toggle("hidden", scrollLeft + clientWidth >= scrollWidth - buffer);
-    }
+    };
 
-    checkScrollPosition(); // initial state
-    carousel_app.addEventListener("scroll", checkScrollPosition);
+    const scrollCarouselApp = (direction) => {
+        carousel_app.scrollBy({ left: direction * 800, behavior: "smooth" });
+        setTimeout(checkScrollPosition, 350);
+    };
 
-    leftBtn.addEventListener("click", e => {
-        e.preventDefault();
-        scrollCarousel_app(-1);
+    // Throttle scroll event
+    let appScrollTimeout;
+    carousel_app.addEventListener("scroll", () => {
+        clearTimeout(appScrollTimeout);
+        appScrollTimeout = setTimeout(checkScrollPosition, 100);
     });
 
-    rightBtn.addEventListener("click", e => {
+    leftBtn.addEventListener("click", (e) => {
         e.preventDefault();
-        scrollCarousel_app(1);
+        scrollCarouselApp(-1);
     });
+
+    rightBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        scrollCarouselApp(1);
+    });
+
+    checkScrollPosition();
 }
