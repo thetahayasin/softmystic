@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-language" content="{{ app()->getLocale() }}">
+
     <title>@yield('meta_title', 'Your Site Name - Best Apps & Downloads')</title>
     <meta name="description" content="@yield('meta_description', 'Discover the best apps, featured downloads, latest updates, and new releases on Your Site Name.')" />
     <link rel="icon" href="{{ asset('storage/site_images/site_favicon.png') }}" type="image/png" />
