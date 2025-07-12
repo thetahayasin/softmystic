@@ -199,7 +199,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 @foreach ($updates as $app)
                     <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
-                        <div class="card flex-row items-center p-4 bg-base-100 border border-base-300 hover:bg-base-200/40 transition duration-300 ease-in-out">
+                        <div class="card flex-row items-center p-4 bg-base-100 border border-base-300 hover:bg-base-200/40 transition duration-300 ease-in-out h-full">
                             <img
                                 loading="lazy"
                                 src="{{ asset('storage/' . $app['logo']) }}"
@@ -222,7 +222,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 @foreach ($newreleases as $app)
                     <a href="{{ $app['url'] }}" title="{{ $app['name'] }} - {{ $app['tagline'] }}" aria-label="Download {{ $app['name'] }}">
-                        <div class="card flex-row items-center p-4 bg-base-100 border border-base-300 hover:bg-base-200/40 transition duration-300 ease-in-out">
+                        <div class="card flex-row items-center p-4 bg-base-100 border border-base-300 hover:bg-base-200/40 transition duration-300 ease-in-out h-full">
                             <img
                                 loading="lazy"
                                 src="{{ asset('storage/' . $app['logo']) }}"
