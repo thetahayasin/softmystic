@@ -286,7 +286,7 @@
         <button aria-label="Previous Slide" id="left-btn"
             class="absolute left-0 top-1/4 bg-secondary rounded-full border-none shadow p-2 opacity-0 group-hover:opacity-100 hidden btn btn-circle btn-sm text-secondary-content
             hover:bg-secondary transition-all duration-300"
-            onclick="scrollCarousel_app(-1)">
+            >
             ❮
         </button>
 
@@ -294,7 +294,7 @@
         <button aria-label="Next Slide" id="right-btn"
             class="absolute right-0 border-none top-1/4 bg-secondary rounded-full shadow p-2 opacity-0 group-hover:opacity-100 hidden btn btn-circle btn-sm text-secondary-content
             hover:bg-secondary transition-all duration-300"
-            onclick="scrollCarousel_app(1)">
+            >
             ❯
         </button>
         
