@@ -78,7 +78,7 @@
 
     # HTML (1 hour)
     <FilesMatch "\.(html|htm)$">
-        Header set Cache-Control "max-age=3600, must-revalidate"
+        Header set Cache-Control "max-age=1800, must-revalidate"
     </FilesMatch>
 </IfModule>
 
@@ -115,4 +115,15 @@
     ExpiresByType text/plain A29030400
     ExpiresByType text/html A3600
     ExpiresByType application/pdf A29030400
+</IfModule>
+<IfModule mod_headers.c>
+    # ✅ Prevent caching of AdSense-related scripts
+    <FilesMatch "adsbygoogle\.js">
+        Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    </FilesMatch>
+
+    # ✅ Allow CORS for Google Ad scripts and fonts
+    <FilesMatch "\.(js|css|woff|woff2|ttf|otf|eot)$">
+        Header set Access-Control-Allow-Origin "https://pagead2.googlesyndication.com"
+    </FilesMatch>
 </IfModule>
