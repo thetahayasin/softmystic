@@ -138,7 +138,7 @@
     
                             <!-- Body -->
                             <div class="card-body pt-2 text-center flex flex-col flex-grow justify-between">
-                                <div>
+                                <div class="mt-2">
                                     <h2 class="card-title justify-center line-clamp-2">{{ $app['name'] }}</h2>
                                     <p class="text-sm text-base-content opacity-70 pb-2 line-clamp-3">{{ $app['tagline'] }}</p>
                                 </div>
