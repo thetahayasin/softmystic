@@ -50,37 +50,45 @@
     ]
     }
     </script>
-    <script type="application/ld+json">
-    {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "{{ $software->name }}",
-    "softwareVersion": "{{ $software->version }}",
-    "description": @json(Str::limit(strip_tags($software->softwareTranslations->first()?->content), 300)),
-    "image": "{{ asset('storage/' . $software->logo) }}",
-    "fileSize": "{{ $software->file_size }}",
-    "operatingSystem": "{{ $software->platform->name }}",
-    "license": "{{ $software->license->licenseTranslations->first()?->name ?? 'Free' }}",
-    "applicationCategory": "{{ $software->category->categoryTranslations->first()?->name }}",
-    "author": {
-        "@type": "Organization",
-        "name": "{{ $software->author->name }}"
-    },
-    "offers": {
-        "@type": "Offer",
-        "price": 0.00,
-        "priceCurrency": "USD"
-    },
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "{{ $software->name }}",
+  "softwareVersion": "{{ $software->version }}",
+  "description": @json(Str::limit(strip_tags($software->softwareTranslations->first()?->content), 300)),
+  "image": "{{ asset('storage/' . $software->logo) }}",
+  "fileSize": "{{ $software->file_size }}",
+  "operatingSystem": "{{ $software->platform->name }}",
+  "license": "{{ $software->license->licenseTranslations->first()?->name ?? 'Free' }}",
+  "applicationCategory": "{{ $software->category->categoryTranslations->first()?->name }}",
+  "author": {
+    "@type": "Organization",
+    "name": "{{ $software->author->name }}"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": 0.00,
+    "priceCurrency": "USD"
+  },
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "{{ $software->total_ratings > 0 ? number_format($software->average_rating, 1) : '10.0' }}",
     "ratingCount": "{{ $software->total_ratings > 0 ? $software->total_ratings : 1 }}",
     "bestRating": "10",
     "worstRating": "2"
-  }
-    
+  },
+  "review": {
+    "@type": "Review",
+    "reviewBody": @json(Str::limit(strip_tags($software->softwareTranslations->first()?->content))),
+    "author": {
+      "@type": "Organization",
+      "name": "{{ $ads->site_name }}"
     }
-    </script>
+  }
+}
+</script>
+
 
 
 
