@@ -185,7 +185,7 @@
                 </dialog>
             </div>
     </nav>
-
+<article>
     <!-- App Header -->
     <section class="flex flex-col md:flex-row md:items-center md:justify-between space-y-6 md:space-y-0 border-b border-base-300 pb-6 text-center md:text-left">
     <div class="flex flex-col items-center md:flex-row md:items-center md:space-x-4 space-y-4 md:space-y-0">
@@ -204,7 +204,12 @@
         </figure>
 
         <div class="space-y-1">
-            <h1 class="text-xl font-semibold text-base-content">{{ $software->name }}</h1>
+            <h1 class="text-xl font-bold text-base-content">
+                {{ $software->name }}
+                <span class="text-sm font-normal">
+                    {{ $trns?->for }} {{ $software->platform->name }}
+                </span>
+            </h1>  
             <p class="italic text-sm text-base-content">{{ $software->softwareTranslations->first()?->tagline }}</p>
             <livewire:software-rating :software="$software" />
         </div>
@@ -234,15 +239,15 @@
     <!-- Info Cards Slider -->
     <section class="w-full max-w-8xl overflow-hidden relative group mb-4 mt-6">
         <div id="carousel-app" class="carousel flex space-x-4 snap-x overflow-x-scroll scrollbar-hide scroll-smooth">
-            <article class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
-                <h2 class="text-sm font-semibold">{{ $trns->author ?? 'Author' }}</h2>
+            <div class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
+                <p class="text-sm font-semibold">{{ $trns->author ?? 'Author' }}</p>
                 <a href="{{ $software->author?->url }}" class="text-primary underline hover:text-base-content" target="_blank">
                     <p class="text-sm line-clamp-1">{{ $software->author?->name }}</p>
                 </a>
                 
-            </article>
-            <article class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
-                <h2 class="text-sm font-semibold">{{ $trns->version ?? 'Version' }}</h2>
+            </div>
+            <div class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
+                <p class="text-sm font-semibold">{{ $trns->version ?? 'Version' }}</p>
                 <p class="text-sm flex items-center gap-1 line-clamp-1">
                     {{ $software->version }}
                     @if($software->softwareTranslations->first()?->change_log != null)
@@ -257,28 +262,28 @@
                     @endif
                 </p>
 
-            </article>
-            <article class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
-                <h2 class="text-sm font-semibold">{{ $trns->license ?? 'License' }}</h2>
+            </div>
+            <div class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
+                <p class="text-sm font-semibold">{{ $trns->license ?? 'License' }}</p>
                 <button class="text-sm line-clamp-1 badge-outline text-xs badge" onclick="license_modal.showModal()">{{ $software->license->licenseTranslations->first()?->name }}</button>
-            </article>
-            <article class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
-                <h2 class="text-sm font-semibold">{{ $trns->category ?? 'Category' }}</h2>
+            </div>
+            <div class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
+                <p class="text-sm font-semibold">{{ $trns->category ?? 'Category' }}</p>
                 <p class="text-sm line-clamp-1">{{ $software->category->categoryTranslations->first()?->name }}</p>
-            </article>
-            <article class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
-                <h2 class="text-sm font-semibold">{{ $trns->size ?? 'Size' }}</h2>
+            </div>
+            <div class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
+                <p class="text-sm font-semibold">{{ $trns->size ?? 'Size' }}</p>
                 <p class="text-sm line-clamp-1">{{ $software->readableFilesize }}</p>
-            </article>
+            </div>
             @if ($software->requirements->isNotEmpty())
-                <article class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
-                    <h2 class="text-sm font-semibold">{{ $trns->requirements ?? 'Requirements' }}</h2>
+                <div class="card bg-base-100 border border-base-300 min-w-[160px] p-3 flex-shrink-0">
+                    <p class="text-sm font-semibold">{{ $trns->requirements ?? 'Requirements' }}</p>
                     <div class="flex flex-wrap gap-1 text-sm">
                         @foreach($software->requirements as $requirement)
                             <span class="badge badge-outline text-xs text-base-content">{{ $requirement->name }}</span>
                         @endforeach
                     </div>
-                </article>
+                </div>
             @endif
 
         </div>
@@ -326,7 +331,7 @@
             <a href="{{ asset('storage/' . $screenshot) }}" target="_blank" class="rounded-2xl flex-shrink-0 w-auto h-[200px] z-10">
                 <img
                     src="{{ asset('storage/' . $screenshot) }}"
-                    class="card flex-shrink-0 w-auto h-[200px]"
+                    class="card flex-shrink-0 w-auto h-[200px] border-none"
                     alt="{{ $software->name }} Screenshot {{ $index + 1 }}"
                     loading="lazy"
                     width="300"
@@ -335,7 +340,8 @@
             @endforeach
         </section>
     @endif
-
+    
+</article>
     <!-- Related Apps -->
     @if (!empty($related) && count($related) > 0)
         <section id="related" class="w-full max-w-8xl px-2 overflow-hidden relative group mb-5">
@@ -368,8 +374,8 @@
     <form method="dialog">
       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
     </form>
-    <h2 class="text-lg font-bold text-base-content">{{ $software->license->licenseTranslations->first()?->name }}</h2>
-    <p class="py-4 text-base-content">{{ $software->license->licenseTranslations->first()?->description }}</p>
+    <p class="text-lg font-bold text-base-content">{{ $software->license->licenseTranslations->first()?->name }}</p>
+    <p class="py-4 text-base-content content-wysiwyg">{{ $software->license->licenseTranslations->first()?->description }}</p>
   </div>
 </dialog>
 @if($software->softwareTranslations->first()?->change_log != null)
